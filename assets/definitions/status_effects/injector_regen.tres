@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Regen_Definition" load_steps=2 format=3 uid="uid://bb42qseomhkyo"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/regen_definition.gd" id="1_4qicp"]
+
+[resource]
+script = ExtResource("1_4qicp")
+heal_amount = 3
+status_name = "regen"
+turns = 4
+is_indefinite = false
+proc_chance = 100

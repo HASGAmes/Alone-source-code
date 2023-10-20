@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="TileDefinition" load_steps=9 format=3 uid="uid://smscudi5o3ly"]
+
+[ext_resource type="Script" path="res://src/Map/tile_definition.gd" id="1_78gdy"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="2_2llq1"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_22kcw"]
+load_path = "res://.godot/imported/custom_sprites.png-9fc22348aaa9253f30f166dbf0367320.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnyml"]
+atlas = SubResource("CompressedTexture2D_22kcw")
+region = Rect2(112, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_db3ef"]
+atlas = SubResource("CompressedTexture2D_22kcw")
+region = Rect2(144, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pujen"]
+atlas = SubResource("CompressedTexture2D_22kcw")
+region = Rect2(128, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cav1i"]
+atlas = SubResource("CompressedTexture2D_22kcw")
+region = Rect2(144, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ta87k"]
+atlas = ExtResource("2_2llq1")
+region = Rect2(112, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_78gdy")
+name = "floor"
+texture = Array[AtlasTexture]([SubResource("AtlasTexture_pnyml"), SubResource("AtlasTexture_db3ef"), SubResource("AtlasTexture_pujen"), SubResource("AtlasTexture_cav1i"), SubResource("AtlasTexture_ta87k")])
+color_lit = Array[Color]([Color(0, 0.462745, 0, 1), Color(0, 0.462745, 0, 1), Color(0, 0.462745, 0, 1), Color(0, 0.462745, 0, 1), Color(0, 0.462745, 0, 1)])
+color_dark = Array[Color]([Color(0.341176, 0.0196078, 0.447059, 1), Color(0.341176, 0.0196078, 0.447059, 1), Color(0.341176, 0.0196078, 0.447059, 1), Color(0.341176, 0.0196078, 0.447059, 1), Color(0.341176, 0.0196078, 0.447059, 1)])
+rubble_color = Color(0, 0, 0, 1)
+max_hp = 7565
+def = 4000
+DV = -15
+is_walkable = true
+is_transparent = true
+is_destructible = false
+is_openable = false
+is_slippery = false

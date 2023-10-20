@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="TileDefinition" load_steps=4 format=3 uid="uid://bc8hmfsaw3s0t"]
+
+[ext_resource type="Script" path="res://src/Map/tile_definition.gd" id="1_dysd1"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="2_rrv3x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mojw"]
+atlas = ExtResource("2_rrv3x")
+region = Rect2(128, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_dysd1")
+name = "rocks"
+texture = Array[AtlasTexture]([SubResource("AtlasTexture_8mojw"), SubResource("AtlasTexture_8mojw")])
+color_lit = Array[Color]([Color(0.968627, 0.388235, 0, 1), Color(0, 0.882353, 0, 1)])
+color_dark = Array[Color]([Color(0.576471, 0.219608, 0, 1), Color(0, 0, 0.933333, 1)])
+rubble_color = Color(0, 0, 0, 1)
+max_hp = 21015
+def = 0
+DV = -15
+is_walkable = true
+is_transparent = true
+is_destructible = false
+is_openable = false
+is_slippery = false

@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://dx7wsxpo1qfmc"]
+
+[ext_resource type="Script" path="res://src/Utils/Command_Line.gd" id="1_2j53h"]
+[ext_resource type="FontFile" uid="uid://bdkeh8a83j57d" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney High.ttf" id="2_ofnj4"]
+[ext_resource type="Texture2D" uid="uid://007knmd0hjiq" path="res://assets/images/debug_image.png" id="3_x6p84"]
+
+[node name="Node" type="Node"]
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2j53h")
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LineEdit" type="LineEdit" parent="Control/CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ofnj4")
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Enter Command"
+expand_to_text_length = true
+virtual_keyboard_enabled = false
+right_icon = ExtResource("3_x6p84")
+
+[node name="ClearTimer" type="Timer" parent="Control"]
+process_callback = 0
+one_shot = true
+
+[connection signal="text_submitted" from="Control/CenterContainer/LineEdit" to="Control" method="_on_line_edit_text_submitted"]
+[connection signal="timeout" from="Control/ClearTimer" to="Control" method="_on_clear_timer_timeout"]

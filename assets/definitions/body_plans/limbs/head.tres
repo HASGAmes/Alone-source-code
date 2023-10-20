@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Limb_Definition" load_steps=2 format=3 uid="uid://cre584htldsxf"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="1_p6mex"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_p6mex")
+is_important = true
+name = "Head"
+limb_type = 0
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_p6mex")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false

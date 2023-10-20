@@ -1,0 +1,12 @@
+https://www.reddit.com/user/SelinaDev/
+
+Selinadev
+he is the one the made the godot tutorial that i used for the actual base of the game
+
+
+cable fish
+he made the dicebag plugin for the godot assetlib and it's use alot in the project
+
+Hons Hon Central
+he made a tutorial for how to make commandlines in godot 3 and used it for the debug console in my game
+his channel https://www.youtube.com/@HonsHon

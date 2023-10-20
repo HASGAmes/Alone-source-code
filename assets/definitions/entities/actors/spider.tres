@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=9 format=3 uid="uid://c4gnnotoy1r1l"]
+
+[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/humanoid.tres" id="1_xlsdf"]
+[ext_resource type="AudioStream" uid="uid://c0yf5hxc7onat" path="res://assets/audio/sfx/EHHHH.wav" id="4_0m1yy"]
+[ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="4_q23lh"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="5_pe7a6"]
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="6_4kk0v"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="7_xmbu0"]
+
+[sub_resource type="Resource" id="Resource_7jmmy"]
+script = ExtResource("5_pe7a6")
+max_hp = 20
+str = 2
+dex = 12
+toughness = 10
+will = 10
+prescence = 0
+dismember_chance = 0
+decap = false
+power = 2
+quickness = 101
+defense = 1
+hit_chance = 0
+DV = 10
+critdam = 1
+on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
+aggression = 8
+max_hunger = 0
+res = Array[int]([])
+weakness = Array[int]([0])
+immunity = Array[int]([])
+death_texture = ExtResource("4_q23lh")
+death_color = Color(0.545098, 0, 0, 1)
+death_noise = Array[AudioStreamWAV]([ExtResource("4_0m1yy")])
+body_plan_definition = ExtResource("1_xlsdf")
+skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rfwn"]
+atlas = ExtResource("7_xmbu0")
+region = Rect2(80, 48, 16, 16)
+
+[resource]
+script = ExtResource("6_4kk0v")
+name = "spider"
+texture = SubResource("AtlasTexture_3rfwn")
+color = Color(0.2, 0.623529, 0, 1)
+is_blocking_movment = true
+type = 2
+fighter_definition = SubResource("Resource_7jmmy")
+ai_type = 2
+inventory_capacity = 0
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

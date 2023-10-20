@@ -1,0 +1,81 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=15 format=3 uid="uid://nonyedj0ufmd"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/body_plan_definition.gd" id="1_gotoc"]
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_jis8c"]
+[ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_kiijm"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="1_na3jt"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_tol5g"]
+[ext_resource type="Texture2D" uid="uid://h7i8uiwlysq2" path="res://assets/images/kenney_1-bit-pack/monochrome_packed.png" id="2_hfb26"]
+
+[sub_resource type="Resource" id="Resource_mtobb"]
+script = ExtResource("1_na3jt")
+is_important = false
+name = "unnamed limb"
+limb_type = 0
+can_be_dismembered = false
+attached_parts = Array[ExtResource("1_na3jt")]([])
+
+[sub_resource type="Resource" id="Resource_s8x41"]
+script = ExtResource("1_na3jt")
+is_important = true
+name = "unnamed limb"
+limb_type = 0
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_na3jt")]([])
+
+[sub_resource type="Resource" id="Resource_jj52g"]
+script = ExtResource("1_na3jt")
+is_important = false
+name = "unnamed limb"
+limb_type = 0
+can_be_dismembered = false
+attached_parts = Array[ExtResource("1_na3jt")]([])
+
+[sub_resource type="Resource" id="Resource_2jr3b"]
+script = ExtResource("1_na3jt")
+is_important = false
+name = "unnamed limb"
+limb_type = 0
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_na3jt")]([])
+
+[sub_resource type="Resource" id="Resource_jaa5v"]
+script = ExtResource("1_na3jt")
+is_important = false
+name = "unnamed limb"
+limb_type = 0
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_na3jt")]([])
+
+[sub_resource type="Resource" id="Resource_45t0c"]
+script = ExtResource("1_gotoc")
+body_parts = Array[ExtResource("1_na3jt")]([SubResource("Resource_mtobb"), SubResource("Resource_s8x41"), SubResource("Resource_jj52g"), SubResource("Resource_2jr3b"), SubResource("Resource_jaa5v")])
+
+[sub_resource type="Resource" id="Resource_l86vm"]
+script = ExtResource("1_tol5g")
+max_hp = 30
+str = 2
+power = 10
+quickness = 100
+defense = 0
+hit_chance = 4
+DV = 10
+critdam = 6
+death_texture = ExtResource("1_kiijm")
+death_color = Color(0.545098, 0, 0, 1)
+body_plan_definition = SubResource("Resource_45t0c")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50h3g"]
+atlas = ExtResource("2_hfb26")
+region = Rect2(448, 144, 16, 16)
+
+[resource]
+script = ExtResource("1_jis8c")
+name = "Player"
+texture = SubResource("AtlasTexture_50h3g")
+color = Color(1, 1, 1, 1)
+is_blocking_movment = true
+type = 2
+fighter_definition = SubResource("Resource_l86vm")
+ai_type = 1
+inventory_capacity = 26

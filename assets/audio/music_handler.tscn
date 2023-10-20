@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfsslauyegfhf"]
+
+[ext_resource type="Script" path="res://src/Game/music_handler.gd" id="1_80f0r"]
+[ext_resource type="AudioStream" uid="uid://sfs3ugxc03xn" path="res://assets/audio/tracks/the_great_expansion_Current.wav" id="2_d7ogh"]
+[ext_resource type="AudioStream" uid="uid://bikcltshf6jnr" path="res://assets/audio/tracks/start_of_the_end_Current.wav" id="3_svsnk"]
+[ext_resource type="AudioStream" uid="uid://dgnlep1uplpks" path="res://assets/audio/tracks/alone_on_a_rock_then_alone_Current.wav" id="4_pu8g8"]
+
+[node name="music_handler" type="Node"]
+script = ExtResource("1_80f0r")
+music_tracks = Array[AudioStreamWAV]([ExtResource("2_d7ogh"), ExtResource("3_svsnk"), ExtResource("4_pu8g8")])
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
+mix_target = 2
+
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

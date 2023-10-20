@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=7 format=3 uid="uid://slhqhjrgsvvn"]
+
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_7c6k3"]
+[ext_resource type="AudioStream" uid="uid://b4n3n24gwxfes" path="res://assets/audio/sfx/powered_device.wav" id="1_14wsm"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/consumable_definitions/confusion_consumable_component_definition.gd" id="1_pyxgx"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="4_r14q5"]
+
+[sub_resource type="Resource" id="Resource_33vsa"]
+script = ExtResource("1_pyxgx")
+number_of_turns = 10
+consumable_sfx = ExtResource("1_14wsm")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqqtp"]
+atlas = ExtResource("4_r14q5")
+region = Rect2(16, 64, 16, 16)
+
+[resource]
+script = ExtResource("1_7c6k3")
+name = "Flashbang"
+texture = SubResource("AtlasTexture_vqqtp")
+color = Color(0.0666667, 0.611765, 0.858824, 1)
+is_blocking_movment = false
+type = 1
+ai_type = 0
+consumable_definition = SubResource("Resource_33vsa")
+inventory_capacity = 0
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

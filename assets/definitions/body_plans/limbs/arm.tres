@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Limb_Definition" load_steps=3 format=3 uid="uid://24yoeoi3xonm"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="1_h61id"]
+
+[sub_resource type="Resource" id="Resource_ne5xd"]
+script = ExtResource("1_h61id")
+is_important = false
+name = "hand"
+limb_type = 0
+can_be_dismembered = false
+attached_parts = Array[ExtResource("1_h61id")]([])
+damage_type = Array[int]([0])
+damage_dice = 2
+damage_dice_sides = 1
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_h61id")
+is_important = false
+name = "right arm"
+limb_type = 2
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_h61id")]([SubResource("Resource_ne5xd")])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0

@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="TileDefinition" load_steps=7 format=3 uid="uid://2eimj53yg7bf"]
+
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="1_k5oln"]
+[ext_resource type="Script" path="res://src/Map/tile_definition.gd" id="2_dhnx5"]
+[ext_resource type="Texture2D" uid="uid://csgxch286rpt3" path="res://assets/resources/rubble.tres" id="2_sl5gl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l16a6"]
+atlas = ExtResource("1_k5oln")
+region = Rect2(112, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvss2"]
+atlas = ExtResource("1_k5oln")
+region = Rect2(128, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2mxh"]
+atlas = ExtResource("2_sl5gl")
+
+[resource]
+script = ExtResource("2_dhnx5")
+name = "door"
+texture = Array[AtlasTexture]([SubResource("AtlasTexture_l16a6")])
+color_lit = Array[Color]([Color(1, 0.294118, 0.0196078, 1)])
+color_dark = Array[Color]([Color(0.596078, 0.156863, 0, 1)])
+rubble = SubResource("AtlasTexture_n2mxh")
+rubble_color = Color(1, 0.396078, 0.0745098, 1)
+open_texture = SubResource("AtlasTexture_nvss2")
+closed_texture = SubResource("AtlasTexture_l16a6")
+max_hp = 50
+def = 15
+DV = -15
+is_walkable = false
+is_transparent = false
+is_destructible = false
+is_openable = true
+is_slippery = false

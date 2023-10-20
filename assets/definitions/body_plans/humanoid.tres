@@ -1,0 +1,93 @@
+[gd_resource type="Resource" script_class="Body_Plan_Definition" load_steps=10 format=3 uid="uid://2cikbcm7s7f7"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="1_w16tv"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/body_plan_definition.gd" id="2_oo18g"]
+
+[sub_resource type="Resource" id="Resource_law6f"]
+script = ExtResource("1_w16tv")
+is_important = false
+name = "head"
+limb_type = 0
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_w16tv")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_tyur4"]
+script = ExtResource("1_w16tv")
+is_important = false
+name = "body"
+limb_type = 0
+can_be_dismembered = false
+attached_parts = Array[ExtResource("1_w16tv")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_6icd4"]
+script = ExtResource("1_w16tv")
+is_important = false
+name = "hand"
+limb_type = 5
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_w16tv")]([])
+damage_type = Array[int]([0])
+damage_dice = 2
+damage_dice_sides = 1
+is_natural_weapon = true
+
+[sub_resource type="Resource" id="Resource_kuc26"]
+script = ExtResource("1_w16tv")
+is_important = false
+name = "arm"
+limb_type = 2
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_w16tv")]([SubResource("Resource_6icd4")])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_behuf"]
+script = ExtResource("1_w16tv")
+is_important = false
+name = "arm"
+limb_type = 2
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_w16tv")]([SubResource("Resource_6icd4")])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_t0yic"]
+script = ExtResource("1_w16tv")
+is_important = false
+name = "leg"
+limb_type = 3
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_w16tv")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_po41s"]
+script = ExtResource("1_w16tv")
+is_important = false
+name = "leg"
+limb_type = 3
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_w16tv")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_oo18g")
+body_parts = Array[ExtResource("1_w16tv")]([SubResource("Resource_law6f"), SubResource("Resource_tyur4"), SubResource("Resource_kuc26"), SubResource("Resource_behuf"), SubResource("Resource_t0yic"), SubResource("Resource_po41s")])

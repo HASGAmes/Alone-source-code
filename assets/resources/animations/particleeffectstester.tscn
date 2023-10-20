@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://f0u1t7a771vs"]
+
+[ext_resource type="Material" uid="uid://chihyk84rstl4" path="res://assets/resources/animations/levelup.tres" id="1_tjj0x"]
+[ext_resource type="Texture2D" uid="uid://cu1mp5qo1gcjt" path="res://assets/resources/animations/particleeffectstestericon.tres" id="2_pke8b"]
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+amount = 20
+process_material = ExtResource("1_tjj0x")
+texture = ExtResource("2_pke8b")
+lifetime = 2.45
+speed_scale = 2.65
+explosiveness = 1.0

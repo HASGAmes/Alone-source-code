@@ -1,0 +1,11 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://chihyk84rstl4"]
+
+[resource]
+lifetime_randomness = 0.45
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 51.1
+gravity = Vector3(0, 126.065, 0)
+initial_velocity_max = 187.65
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0

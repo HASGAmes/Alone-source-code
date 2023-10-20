@@ -1,0 +1,3 @@
+class_name ConsumableComponentDefinition
+extends Resource
+@export var consumable_sfx:AudioStreamWAV

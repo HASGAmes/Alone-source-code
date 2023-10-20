@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Limb_Definition" load_steps=2 format=3 uid="uid://bjdkto8ggge1j"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="1_1fj1a"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_1fj1a")
+is_important = false
+name = "Body"
+limb_type = 1
+can_be_dismembered = false
+attached_parts = Array[ExtResource("1_1fj1a")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0

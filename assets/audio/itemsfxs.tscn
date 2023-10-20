@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bffnu3402gne4"]
+
+[ext_resource type="Script" path="res://assets/audio/itemsfxs.gd" id="1_firy2"]
+
+[node name="itemsfxs" type="Node"]
+script = ExtResource("1_firy2")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true

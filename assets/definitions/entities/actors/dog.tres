@@ -1,0 +1,62 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=11 format=3 uid="uid://b0oms0uqjbp66"]
+
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_qrlyn"]
+[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/humanoid.tres" id="1_qxw73"]
+[ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="2_i02g7"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="3_73ybl"]
+[ext_resource type="Resource" uid="uid://cobefg5dint4k" path="res://assets/definitions/entities/actors/discardedhost.tres" id="5_cduuy"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="5_m7t1g"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/host_definition.gd" id="6_a7ijn"]
+
+[sub_resource type="Resource" id="Resource_l5edc"]
+script = ExtResource("3_73ybl")
+max_hp = 20
+str = 10
+dex = 10
+toughness = 10
+will = 10
+prescence = 0
+dismember_chance = 0
+decap = false
+power = 3
+quickness = 100
+defense = 0
+hit_chance = 0
+DV = 5
+critdam = 0
+on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
+aggression = 2
+max_hunger = 0
+res = Array[int]([])
+weakness = Array[int]([])
+immunity = Array[int]([])
+death_texture = ExtResource("2_i02g7")
+death_color = Color(0.545098, 0, 0, 1)
+death_noise = Array[AudioStreamWAV]([])
+body_plan_definition = ExtResource("1_qxw73")
+skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
+
+[sub_resource type="Resource" id="Resource_hs5io"]
+script = ExtResource("6_a7ijn")
+host = ExtResource("5_cduuy")
+silenthost = true
+status_name = "host"
+turns = 0
+is_indefinite = true
+proc_chance = 25
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bi1t"]
+atlas = ExtResource("5_m7t1g")
+region = Rect2(64, 48, 16, 16)
+
+[resource]
+script = ExtResource("1_qrlyn")
+name = "dog"
+texture = SubResource("AtlasTexture_5bi1t")
+color = Color(0.682353, 0.27451, 0.105882, 1)
+is_blocking_movment = true
+type = 2
+fighter_definition = SubResource("Resource_l5edc")
+ai_type = 3
+inventory_capacity = 0
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([SubResource("Resource_hs5io")])

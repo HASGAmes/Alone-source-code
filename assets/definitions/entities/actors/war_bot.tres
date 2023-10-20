@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=10 format=3 uid="uid://d1aa7fy0bujgb"]
+
+[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/humanoid.tres" id="1_as8br"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_x086p"]
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="2_ibkb2"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="3_en4m0"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/bleed_definition.gd" id="3_xcaef"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5yv6"]
+
+[sub_resource type="Resource" id="Resource_hdbkd"]
+script = ExtResource("3_xcaef")
+damage = 8
+status_name = "unnamed status"
+turns = 1
+is_indefinite = true
+proc_chance = 0
+
+[sub_resource type="Resource" id="Resource_sodnv"]
+script = ExtResource("1_x086p")
+max_hp = 20
+str = 15
+dex = 15
+toughness = 20
+will = 8
+prescence = 0
+dismember_chance = 20
+decap = true
+power = 3
+quickness = 75
+defense = 5
+hit_chance = 0
+DV = -5
+critdam = 0
+on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([SubResource("Resource_hdbkd")])
+aggression = 0
+max_hunger = 100
+res = Array[int]([])
+weakness = Array[int]([])
+immunity = Array[int]([])
+death_texture = SubResource("AtlasTexture_r5yv6")
+death_color = Color(0.545098, 0, 0, 1)
+death_noise = Array[AudioStreamWAV]([])
+body_plan_definition = ExtResource("1_as8br")
+skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ae40k"]
+atlas = ExtResource("3_en4m0")
+region = Rect2(48, 48, 16, 16)
+
+[resource]
+script = ExtResource("2_ibkb2")
+name = "WAR-BOT"
+texture = SubResource("AtlasTexture_ae40k")
+color = Color(0.101961, 1, 1, 1)
+is_blocking_movment = true
+type = 2
+fighter_definition = SubResource("Resource_sodnv")
+ai_type = 1
+inventory_capacity = 0
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=7 format=3 uid="uid://bbbwo2pjwtdwx"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/consumable_definitions/lightning_damage_consumable_component_definition.gd" id="1_gcadg"]
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_pvojs"]
+[ext_resource type="AudioStream" uid="uid://4nyfbgpvlbv7" path="res://assets/audio/sfx/gunshot.wav" id="1_tu7w0"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="4_ei1re"]
+
+[sub_resource type="Resource" id="Resource_w2ejf"]
+script = ExtResource("1_gcadg")
+damage = 20
+maximum_range = 5
+consumable_sfx = ExtResource("1_tu7w0")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nw3ql"]
+atlas = ExtResource("4_ei1re")
+region = Rect2(32, 64, 16, 16)
+
+[resource]
+script = ExtResource("1_pvojs")
+name = "Taser"
+texture = SubResource("AtlasTexture_nw3ql")
+color = Color(1, 1, 0, 1)
+is_blocking_movment = false
+type = 1
+ai_type = 0
+consumable_definition = SubResource("Resource_w2ejf")
+inventory_capacity = 0
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

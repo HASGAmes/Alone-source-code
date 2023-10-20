@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=10 format=3 uid="uid://dnfscusf8bq1e"]
+
+[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/humanoid.tres" id="1_8w2ja"]
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_eu3md"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_fc2yb"]
+[ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_fkqvq"]
+[ext_resource type="AudioStream" uid="uid://rrj1t860kl8g" path="res://assets/audio/sfx/momkeyfuckingdies.wav" id="2_cskif"]
+[ext_resource type="AudioStream" uid="uid://c0yf5hxc7onat" path="res://assets/audio/sfx/EHHHH.wav" id="3_kicoy"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="5_ukfuu"]
+
+[sub_resource type="Resource" id="Resource_fq03e"]
+script = ExtResource("1_fc2yb")
+max_hp = 95
+str = 15
+dex = 8
+toughness = 16
+will = 12
+prescence = 0
+dismember_chance = 6
+decap = true
+power = 2
+quickness = 75
+defense = 5
+hit_chance = 15
+DV = -15
+critdam = 139
+on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
+aggression = 12
+max_hunger = 0
+res = Array[int]([0])
+weakness = Array[int]([6])
+immunity = Array[int]([])
+death_texture = ExtResource("1_fkqvq")
+death_color = Color(0.545098, 0, 0, 1)
+death_noise = Array[AudioStreamWAV]([ExtResource("2_cskif"), ExtResource("3_kicoy")])
+body_plan_definition = ExtResource("1_8w2ja")
+skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sg47h"]
+atlas = ExtResource("5_ukfuu")
+region = Rect2(64, 64, 16, 16)
+
+[resource]
+script = ExtResource("1_eu3md")
+name = "troll"
+texture = SubResource("AtlasTexture_sg47h")
+color = Color(0.721569, 0.164706, 0.0980392, 1)
+is_blocking_movment = true
+type = 2
+fighter_definition = SubResource("Resource_fq03e")
+ai_type = 3
+inventory_capacity = 0
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

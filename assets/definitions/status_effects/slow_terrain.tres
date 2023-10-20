@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Slow_Definition" load_steps=2 format=3 uid="uid://bagndr62y7q5n"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/slow_definition.gd" id="1_qflv0"]
+
+[resource]
+script = ExtResource("1_qflv0")
+slow_amount = 25
+status_name = "unnamed status"
+turns = 0
+is_indefinite = false
+proc_chance = 0

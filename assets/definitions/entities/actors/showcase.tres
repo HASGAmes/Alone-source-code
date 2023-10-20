@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=4 format=3 uid="uid://b0oddfryxhn0v"]
+
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_rg0fb"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="2_c14fn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5i4kh"]
+atlas = ExtResource("2_c14fn")
+region = Rect2(96, 80, 16, 16)
+
+[resource]
+script = ExtResource("1_rg0fb")
+name = "Unnamed Entity"
+texture = SubResource("AtlasTexture_5i4kh")
+color = Color(0.839216, 0.0352941, 0.0509804, 1)
+is_blocking_movment = true
+type = 2
+ai_type = 0
+inventory_capacity = 0
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

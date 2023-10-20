@@ -1,0 +1,2 @@
+class_name Temporal_Definition
+extends StatusEffectDefinition
