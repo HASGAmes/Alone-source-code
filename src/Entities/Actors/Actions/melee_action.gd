@@ -1,7 +1,5 @@
 class_name MeleeAction
 extends ActionWithDirection
-
-
 func perform() -> bool:
 	randomize()
 	var target_entity: Entity = get_target_actor()
@@ -38,6 +36,7 @@ func perform() -> bool:
 			MessageLog.send_message(attack_description, attack_color)
 			return true
 		if damage > 0:
+			attacker_stat.turns_not_in_combat = 0
 			defender_stat.credit_exp = entity
 			if target_entity.ai_component is PredatorAi and !target_entity == self:
 				target_entity.ai_component.attacking_actor = entity
@@ -52,18 +51,14 @@ func perform() -> bool:
 			if hit_roll >=20:
 				attack_description+=" CRIT!!!!!!!!!!!!!!"
 				attack_description += " for %d hit points." % damage
-				if entity.map_data.get_tile(entity.map_data.player.grid_position).is_in_view:
-					MessageLog.send_message(attack_description, crit)
-				var knockbackvec = entity.grid_position - target_entity.grid_position
-				target_entity.knockback(knockbackvec,attacker_stat.strength_mod)
+				MessageLog.send_message(attack_description, crit,entity)
 				defender_stat.hp -= damage
 			else:
 				if dismember_chance>=21:
 					defender_stat.body_plan.dismember(attacker_stat.decap)
 				attack_description += " for %d hit points." % damage
-				if entity.map_data.get_tile(entity.map_data.player.grid_position).is_in_view:
-					MessageLog.send_message(attack_description, attack_color)
-				defender_stat.hp -= damage
+				MessageLog.send_message(attack_description, attack_color,entity)
+				defender_stat.take_damage(damage,DamageTypes.DAMAGE_TYPES.BLUDGEONING)
 		else:
 			attack_description += " but does no damage..."
 			MessageLog.send_message(attack_description, attack_color)
@@ -91,7 +86,7 @@ func perform() -> bool:
 		elif hit <target_tile.DV:
 			attack_description+= " but misses!!"
 			if entity.map_data.get_tile(entity.map_data.player.grid_position).is_in_view:
-				MessageLog.send_message(attack_description, attack_color)
+				MessageLog.send_message(attack_description, attack_color,entity)
 			return true
 		if damage > 0:
 			
@@ -100,19 +95,19 @@ func perform() -> bool:
 				attack_description+=" CRIT!!!!!!!!!!!!!!"
 				attack_description += " for %d hit points." % damage
 				if entity.map_data.get_tile(entity.map_data.player.grid_position).is_in_view:
-					MessageLog.send_message(attack_description, crit)
+					MessageLog.send_message(attack_description, crit,entity)
 				
 				target_tile.hp -= damage
 			else:
 				
 				attack_description += " for %d hit points." % damage
 				if entity.map_data.get_tile(entity.map_data.player.grid_position).is_in_view:
-					MessageLog.send_message(attack_description, attack_color)
+					MessageLog.send_message(attack_description, attack_color,entity)
 				target_tile.hp -= damage
 		else:
 			attack_description += " but does no damage..."
 			if entity.map_data.get_tile(entity.map_data.player.grid_position).is_in_view:
-				MessageLog.send_message(attack_description, attack_color)
+				MessageLog.send_message(attack_description, attack_color,entity)
 		return true
 	else:
 		return false

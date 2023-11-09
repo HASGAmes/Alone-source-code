@@ -14,3 +14,4 @@ const ERROR = Color("ff4040")
 
 const WELCOME_TEXT = Color("20a0ff")
 const HEALTH_RECOVERED = Color("00ff00")
+const STATUS_END = Color("b02a86")

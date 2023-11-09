@@ -11,9 +11,7 @@ enum InputHandlers {MAIN_GAME, GAME_OVER, HISTORY_VIEWER, DUMMY}
 	InputHandlers.HISTORY_VIEWER: $HistoryViewerInputHandler,
 	InputHandlers.DUMMY: $DummyInputHandler,
 }
-
 var current_input_handler: BaseInputHandler
-
 
 func _ready() -> void:
 	transition_to(start_input_handler)

@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=10 format=3 uid="uid://c4gnnotoy1r1l"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=11 format=3 uid="uid://c4gnnotoy1r1l"]
 
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_ikxiy"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_ixs8m"]
-[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/humanoid.tres" id="1_lw0ps"]
+[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="1_lw0ps"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_qj2ue"]
 [ext_resource type="AudioStream" uid="uid://i3la10x55mgh" path="res://assets/audio/sfx/ahhhh.wav" id="2_el5re"]
+[ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_gh8vg"]
 [ext_resource type="AudioStream" uid="uid://dkha7o6pomt2k" path="res://assets/audio/sfx/eeeee_ehhh.wav" id="3_4mm2m"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="5_vx77w"]
 
@@ -30,8 +31,10 @@ max_hunger = 100
 res = Array[int]([])
 weakness = Array[int]([])
 immunity = Array[int]([])
+items_on_death = Array[ExtResource("1_ikxiy")]([])
 death_texture = ExtResource("1_qj2ue")
 death_color = Color(0.545098, 0, 0, 1)
+corpse_food = ExtResource("2_gh8vg")
 death_noise = Array[AudioStreamWAV]([ExtResource("2_el5re"), ExtResource("3_4mm2m")])
 body_plan_definition = ExtResource("1_lw0ps")
 skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])

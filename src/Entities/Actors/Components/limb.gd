@@ -7,6 +7,8 @@ var can_be_dismembered:bool
 var damage_dice:int
 var natural_weapon:bool
 var damage_sides:int
+var connected:Array[Limb_Component]
+var equiped_item:Entity
 var attached_parts: Array[Limb_Definition]
 var definition_limb:Limb_Definition
 func _init(definition :Limb_Definition):

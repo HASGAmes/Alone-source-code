@@ -22,6 +22,7 @@ texture = SubResource("AtlasTexture_g7y0o")
 color = Color(0.513726, 0, 0, 1)
 is_blocking_movment = false
 type = 1
+starting_movement = 0
 ai_type = 0
 consumable_definition = SubResource("Resource_fhrhl")
 inventory_capacity = 0

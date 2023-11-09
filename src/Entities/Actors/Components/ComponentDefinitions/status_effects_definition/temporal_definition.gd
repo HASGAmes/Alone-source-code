@@ -1,2 +1,3 @@
 class_name Temporal_Definition
 extends StatusEffectDefinition
+var status_id=Temporal_Status

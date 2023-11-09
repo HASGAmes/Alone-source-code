@@ -13,6 +13,7 @@ status_name = "unnamed status"
 turns = 4
 is_indefinite = false
 proc_chance = 0
+can_stack = true
 
 [sub_resource type="Resource" id="Resource_v0dkx"]
 script = ExtResource("1_c0mne")
@@ -32,6 +33,7 @@ texture = SubResource("AtlasTexture_temfj")
 color = Color(0.498039, 0, 1, 1)
 is_blocking_movment = false
 type = 1
+starting_movement = 0
 ai_type = 0
 consumable_definition = SubResource("Resource_v0dkx")
 inventory_capacity = 0

@@ -1,16 +1,64 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=3 format=3 uid="uid://cvtcrpu275nm6"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=11 format=3 uid="uid://cvtcrpu275nm6"]
 
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_glo42"]
+[ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_nkqvm"]
+[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="1_rbg2d"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="2_ekykn"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="2_erdt6"]
+[ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_pc7t1"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/invisible_definition.gd" id="4_ydv83"]
+
+[sub_resource type="Resource" id="Resource_5eo4b"]
+script = ExtResource("2_ekykn")
+max_hp = 15
+str = 10
+dex = 10
+toughness = 10
+will = 19
+prescence = 0
+dismember_chance = 1
+decap = false
+power = 3
+quickness = 100
+defense = 4
+hit_chance = 5
+DV = 12
+critdam = 0
+on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
+aggression = 21
+max_hunger = 100
+res = Array[int]([])
+weakness = Array[int]([])
+immunity = Array[int]([])
+items_on_death = Array[ExtResource("1_glo42")]([])
+death_texture = ExtResource("1_nkqvm")
+death_color = Color(0.545098, 0, 0, 1)
+corpse_food = ExtResource("2_pc7t1")
+death_noise = Array[AudioStreamWAV]([])
+body_plan_definition = ExtResource("1_rbg2d")
+skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
+
+[sub_resource type="Resource" id="Resource_i0d0q"]
+script = ExtResource("4_ydv83")
+status_name = "unnamed status"
+turns = 4
+is_indefinite = true
+proc_chance = 100
+can_stack = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c12nh"]
+atlas = ExtResource("2_erdt6")
+region = Rect2(32, 48, 16, 16)
 
 [resource]
 script = ExtResource("1_glo42")
-name = "Unnamed Entity"
+name = "STEALTHBOT"
 texture = SubResource("AtlasTexture_c12nh")
-color = Color(1, 1, 1, 1)
+color = Color(0.796078, 0.0470588, 0.745098, 1)
 is_blocking_movment = true
-type = 0
-ai_type = 0
-inventory_capacity = 0
-starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
+type = 2
+starting_movement = 0
+fighter_definition = SubResource("Resource_5eo4b")
+ai_type = 3
+inventory_capacity = 10
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([SubResource("Resource_i0d0q")])

@@ -18,13 +18,13 @@ region = Rect2(144, 64, 16, 16)
 [resource]
 script = ExtResource("1_2ub2n")
 name = "wall"
-texture = Array[AtlasTexture]([SubResource("AtlasTexture_l8n45"), SubResource("AtlasTexture_l8n45"), SubResource("AtlasTexture_l8n45"), SubResource("AtlasTexture_pimyi"), SubResource("AtlasTexture_l8n45")])
-color_lit = Array[Color]([Color(0.560784, 0.231373, 0.0196078, 1), Color(0.560784, 0.231373, 0.0196078, 1), Color(0.560784, 0.231373, 0.0196078, 1), Color(0.560784, 0.231373, 0.0196078, 1), Color(0.560784, 0.231373, 0.0196078, 1)])
-color_dark = Array[Color]([Color(0, 0.239216, 0.27451, 1), Color(0, 0.239216, 0.27451, 1), Color(0, 0.239216, 0.27451, 1), Color(0, 0.239216, 0.27451, 1), Color(0, 0.239216, 0.27451, 1)])
+texture = Array[AtlasTexture]([SubResource("AtlasTexture_l8n45"), SubResource("AtlasTexture_l8n45"), SubResource("AtlasTexture_pimyi")])
+color_lit = Array[Color]([Color(0.560784, 0.231373, 0.0196078, 1), Color(0.560784, 0.231373, 0.0196078, 1), Color(0.560784, 0.231373, 0.0196078, 1)])
+color_dark = Array[Color]([Color(0, 0.239216, 0.27451, 1), Color(0, 0.239216, 0.27451, 1), Color(0, 0.239216, 0.27451, 1)])
 rubble = SubResource("AtlasTexture_pgtfe")
 rubble_color = Color(1, 0.498039, 0, 1)
 max_hp = 15
-def = 6
+def = 10
 DV = -15
 is_walkable = false
 is_transparent = false

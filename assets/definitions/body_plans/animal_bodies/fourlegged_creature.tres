@@ -1,0 +1,81 @@
+[gd_resource type="Resource" script_class="Body_Plan_Definition" load_steps=9 format=3 uid="uid://b8vftsn75blc2"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="1_pso04"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/body_plan_definition.gd" id="2_xk0mt"]
+
+[sub_resource type="Resource" id="Resource_r2viu"]
+script = ExtResource("1_pso04")
+is_important = true
+name = "Head"
+limb_type = 0
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_pso04")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_5x0xl"]
+script = ExtResource("1_pso04")
+is_important = true
+name = "Torse"
+limb_type = 1
+can_be_dismembered = false
+attached_parts = Array[ExtResource("1_pso04")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_4ieqr"]
+script = ExtResource("1_pso04")
+is_important = false
+name = "right frontleg"
+limb_type = 3
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_pso04")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_bdiji"]
+script = ExtResource("1_pso04")
+is_important = false
+name = "left frontleg"
+limb_type = 3
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_pso04")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_du1ym"]
+script = ExtResource("1_pso04")
+is_important = false
+name = "left hindleg"
+limb_type = 3
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_pso04")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_8ulw0"]
+script = ExtResource("1_pso04")
+is_important = false
+name = "right hindleg"
+limb_type = 3
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_pso04")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[resource]
+script = ExtResource("2_xk0mt")
+limbs_are_alive = false
+body_parts = Array[ExtResource("1_pso04")]([SubResource("Resource_r2viu"), SubResource("Resource_5x0xl"), SubResource("Resource_4ieqr"), SubResource("Resource_bdiji"), SubResource("Resource_du1ym"), SubResource("Resource_8ulw0")])

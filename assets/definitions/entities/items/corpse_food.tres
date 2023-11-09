@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="FoodConsumableDefinition" load_steps=3 format=3 uid="uid://bhbxao61orxe8"]
+
+[ext_resource type="AudioStream" uid="uid://dk35sscfdh7vv" path="res://assets/audio/sfx/drink.wav" id="1_aefe2"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/consumable_definitions/food_consumable_component_definition.gd" id="2_uqt5n"]
+
+[resource]
+script = ExtResource("2_uqt5n")
+food_amount = 10
+consumable_sfx = ExtResource("1_aefe2")

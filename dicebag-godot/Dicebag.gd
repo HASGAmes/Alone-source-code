@@ -1,6 +1,7 @@
+class_name Dicebag
 extends RefCounted
 
-class_name Dicebag
+
 
 var rng = RandomNumberGenerator.new()
 

@@ -10,8 +10,12 @@ func _ready() -> void:
 	SignalBus.message_sent.connect(add_message)
 
 
-static func send_message(text: String, color: Color) -> void:
-	SignalBus.message_sent.emit(text, color)
+static func send_message(text: String, color: Color,sender:Entity = null) -> void:
+	
+	if sender == null:
+		SignalBus.message_sent.emit(text, color)
+	elif sender.visible == true:
+		SignalBus.message_sent.emit(text, color)
 
 
 func add_message(text: String, color: Color) -> void:

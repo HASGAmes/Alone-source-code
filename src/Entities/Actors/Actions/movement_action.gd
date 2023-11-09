@@ -10,7 +10,12 @@ func perform() -> bool:
 #	if entity.MOVEMENT_TYPE.CROUCH:
 #		entity.MOVEMENT_TYPE.WALK
 #		return false
-		
+	if entity.current_movement==entity.MOVEMENT_TYPE.PRONE:
+		return true
+	if map_data.get_actor_at_location(destination) and entity == get_map_data().player:
+		var actor = map_data.get_actor_at_location(destination)
+		entity.swap(actor)
+		return true
 	if not destination_tile or not destination_tile.is_walkable() or get_blocking_entity_at_destination():
 		if entity == get_map_data().player:
 			MessageLog.send_message("That way is blocked.", GameColors.IMPOSSIBLE)
@@ -24,7 +29,8 @@ func perform() -> bool:
 	if destination_tile.is_slippery():
 		var save =entity.fighter_component._save_roll(5,entity.fighter_component.dex_mod)
 		if save == false:
-			MessageLog.send_message("%s slips"% entity.get_entity_name(),GameColors.ENEMY_ATTACK)
+			MessageLog.send_message("%s slips and goes prone"% entity.get_entity_name(),GameColors.ENEMY_ATTACK)
+			entity.current_movement = entity.MOVEMENT_TYPE.PRONE
 			return true
 	entity.move(offset)
 	return true

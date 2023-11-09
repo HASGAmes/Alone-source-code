@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=10 format=3 uid="uid://d1aa7fy0bujgb"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=11 format=3 uid="uid://d1aa7fy0bujgb"]
 
-[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/humanoid.tres" id="1_as8br"]
+[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="1_as8br"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_x086p"]
+[ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_0djd7"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="2_ibkb2"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="3_en4m0"]
+[ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="3_peo23"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/bleed_definition.gd" id="3_xcaef"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r5yv6"]
 
 [sub_resource type="Resource" id="Resource_hdbkd"]
 script = ExtResource("3_xcaef")
@@ -15,6 +15,7 @@ status_name = "unnamed status"
 turns = 1
 is_indefinite = true
 proc_chance = 0
+can_stack = false
 
 [sub_resource type="Resource" id="Resource_sodnv"]
 script = ExtResource("1_x086p")
@@ -38,8 +39,10 @@ max_hunger = 100
 res = Array[int]([])
 weakness = Array[int]([])
 immunity = Array[int]([])
-death_texture = SubResource("AtlasTexture_r5yv6")
+items_on_death = Array[ExtResource("2_ibkb2")]([])
+death_texture = ExtResource("3_peo23")
 death_color = Color(0.545098, 0, 0, 1)
+corpse_food = ExtResource("2_0djd7")
 death_noise = Array[AudioStreamWAV]([])
 body_plan_definition = ExtResource("1_as8br")
 skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
@@ -55,7 +58,8 @@ texture = SubResource("AtlasTexture_ae40k")
 color = Color(0.101961, 1, 1, 1)
 is_blocking_movment = true
 type = 2
+starting_movement = 0
 fighter_definition = SubResource("Resource_sodnv")
-ai_type = 1
-inventory_capacity = 0
+ai_type = 3
+inventory_capacity = 4
 starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

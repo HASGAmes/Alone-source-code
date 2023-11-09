@@ -25,7 +25,7 @@ var rubble_texture: AtlasTexture
 var rubble_color:Color
 var destructible:bool
 var terrain_effect
-
+var grid_position:Vector2i
 var is_explored: bool = false:
 	set(value):
 		is_explored = value
@@ -43,13 +43,14 @@ var is_in_view: bool = false:
 func _init(grid_position: Vector2i, tile_definition: TileDefinition) -> void:
 	visible = false
 	centered = false
+	self.grid_position = grid_position
 	position = Grid.grid_to_world(grid_position)
 	set_tile_type(tile_definition)
 	walkable = tile_definition.is_walkable
 	transparent = tile_definition.is_transparent
 	
 func distance(other_position: Vector2i) -> float:
-	var relative: Vector2i = other_position - Grid.grid_to_world(position)
+	var relative: Vector2i = other_position - grid_position
 	return relative.length()
 
 func set_tile_type(tile_definition: TileDefinition) -> void:

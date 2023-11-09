@@ -9,11 +9,12 @@ const tile_size = 16
 @onready var input_handler: InputHandler = $InputHandler
 @onready var map: Map = $Map
 @onready var camera: Camera2D = $Camera2D
-
-
+@onready var prev_player: Entity
+@onready var mouse_checker_tile: Node2D = $Map/MouseoverChecker
 func _ready() -> void:
 	player = Entity.new(null, Vector2i.ZERO, player_definition)
 	player.flip_h = true
+	SignalBus.player = player
 	player_created.emit(player)
 	remove_child(camera)
 	player.add_child(camera)
@@ -26,7 +27,8 @@ func _ready() -> void:
 	camera.make_current.call_deferred()
 
 func _physics_process(_delta: float) -> void:
-	print(map.entities.get_child_count())
+	if Input.is_action_just_pressed("debug_body_swap"):
+		body_swap()
 	if player.ai_component!=null:
 		var action: Action = await input_handler.get_action(player)
 		var enemies_acted:bool = false
@@ -39,6 +41,8 @@ func _physics_process(_delta: float) -> void:
 				_handle_enemy_turns()
 				player.fighter_component.turn+=player.fighter_component.quickness
 				enemies_acted=true
+			#print(action)
+			
 			if action.perform():
 				map.update_fov(player.grid_position)
 				player.fighter_component.turns_not_in_combat +=1
@@ -64,8 +68,21 @@ func _handle_enemy_turns() -> void:
 				map.update_fov(player.grid_position)
 			
 
-
 func get_map_data() -> MapData:
 	return map.map_data
 
-
+func body_swap():
+	var swap_target = get_map_data().get_actor_at_location(mouse_checker_tile._mouse_tile)
+	if swap_target != null:
+		
+		prev_player = player
+		player = swap_target
+		input_handler.transition_to(InputHandler.InputHandlers.MAIN_GAME)
+		SignalBus.player = player
+		SignalBus.player_changed.emit(player) 
+		print("hm")
+		player_definition = player._definition
+		get_map_data().player = player
+		prev_player.remove_child(camera)
+		player.add_child(camera)
+		camera.make_current.call_deferred()

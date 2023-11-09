@@ -9,6 +9,7 @@ extends Resource
 @export_category("Mechanics")
 @export var is_blocking_movment: bool = true
 @export var type: Entity.EntityType
+@export var starting_movement:Entity.MOVEMENT_TYPE = Entity.MOVEMENT_TYPE.WALK
 
 @export_category("Components")
 @export var fighter_definition: FighterComponentDefinition

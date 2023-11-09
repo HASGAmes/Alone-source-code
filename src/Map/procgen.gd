@@ -3,7 +3,7 @@ extends RefCounted
 
 const tile_types = {
 	"wall": preload("res://assets/definitions/tiles/tile_definition_wall.tres"),
-	"floor": preload("res://assets/tile_definitions/tile_floor.tres"),
+	"floor": preload("res://assets/definitions/tiles/tile_definition_floor.tres"),
 }
 
 var _rng := RandomNumberGenerator.new()

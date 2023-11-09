@@ -22,6 +22,7 @@ texture = SubResource("AtlasTexture_nw3ql")
 color = Color(1, 1, 0, 1)
 is_blocking_movment = false
 type = 1
+starting_movement = 0
 ai_type = 0
 consumable_definition = SubResource("Resource_w2ejf")
 inventory_capacity = 0

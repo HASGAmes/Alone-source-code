@@ -1,0 +1,3 @@
+class_name InvisibleDefinition
+extends StatusEffectDefinition
+var status_id=InvisibleStatus

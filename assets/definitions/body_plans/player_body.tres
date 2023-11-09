@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="Body_Plan_Definition" load_steps=3 format=3 uid="uid://csglbdplfvyoq"]
-
-[ext_resource type="Resource" uid="uid://cre584htldsxf" path="res://assets/definitions/body_plans/limbs/head.tres" id="1_avay0"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/body_plan_definition.gd" id="1_n1310"]
-
-[resource]
-script = ExtResource("1_n1310")
-body_parts = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd")]([ExtResource("1_avay0")])

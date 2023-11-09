@@ -1,0 +1,3 @@
+class_name HungryDefinition
+extends StatusEffectDefinition
+var status_id=HungryStatus

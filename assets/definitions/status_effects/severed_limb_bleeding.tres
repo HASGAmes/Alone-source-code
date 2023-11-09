@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Bleed_Definition" load_steps=2 format=3 uid="uid://bnlwxh1aqnrcl"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/bleed_definition.gd" id="1_1roji"]
+
+[resource]
+script = ExtResource("1_1roji")
+damage = 5
+status_name = "severed"
+turns = 6
+is_indefinite = false
+proc_chance = 0

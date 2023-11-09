@@ -9,3 +9,4 @@ status_name = "unnamed status"
 turns = 0
 is_indefinite = false
 proc_chance = 0
+can_stack = false

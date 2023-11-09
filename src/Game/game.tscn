@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://n87rw5cxnnn8"]
+[gd_scene load_steps=25 format=3 uid="uid://n87rw5cxnnn8"]
 
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_ne6pe"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/input_handler.gd" id="2_4winb"]
@@ -9,11 +9,11 @@
 [ext_resource type="Script" path="res://src/Map/field_of_view.gd" id="5_bvmgb"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/history_viewer_input_handler.gd" id="5_hrkyq"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/base_input_handler.gd" id="6_ay8ab"]
-[ext_resource type="FontFile" uid="uid://bk0fq2awle8d5" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Pixel.ttf" id="9_8xlja"]
 [ext_resource type="Script" path="res://src/GUI/mouseover_checker.gd" id="9_eusf6"]
 [ext_resource type="Script" path="res://src/GUI/hp_display.gd" id="9_njvq4"]
 [ext_resource type="PackedScene" uid="uid://d36pgskfsvwj2" path="res://src/GUI/Reticle/reticle.tscn" id="11_n4t22"]
 [ext_resource type="Script" path="res://src/GUI/message_log.gd" id="11_xxafc"]
+[ext_resource type="FontFile" uid="uid://dikrxfgf1i6e7" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Mini Square Mono.ttf" id="15_hqss3"]
 [ext_resource type="Script" path="res://src/Game/playericon.gd" id="26_l0ljo"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="26_lc2fb"]
 [ext_resource type="PackedScene" uid="uid://dx7wsxpo1qfmc" path="res://src/Utils/Commandline.tscn" id="30_i2lvc"]
@@ -40,16 +40,12 @@ bg_color = Color(0.498039, 0, 0, 1)
 bg_color = Color(0, 0.498039, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_c11as"]
-font = ExtResource("9_8xlja")
+font = ExtResource("15_hqss3")
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_sr2kr"]
-font = ExtResource("9_8xlja")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rjuj0"]
-atlas = ExtResource("26_lc2fb")
-region = Rect2(96, 80, 16, 16)
+font = ExtResource("15_hqss3")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cifx1"]
 bg_color = Color(0, 0, 0, 1)
@@ -102,7 +98,7 @@ reticle = NodePath("../../Map/Reticle")
 
 [node name="input_delay" type="Timer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler"]
 process_callback = 0
-wait_time = 0.15
+wait_time = 0.12
 one_shot = true
 
 [node name="GameOverInputHandler" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler"]
@@ -122,10 +118,7 @@ fov_radius = 8
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_15hgc")
-map_width = 300
-map_height = 500
-max_rooms = 40
-max_items_per_room = 5
+map_height = 200
 
 [node name="FieldOfView" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("5_bvmgb")
@@ -139,8 +132,11 @@ script = ExtResource("9_eusf6")
 
 [node name="Reticle" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map" instance=ExtResource("11_n4t22")]
 
+[node name="screeneffects" type="CanvasModulate" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
+
 [node name="Camera2D" type="Camera2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game"]
 zoom = Vector2(2, 2)
+process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 drag_horizontal_enabled = true
@@ -215,11 +211,9 @@ size_flags_vertical = 8
 label_settings = SubResource("LabelSettings_sr2kr")
 
 [node name="TextureRect" type="TextureRect" parent="InfoBar"]
-modulate = Color(0.94902, 0.0823529, 0.054902, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.55
-texture = SubResource("AtlasTexture_rjuj0")
 flip_h = true
 script = ExtResource("26_l0ljo")
 
@@ -227,8 +221,6 @@ script = ExtResource("26_l0ljo")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.65
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
 
 [node name="Node" parent="." instance=ExtResource("30_i2lvc")]
 

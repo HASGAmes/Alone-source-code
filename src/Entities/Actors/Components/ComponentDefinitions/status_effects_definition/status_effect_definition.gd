@@ -5,4 +5,5 @@ extends Resource
 @export var status_name :String = "unnamed status"
 @export var turns:int
 @export var is_indefinite:bool = false
-@export var proc_chance:int
+@export_range(0,100) var proc_chance:int
+@export var can_stack:bool = false

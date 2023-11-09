@@ -8,7 +8,7 @@ var map_data: MapData
 @onready var dungeon_generator: DungeonGenerator = $DungeonGenerator
 @onready var field_of_view: FieldOfView = $FieldOfView
 @export var fov_radius:int 
-
+@onready var screeneffects:CanvasModulate = $screeneffects
 func generate(player: Entity) -> void:
 	map_data = dungeon_generator.generate_dungeon(player)
 	map_data.entity_placed.connect(entities.add_child)

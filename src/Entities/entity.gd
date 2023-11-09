@@ -4,6 +4,7 @@ extends Sprite2D
 enum AIType {NONE, HOSTILE,PREY,PREDATOR}
 enum EntityType {CORPSE, ITEM, ACTOR}
 enum MOVEMENT_TYPE{WALK,CROUCH,PRONE,SPRINT}
+var current_movement:MOVEMENT_TYPE
 @onready var dicebag = Dicebag.new()
 var grid_position: Vector2i:
 	set(value):
@@ -17,15 +18,19 @@ var type: EntityType:
 		type = value
 		z_index = type
 var map_data: MapData
+var texture_size:Vector2i
+#components
 var current_statuses:Array[StatusBase]
 var fighter_component: FighterComponent
 var ai_component: BaseAIComponent
 var consumable_component: ConsumableComponent
 var inventory_component: InventoryComponent
 var equipment_component :EquipmentComponent
+var skill_component:SkillComponent
+#####
 var status_tracker:Node
 var part_effect:GPUParticles2D
-
+var turns_hunger:int = 0
 func _init(map_data: MapData, start_position: Vector2i, entity_definition: EntityDefinition) -> void:
 	centered = false
 	grid_position = start_position
@@ -34,11 +39,16 @@ func _init(map_data: MapData, start_position: Vector2i, entity_definition: Entit
 
 
 func set_entity_type(entity_definition: EntityDefinition) -> void:
-	_definition = entity_definition
+	
+	if entity_definition!= null:
+		_definition = entity_definition
 	type = _definition.type
+	current_movement = entity_definition.starting_movement
 	blocks_movement = _definition.is_blocking_movment
 	entity_name = _definition.name
 	texture = entity_definition.texture
+	texture_size = texture.get_size()
+	print(texture_size)
 	modulate = entity_definition.color
 	status_tracker = Node.new()
 	part_effect = GPUParticles2D.new()
@@ -66,9 +76,11 @@ func set_entity_type(entity_definition: EntityDefinition) -> void:
 	if entity_definition.inventory_capacity > 0:
 		inventory_component = InventoryComponent.new(entity_definition.inventory_capacity)
 		add_child(inventory_component)
-	if equipment_component:
-		equipment_component = EquipmentComponent.new(entity_definition.fighter_definition.body_plan)
+	if fighter_component:
+		equipment_component = EquipmentComponent.new(fighter_component.body_plan)
 		add_child(equipment_component)
+		skill_component = SkillComponent.new(fighter_component)
+		add_child(skill_component)
 	if entity_definition.starting_status:
 		var status = entity_definition.starting_status.duplicate()
 		add_status(status)
@@ -169,38 +181,49 @@ func passed_turn():
 	if fighter_component.turns_not_in_combat>=10 and fighter_component.hp >=1:
 		fighter_component.passively_heal()
 	var status =status_tracker.get_children()
+	var hunger_dice = dicebag.roll_dice(1,20,0)
+	if hunger_dice ==1 and turns_hunger<10:
+		fighter_component.hunger -= 1
+	else:
+		turns_hunger+=1
+	if turns_hunger >=10:
+		hunger_dice = dicebag.roll_special_dice(20,false,2)
+		if hunger_dice <=2:
+			fighter_component.hunger -=2
+			turns_hunger = 0
+	if fighter_component.hunger == 0 and fighter_component.hp >=1:
+		fighter_component.take_damage(1,DamageTypes.DAMAGE_TYPES.INTERNAL)
 	while !status.is_empty():
 		var current_status= status.pop_front()
 		current_status.activate_effect(self)
-		
+	var skill = fighter_component.skill_tracker.get_children().duplicate()
+	while !skill.is_empty():
+		var currentskill = skill.pop_front()
+		if currentskill.tick_cooldown != currentskill.cooldown:
+			currentskill.tick_cooldown+=1
+	
 func _handle_consumable(consumable_definition: ConsumableComponentDefinition) -> void:
-	if consumable_definition is HealingConsumableComponentDefinition:
-		consumable_component = HealingConsumableComponent.new(consumable_definition)
-	elif consumable_definition is LightningDamageConsumableComponentDefinition:
-		consumable_component = LightningDamageConsumableComponent.new(consumable_definition)
-	elif consumable_definition is ConfusionConsumableComponentDefinition:
-		consumable_component = ConfusionConsumableComponent.new(consumable_definition)
-	elif consumable_definition is FireballDamageConsumableComponentDefinition:
-		consumable_component = FireballDamageConsumableComponent.new(consumable_definition)
+	consumable_component = consumable_definition.item_id.new(consumable_definition)
 	if consumable_component:
 		add_child(consumable_component)
 
-
-func add_status(starting_status:Array[StatusEffectDefinition]):
+func swap(swap_target:Entity , swapper:Vector2i = grid_position):
+	map_data.unregister_blocking_entity(self)
+	map_data.unregister_blocking_entity(swap_target)
+	var target_swap:Vector2i = swap_target.grid_position
+	self.grid_position = target_swap
+	swap_target.grid_position = swapper
+	map_data.register_blocking_entity(self)
+	map_data.register_blocking_entity(swap_target)
+func add_status(starting_status:Array[StatusEffectDefinition]) ->void:
 	while !starting_status.is_empty():
 		var status =starting_status.pop_front()
 		var current_status:StatusBase
-		if status is Bleed_Definition:
-			current_status = Bleed_Status.new(status)
-		if status is Regen_Definition:
-			current_status = RegenStatus.new(status)
-		if status is Slow_Definition:
-			current_status = SlowStatus.new(status)
-		if status is Temporal_Definition:
-			current_status = Temporal_Status.new(status)
-		if status is HostDefinition:
-			current_status = HostStatus.new(status)
+		current_status = status.status_id.new(status)
 		var proc = randi_range(1,100)
+		if status.can_stack == false:
+			if status_tracker.get_children(status.can_stack):
+				return
 		if proc <= status.proc_chance:
 			status_tracker.add_child(current_status)
 		print(status)

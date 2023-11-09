@@ -6,8 +6,12 @@ var list_of_equipment_limbs: Array[Limb_Component]
 var amount_of_important_limbs
 var adding_limbs: Limb_Component
 var stored_limbs:Array[Limb_Component]
+var limb_is_alive:bool = false
+var bleed:StatusEffectDefinition = load("res://assets/definitions/status_effects/severed_limb_bleeding.tres")
+var limb:EntityDefinition = load("res://assets/definitions/body_plans/limb.tres")
 func _init(definition: Body_Plan_Definition) -> void:
 	original_limbs = definition.body_parts
+	limb_is_alive = definition.limbs_are_alive
 	if definition.body_parts!=null:
 		set_up_body(definition)
 func set_up_body(definition:Body_Plan_Definition):
@@ -23,18 +27,18 @@ func set_up_body(definition:Body_Plan_Definition):
 		add_child(adding_limbs)
 		list_of_equipment_limbs.append(adding_limbs)
 		track_importantlimbs(adding_limbs)
-		if !adding_limbs.attached_parts.is_empty():
+		while !adding_limbs.attached_parts.is_empty():
+			print("h,")
 			var attached:Limb_Component
-			attached = Limb_Component.new(definition.body_parts.front())
-			adding_limbs.add_child(attached)
-		#print(get_child_count())
+			attached = Limb_Component.new(adding_limbs.attached_parts.pop_front())
+			adding_limbs.connected+=[attached]
+			adding_limbs.get_parent().add_child(attached)
 	list_of_limbs = original_limbs
-		#print(adding_limbs)
-	#print(get_child_count())
 func track_importantlimbs(important_limbs:Limb_Component):
 	if important_limbs.important_limb():
 		amount_of_important_limbs+=1
 		#print(amount_of_important_limbs)
+
 func dismember(can_decap: bool) -> void:
 	var dismemberable :Array=[Limb_Component]
 	dismemberable = get_children()
@@ -54,22 +58,67 @@ func dismember(can_decap: bool) -> void:
 					chosen_limb = dismemberable.pick_random()
 		var messsage ="The %s has lost their %s" % [get_parent().get_parent().get_entity_name(), chosen_limb.name_limb]
 		if chosen_limb.important_limb()and can_decap ==true:
-			#print("should wor")
 			adding_limbs=chosen_limb
 			stored_limbs.append(adding_limbs)
 			amount_of_important_limbs -= 1
+			var new_entity: Entity
+			var map_data = get_parent().get_parent().map_data
+			var pare = get_parent().get_parent()
+			new_entity = Entity.new(map_data,pare.grid_position + random_dir(),limb)
+			map_data.entities.append(new_entity)
+			var arry:Array[StatusEffectDefinition]
+			arry += [bleed]
+			pare.add_status(arry)
+			if limb_is_alive == false:
+				limb.ai_type = Entity.AIType.NONE
+				var spr = load("res://assets/resources/limb_sprite.tres")
+				new_entity.texture = spr
+				limb.fighter_definition = null
+				new_entity.type = Entity.EntityType.CORPSE
+				new_entity.fighter_component = null
+				new_entity.ai_component = null
+				new_entity.blocks_movement = false
+			pare.get_parent().add_child(new_entity)
+			while !chosen_limb.connected.is_empty():
+				var li = chosen_limb.connected.pop_front()
+				remove_child(li)
+			new_entity.entity_name = pare.entity_name +"'s "+ chosen_limb.name_limb
 			remove_child(chosen_limb)
-			MessageLog.send_message(messsage, GameColors.CRIT)
+			
+			MessageLog.send_message(messsage, GameColors.CRIT,get_parent().get_parent())
 		elif chosen_limb._can_be_dismembered() and !chosen_limb.important_limb():
 			adding_limbs=chosen_limb
 			stored_limbs.append(adding_limbs)
+			var new_entity: Entity
+			var map_data = get_parent().get_parent().map_data
+			var pare:Entity= get_parent().get_parent()
+			var arry:Array[StatusEffectDefinition]
+			arry += [bleed]
+			pare.add_status(arry)
+			new_entity = Entity.new(map_data,pare.grid_position + random_dir(),limb)
+			map_data.entities.append(new_entity)
+			pare.get_parent().add_child(new_entity)
+			if limb_is_alive == false:
+				var spr = load("res://assets/resources/limb_sprite.tres")
+				new_entity.texture = spr
+				limb.ai_type = Entity.AIType.NONE
+				limb.fighter_definition = null
+				limb.type = Entity.EntityType.CORPSE
+				new_entity.fighter_component = null
+				new_entity.ai_component = null
+				new_entity.blocks_movement = false
+				new_entity.type = Entity.EntityType.CORPSE
+			new_entity.entity_name = pare.entity_name +"'s "+ chosen_limb.name_limb
+			while !chosen_limb.connected.is_empty():
+				var li = chosen_limb.connected.pop_front()
+				remove_child(li)
 			remove_child(chosen_limb)
-			MessageLog.send_message(messsage, GameColors.CRIT)
+			dismember_target.get_parent().equipment_component.update_slots(self)
+			MessageLog.send_message(messsage, GameColors.CRIT,get_parent().get_parent())
 		#print(dismemberable)
-		if amount_of_important_limbs==0:
+		if amount_of_important_limbs==0 and chosen_limb.important_limb():
 			dismember_target.hp = 0
-		print(stored_limbs)
-		print(chosen_limb.attached_parts)
+		
 	else:
 		print("shame")
 	
@@ -84,7 +133,18 @@ func regen_limb():
 			#print(regrow.get_children())
 		var messsage ="The %s has regrown their %s!!" % [get_parent().get_parent().get_entity_name(), regrow.name_limb]
 		track_importantlimbs(regrow)
-		MessageLog.send_message(messsage,GameColors.HEALTH_RECOVERED)
+		MessageLog.send_message(messsage,GameColors.HEALTH_RECOVERED,get_parent().get_parent())
 	
 	
-
+func random_dir()-> Vector2i:
+	var direction: Vector2i = [
+			Vector2i(-1, -1),
+			Vector2i( 0, -1),
+			Vector2i( 1, -1),
+			Vector2i(-1,  0),
+			Vector2i( 1,  0),
+			Vector2i(-1,  1),
+			Vector2i( 0,  1),
+			Vector2i( 1,  1),
+		].pick_random()
+	return direction

@@ -9,7 +9,7 @@ func perform() -> void:
 	var target_grid_position: Vector2i = target.grid_position
 	var offset: Vector2i = target_grid_position - entity.grid_position
 	var distance: int = max(abs(offset.x), abs(offset.y))
-	
+	attacking_actor = target
 	if get_map_data().get_tile(entity.grid_position).is_in_view:
 		if distance <= 1:
 			return MeleeAction.new(entity, offset.x, offset.y).perform()

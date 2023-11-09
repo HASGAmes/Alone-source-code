@@ -17,10 +17,12 @@ var hunger: int:
 	set(value):
 		hunger = clampi(value, 0, max_hunger)
 		hunger_changed.emit(hunger, max_hunger)
+######################
 var strength_mod
 var dex_mod
 var toughness_mod
 var wisdom_mod
+######################
 var defense: int
 var hit_chance:int
 var power: int
@@ -40,12 +42,27 @@ var body_plan: Body_Plan
 var death_sound: AudioStreamWAV
 var healed_amount:float
 var onhit_effects:Array[StatusEffectDefinition]
+var current_weapon_dice:int
+var current_weapon_side_dice:int
+#####################
 var xp:int
 var lv:int =1
 var credit_exp:Entity
 var aggression:int
+var res:Array
+var immune:Array
+var weakness:Array
+var items_to_drop:Array[EntityDefinition]
+var corpse_food:FoodConsumableDefinition
+
 func _init(definition: FighterComponentDefinition) -> void:
 	randomize()
+	print(definition.skills)
+	corpse_food = definition.corpse_food
+	res = definition.res
+	weakness = definition.weakness
+	immune = definition.immunity
+	items_to_drop = definition.items_on_death.duplicate()
 	skill_tracker = Node.new()
 	add_child(skill_tracker)
 	aggression = definition.aggression
@@ -67,7 +84,7 @@ func _init(definition: FighterComponentDefinition) -> void:
 	death_color = definition.death_color
 	
 	if definition.skills:
-		add_skills(definition.skills)
+		add_skills(definition.skills.duplicate())
 	if definition.body_plan_definition:
 		definition.body_plan_def = definition.body_plan_definition.duplicate()
 		body_plan = Body_Plan.new(definition.body_plan_def)
@@ -104,9 +121,8 @@ func add_skills(listskills:Array[Skills_Definition]):
 	while !listskills.is_empty():
 		var current_skill =listskills.pop_front()
 		var skill:Skills
-		if current_skill is Kick_Skill_Definition:
-			skill = Kick_Skill.new(current_skill)
-			#print(skill)
+		print(skill,"hmm")
+		skill = current_skill.skill_id.new(current_skill)
 		skill_tracker.add_child(skill)
 		
 func setup_mods():
@@ -134,7 +150,22 @@ func heal(amount: int) -> int:
 	return amount_recovered
 
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES) -> void:
+	var imm = immune.duplicate()
+	var resistance = res.duplicate()
+	var weak = weakness.duplicate()
+	while !weak.is_empty():
+		var damage = weak.pop_front()
+		if damage_type == damage:
+			amount *= 2
+	while !resistance.is_empty():
+		var damage = resistance.pop_front()
+		if damage_type == damage:
+			amount /= 2
+	while !imm.is_empty():
+		var damage = imm.pop_front()
+		if damage_type == damage:
+			amount = 0
 	hp -= amount
 	turns_not_in_combat = 0
 func gain_random_stat(amount:int)-> void:
@@ -161,7 +192,9 @@ func die() -> void:
 	var death_message: String
 	var death_message_color: Color
 	var death_audio:AudioStreamPlayer
-	if death_sound!=null:
+	entity.texture = death_texture
+	entity.modulate = death_color
+	if death_sound!=null and entity.visible == true:
 		death_audio = AudioStreamPlayer.new()
 		add_child(death_audio)
 		death_audio.set_stream(death_sound)
@@ -169,19 +202,21 @@ func die() -> void:
 	if get_map_data().player == entity:
 		death_message = "You died!"
 		death_message_color = GameColors.PLAYER_DIE
-		print(SignalBus.player_died)
 		SignalBus.player_died.emit()
 	else:
 		death_message = "%s is dead!" % entity.get_entity_name()
 		death_message_color = GameColors.ENEMY_DIE
 	if entity.ai_component != null:
+		entity._handle_consumable(corpse_food)
+		if !items_to_drop.is_empty():
+			_handle_death_drops(items_to_drop)
 		if credit_exp!=null:
+			if credit_exp.ai_component!=null:
+				credit_exp.ai_component.attacking_actor = null
 			credit_exp.fighter_component.gain_xp((xp+1)*lv)
-			credit_exp.ai_component.attacking_actor = null
 			credit_exp = null
 		MessageLog.send_message(death_message, death_message_color)
-	entity.texture = death_texture
-	entity.modulate = death_color
+	
 	if entity.ai_component != null:
 		entity.ai_component.queue_free()
 		entity.ai_component = null
@@ -193,6 +228,7 @@ func die() -> void:
 func reanimate():
 	entity.set_entity_type(entity._definition)
 	pass
+	
 func passively_heal():
 	var new_heal :float
 	new_heal = (20+2*(toughness_mod+wisdom_mod))*0.01 
@@ -201,3 +237,13 @@ func passively_heal():
 	if healed_amount>=1:
 		hp+= roundi(healed_amount)
 		healed_amount -=1
+
+func _handle_death_drops(consumable_definition: Array[EntityDefinition]) -> void:
+	var consumable_component
+	var consume = consumable_definition.duplicate()
+	while !consume.is_empty():
+		
+		var definition = consume.pop_front()
+		consumable_component = Entity.new(entity.map_data, entity.grid_position, definition)
+		entity.map_data.entities.append(consumable_component)
+		entity.get_parent().add_child(consumable_component)

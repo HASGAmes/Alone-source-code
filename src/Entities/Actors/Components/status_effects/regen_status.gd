@@ -4,8 +4,10 @@ var heal:int
 var turns:int
 var statusname:String
 var forever:bool
+var stack:bool
 func _init(definition: Regen_Definition):
 	heal = definition.heal_amount
+	stack = definition.can_stack
 	turns = definition.turns
 	statusname = definition.status_name
 	print(definition.is_indefinite)

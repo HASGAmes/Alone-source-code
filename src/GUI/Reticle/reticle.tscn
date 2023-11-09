@@ -87,3 +87,10 @@ visible = false
 width = 2.0
 default_color = Color(1, 0, 0, 1)
 end_cap_mode = 1
+
+[node name="input_delay" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.12
+one_shot = true
+
+[connection signal="timeout" from="input_delay" to="." method="_on_input_delay_timeout"]

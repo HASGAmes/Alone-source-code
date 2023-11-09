@@ -5,6 +5,7 @@ const entity_types = {
 	"spider": preload("res://assets/definitions/entities/actors/spider.tres"),
 	"troll":preload("res://assets/definitions/entities/actors/troll.tres"),
 	"WARBOT":preload("res://assets/definitions/entities/actors/war_bot.tres"),
+	"STEALTHBOT":preload("res://assets/definitions/entities/actors/STEALTHBOT.tres"),
 	"dog":preload("res://assets/definitions/entities/actors/dog.tres"),
 	"cat":preload("res://assets/definitions/entities/actors/cat.tres"),
 	"health_potion": preload("res://assets/definitions/entities/items/health_potion.tres"),
@@ -87,9 +88,9 @@ func _tunnel_horizontal(dungeon: MapData, y: int, x_start: int, x_end: int) -> v
 	var picked = chosen_tile.pick_random()
 	for x in range(x_min, x_max + 1):
 		if x ==x_min+3 or x == x_max-3:
-			_carve_tile(dungeon, x, y,dungeon.tile_types.door)
+			_carve_tile(dungeon, x, y,dungeon.tile_types.floor)
 		else :
-			_carve_tile(dungeon, x, y,dungeon.tile_types.rocks)
+			_carve_tile(dungeon, x, y,dungeon.tile_types.floor)
 func _tunnel_vertical(dungeon: MapData, x: int, y_start: int, y_end: int) -> void:
 	var y_min: int = mini(y_start, y_end)
 	var y_max: int = maxi(y_start, y_end)
@@ -97,9 +98,9 @@ func _tunnel_vertical(dungeon: MapData, x: int, y_start: int, y_end: int) -> voi
 	var picked = chosen_tile.pick_random()
 	for y in range(y_min, y_max + 1):
 		if y ==y_min-3 or y == y_max+3:
-			_carve_tile(dungeon, x, y,dungeon.tile_types.door)
+			_carve_tile(dungeon, x, y,dungeon.tile_types.floor)
 		else :
-			_carve_tile(dungeon, x, y,dungeon.tile_types.rocks)
+			_carve_tile(dungeon, x, y,dungeon.tile_types.floor)
 
 
 func _tunnel_between(dungeon: MapData, start: Vector2i, end: Vector2i) -> void:
@@ -136,6 +137,8 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 			var new_entity: Entity
 			if _rng.randf() < 0.2:
 				new_entity = Entity.new(dungeon, new_entity_position, entity_types.troll)
+			elif _rng.randf() < 0.3:
+				new_entity = Entity.new(dungeon, new_entity_position, entity_types.STEALTHBOT)
 			elif _rng.randf() < 0.4:
 				new_entity = Entity.new(dungeon, new_entity_position, entity_types.dog)
 			elif _rng.randf() < 0.6:

@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="FighterComponentDefinition" load_steps=9 format=3 uid="uid://csvt2cdd3wgls"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="1_e0iqo"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/body_plan_definition.gd" id="2_4epah"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="3_lp8du"]
+[ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="3_v75im"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="4_0c718"]
+
+[sub_resource type="Resource" id="Resource_rf1b8"]
+script = ExtResource("1_e0iqo")
+is_important = false
+name = "limb"
+limb_type = 1
+can_be_dismembered = false
+attached_parts = Array[ExtResource("1_e0iqo")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_immam"]
+script = ExtResource("2_4epah")
+limbs_are_alive = false
+body_parts = Array[ExtResource("1_e0iqo")]([SubResource("Resource_rf1b8")])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65vr2"]
+atlas = ExtResource("3_lp8du")
+region = Rect2(64, 96, 16, 16)
+
+[resource]
+script = ExtResource("4_0c718")
+max_hp = 10
+str = 10
+dex = 10
+toughness = 10
+will = 0
+prescence = 0
+dismember_chance = 3
+decap = false
+power = 3
+quickness = 55
+defense = 3
+hit_chance = 2
+DV = 4
+critdam = 2
+on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
+aggression = 200
+max_hunger = 100
+res = Array[int]([])
+weakness = Array[int]([])
+immunity = Array[int]([])
+items_on_death = Array[Resource("res://src/Entities/entity_definition.gd")]([])
+death_texture = SubResource("AtlasTexture_65vr2")
+death_color = Color(0.545098, 0, 0, 1)
+corpse_food = ExtResource("3_v75im")
+death_noise = Array[AudioStreamWAV]([])
+body_plan_definition = SubResource("Resource_immam")
+skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])

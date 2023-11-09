@@ -3,3 +3,4 @@ extends ConsumableComponentDefinition
 
 @export var damage: int = 0
 @export var maximum_range: int = 0
+var item_id = LightningDamageConsumableComponent

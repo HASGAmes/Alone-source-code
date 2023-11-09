@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bu4s2qasvkm2r"]
 
-[ext_resource type="Script" path="res://src/GUI/equipment_menu.gd" id="1_4ifmq"]
+[ext_resource type="Script" path="res://src/GUI/InventorMenu/equipment_menu.gd" id="1_xdr7f"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="2_5fros"]
 [ext_resource type="FontFile" uid="uid://bk0fq2awle8d5" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Pixel.ttf" id="3_407ql"]
 
@@ -27,7 +27,7 @@ font = ExtResource("3_407ql")
 color = Color(1, 1, 1, 1)
 
 [node name="EquipmentMenu" type="CanvasLayer"]
-script = ExtResource("1_4ifmq")
+script = ExtResource("1_xdr7f")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15

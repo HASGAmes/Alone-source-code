@@ -40,11 +40,12 @@ func activate(action: ItemAction) -> bool:
 				MessageLog.send_message("The %s is engulfed in a fiery explosion, but is unharmed!?!" % [target.get_entity_name()], GameColors.CRIT)
 			else:
 				MessageLog.send_message("The %s is engulfed in a fiery explosion, taking %d damage!" % [target.get_entity_name(), damage], GameColors.CRIT)
-				target.fighter_component.take_damage(target.fighter_component.max_hp)
+				
 				if target_position !=target.grid_position:
 					var knockbackvec = target_position - target.grid_position
 					target.knockback(knockbackvec,damage)
 				target.fighter_component.body_plan.dismember(true)
+				target.fighter_component.take_damage(target.fighter_component.max_hp,DamageTypes.DAMAGE_TYPES.EXPLOSIVE)
 	var tile_targets := []
 	for tile in map_data.get_tiles():
 		if tile.distance(target_position) <= radius:

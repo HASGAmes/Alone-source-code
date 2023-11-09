@@ -19,15 +19,18 @@ extends Resource
 @export_range(-21,21) var critdam:int
 @export var on_hit_effects:Array[StatusEffectDefinition]
 @export_category("AI aggression and hunger")
-@export_range(0,21) var aggression:int 
+@export_range(-200,200) var aggression:int 
 @export var max_hunger:int = 100
 @export_category("Resistances and Weaknesses")
 @export var res:Array[DamageTypes.DAMAGE_TYPES]
 @export var weakness:Array[DamageTypes.DAMAGE_TYPES]
 @export var immunity:Array[DamageTypes.DAMAGE_TYPES]
+@export_category("Loot table")
+@export var items_on_death:Array[EntityDefinition]
 @export_category("Visuals")
 @export var death_texture: AtlasTexture = preload("res://assets/resources/default_death_texture.tres")
 @export var death_color: Color = Color.DARK_RED
+@export var corpse_food:FoodConsumableDefinition = preload("res://assets/definitions/entities/items/corpse_food.tres")
 @export_category("Audio")
 @export var death_noise: Array[AudioStreamWAV]
 @export_category("Body_Plan and Skills")

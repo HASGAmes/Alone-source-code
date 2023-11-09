@@ -157,7 +157,7 @@ func runCommand(command : String, value : String, commandCode : int) -> String:
 	return command
 	
 func woundme():
-	game.player.fighter_component.take_damage(game.player.fighter_component.hp-1)
+	game.player.fighter_component.take_damage(game.player.fighter_component.hp-1,DamageTypes.DAMAGE_TYPES.INTERNAL)
 	clearMessage("Success",true)
 func realive():
 	game.player.fighter_component.reanimate()
@@ -193,7 +193,6 @@ func spawnEntity(value : String, path : String):
 	if !dir.dir_exists_absolute(path):
 		clearMessage(path + " does not exist!",true)
 		return
-#
 	if !file.file_exists(path + value + ".tres"):
 
 		clearMessage(value + ".tres" + " cannot be found!",false)
@@ -228,6 +227,8 @@ func add_status(value : String, path : String):
 		clearMessage(value + ".tres" + " cannot be found!",false)
 		return
 	var status = load(path+value+".tres")
+	status = status.duplicate()
+	status.proc_chance = 100
 	var array:Array[StatusEffectDefinition]
 	array = [status]
 	game.player.add_status(array)

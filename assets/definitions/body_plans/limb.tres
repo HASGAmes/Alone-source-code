@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=14 format=3 uid="uid://lgsrlhpk7vuq"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/consumable_definitions/food_consumable_component_definition.gd" id="2_oabop"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="3_lnjvg"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/body_plan_definition.gd" id="4_3cqso"]
+[ext_resource type="Texture2D" uid="uid://bi8cwg81ax7ep" path="res://assets/resources/limb_sprite.tres" id="4_c8i82"]
+[ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="4_l0tbv"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="5_a4b5q"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="6_5l5rm"]
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="7_b4pa4"]
+
+[sub_resource type="Resource" id="Resource_7sswd"]
+script = ExtResource("2_oabop")
+food_amount = 10
+
+[sub_resource type="Resource" id="Resource_sfm3c"]
+script = ExtResource("3_lnjvg")
+is_important = false
+name = "unnamed limb"
+limb_type = 0
+can_be_dismembered = false
+attached_parts = Array[ExtResource("3_lnjvg")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_qlr5w"]
+script = ExtResource("4_3cqso")
+limbs_are_alive = false
+body_parts = Array[ExtResource("3_lnjvg")]([SubResource("Resource_sfm3c")])
+
+[sub_resource type="Resource" id="Resource_j6q5m"]
+script = ExtResource("6_5l5rm")
+max_hp = 10
+str = 10
+dex = 10
+toughness = 10
+will = 10
+prescence = 0
+dismember_chance = 1
+decap = false
+power = 2
+quickness = 55
+defense = 2
+hit_chance = 2
+DV = 2
+critdam = 1
+on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
+aggression = 200
+max_hunger = 100
+res = Array[int]([])
+weakness = Array[int]([])
+immunity = Array[int]([])
+items_on_death = Array[ExtResource("7_b4pa4")]([])
+death_texture = ExtResource("4_c8i82")
+death_color = Color(0.545098, 0, 0, 1)
+corpse_food = ExtResource("4_l0tbv")
+death_noise = Array[AudioStreamWAV]([])
+body_plan_definition = SubResource("Resource_qlr5w")
+skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4p48r"]
+atlas = ExtResource("5_a4b5q")
+region = Rect2(48, 32, 16, 16)
+
+[resource]
+script = ExtResource("7_b4pa4")
+name = "Unnamed Entity"
+texture = SubResource("AtlasTexture_4p48r")
+color = Color(0.545098, 0, 0, 1)
+is_blocking_movment = true
+type = 2
+fighter_definition = SubResource("Resource_j6q5m")
+ai_type = 3
+consumable_definition = SubResource("Resource_7sswd")
+inventory_capacity = 2
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

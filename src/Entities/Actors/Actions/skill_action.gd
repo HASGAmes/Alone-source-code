@@ -4,11 +4,12 @@ extends Action
 var skill: Skills
 var target_position: Vector2i
 var User :Entity
-
-func _init(user: Entity, skill: Skills, target_position = null) -> void:
+var map_data:MapData
+func _init(user: Entity, skill: Skills,mapdata:MapData, target_position = null) -> void:
+	print(user)
 	super._init(user)
 	self.skill = skill
-	
+	self.map_data = mapdata
 	User = user
 	if not target_position is Vector2i:
 		target_position = user.grid_position
@@ -21,7 +22,9 @@ func get_target_actor() -> Entity:
 
 func perform() -> bool:
 	if skill == null:
+		print(User.get_entity_name())
 		return false
-	print(skill)
-	return skill.activate(User,self,target_position)
+
+	
+	return skill.activate(User,self,target_position,map_data)
 
