@@ -50,8 +50,23 @@ func _init(grid_position: Vector2i, tile_definition: TileDefinition) -> void:
 	transparent = tile_definition.is_transparent
 	
 func distance(other_position: Vector2i) -> float:
-	var relative: Vector2i = other_position - grid_position
-	return relative.length()
+	var distance_x = other_position.x-grid_position.x
+	print(distance_x)
+	
+	var distance_y = other_position.y-grid_position.y
+	print(distance_y)
+	if distance_x<0:
+		distance_x*=-1
+	if distance_y<0:
+		distance_y*=-1
+	var distance:int
+	if distance_x>distance_y:
+		distance = distance_x
+	if distance_y>distance_x:
+		distance = distance_y
+	if distance_x == distance_y:
+		distance=distance_x
+	return distance
 
 func set_tile_type(tile_definition: TileDefinition) -> void:
 	_definition = tile_definition.duplicate()

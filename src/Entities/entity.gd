@@ -138,7 +138,7 @@ func knockback(knockvec: Vector2i,knockbackforce) -> void:
 		else:
 			if not destination_tile.is_walkable():
 				if destination_tile.is_destructible() and destination_tile.defense<=knockbackforce*5:
-					destination_tile.hp = 0
+					
 					print("yes")
 					if ai_component !=null:
 						var  attack_description: String = "%s crashes into a wall!!!" % [get_entity_name()]
@@ -146,13 +146,13 @@ func knockback(knockvec: Vector2i,knockbackforce) -> void:
 						var crit:Color
 						crit = GameColors.CRIT
 						attack_description += " and takes %d damage." % crashingdam
-						fighter_component.hp -= crashingdam
 						MessageLog.send_message(attack_description, crit)
+						fighter_component.hp -= crashingdam
 						knockbackforce -= 1
+						destination_tile.hp = 0
 						continue
 		knockbackforce-=1
 	map_data.register_blocking_entity(self)
-
 	if map_data.get_tile(grid_position) == null:
 		grid_position = Vector2i(40,40)
 	visible = map_data.get_tile(grid_position).is_in_view

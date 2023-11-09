@@ -129,7 +129,7 @@ func get_item(window_title: String, inventory: InventoryComponent) -> Entity:
 func melee_direction(player: Entity) -> Action:
 	var target_position: Vector2i = await get_grid_position(player, 1,false)
 	print(target_position)
-	if target_position == null:
+	if target_position == Vector2i.ZERO:
 		return 
 	return MeleeAction.new(player, target_position.x, target_position.y)
 func get_equipment(window_title: String, equipment: EquipmentComponent,player:Entity) -> Limb_Component:

@@ -48,11 +48,20 @@ func activate(action: ItemAction) -> bool:
 				target.fighter_component.take_damage(target.fighter_component.max_hp,DamageTypes.DAMAGE_TYPES.EXPLOSIVE)
 	var tile_targets := []
 	for tile in map_data.get_tiles():
-		if tile.distance(target_position) <= radius:
+		var distance = tile.distance(target_position)
+		
+		if distance<0:
+			distance*=-1
+		
+		if distance > radius:
+			print("distance",distance,"radius:",radius,"failed")
+		elif !tile.is_walkable()and distance<=radius:
+			print("distance",distance,"radius:",radius,"success?")
 			tile_targets.append(tile)
 	for tile in tile_targets:
-		tile.hp -=damage
-		MessageLog.send_message("The %s blown to bits, taking %d damage!" % [tile.tile_name, damage], GameColors.CRIT)
+		if damage>tile.defense:
+			tile.hp -=damage
+			MessageLog.send_message("The %s blown to bits, taking %d damage!" % [tile.tile_name, damage], GameColors.CRIT)
 	consume(action.entity)
 	return true
 

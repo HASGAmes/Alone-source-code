@@ -20,11 +20,13 @@ consumable_sfx = ExtResource("1_fjod3")
 [sub_resource type="Resource" id="Resource_at1me"]
 script = ExtResource("9_qfqlg")
 skill_range = 1
-skill_name = "kick"
+skill_name = "slams"
 skill_power = 3
 skill_cooldown = 4
 free_move = false
 skill_buff = false
+skill_message = "The %s %s the %s"
+message_color = Color(1, 0.423529, 0.368627, 1)
 
 [sub_resource type="Resource" id="Resource_fq03e"]
 script = ExtResource("1_fc2yb")
@@ -43,7 +45,7 @@ hit_chance = 15
 DV = -15
 critdam = 139
 on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
-aggression = 12
+aggression = 150
 max_hunger = 100
 res = Array[int]([0])
 weakness = Array[int]([6])

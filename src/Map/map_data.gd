@@ -11,7 +11,7 @@ const tile_types = {
 	"skulls":preload("res://assets/definitions/tiles/tile_definition_skulls.tres")
 }
 
-const entity_pathfinding_weight = 10.0
+const entity_pathfinding_weight = 15.0
 
 var width: int
 var height: int

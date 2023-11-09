@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=22 format=3 uid="uid://bwitk4gu7ejbm"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=23 format=3 uid="uid://bwitk4gu7ejbm"]
 
 [ext_resource type="AudioStream" uid="uid://dk35sscfdh7vv" path="res://assets/audio/sfx/drink.wav" id="1_8svwq"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_hh8go"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="3_umto4"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/body_plan_definition.gd" id="4_bydod"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="4_rsmu5"]
+[ext_resource type="AudioStream" uid="uid://i3la10x55mgh" path="res://assets/audio/sfx/ahhhh.wav" id="6_8um1n"]
 
 [sub_resource type="Resource" id="Resource_b5r4y"]
 script = ExtResource("2_p0lp4")
@@ -119,7 +120,7 @@ hit_chance = 1
 DV = 5
 critdam = 0
 on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([SubResource("Resource_c1svd")])
-aggression = 5
+aggression = 45
 max_hunger = 100
 res = Array[int]([])
 weakness = Array[int]([])
@@ -128,7 +129,7 @@ items_on_death = Array[ExtResource("1_hh8go")]([])
 death_texture = ExtResource("1_w5ynn")
 death_color = Color(0.545098, 0, 0, 1)
 corpse_food = ExtResource("4_rsmu5")
-death_noise = Array[AudioStreamWAV]([])
+death_noise = Array[AudioStreamWAV]([ExtResource("6_8um1n")])
 body_plan_definition = SubResource("Resource_tmej8")
 skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
 

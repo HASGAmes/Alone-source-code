@@ -9,3 +9,4 @@ gravity = Vector3(0, 126.065, 0)
 initial_velocity_max = 187.65
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
+turbulence_noise_strength = 8.33

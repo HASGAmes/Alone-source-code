@@ -118,7 +118,12 @@ fov_radius = 8
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_15hgc")
-map_height = 200
+map_width = 40
+map_height = 40
+max_rooms = 1
+room_max_size = 22
+max_monsters_per_room = 0
+max_items_per_room = 4
 
 [node name="FieldOfView" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("5_bvmgb")

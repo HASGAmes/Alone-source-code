@@ -5,7 +5,7 @@ extends BaseAIComponent
 var path: Array = []
 var previous_direction:Vector2i
 var previous_attacker_location:Vector2i
-var attacking_actor
+var attacking_actor:Entity
 var radius:int = 8
 var aggro_on_cooldown:bool = false
 var aggro_cooldown:int = 0
@@ -21,14 +21,14 @@ func perform() -> void:
 	map_data = get_map_data()
 	turns_wasted +=1
 	var no_prey_in_sight = false
+	if attacking_actor!=null:
+		if !attacking_actor.is_alive():
+			attacking_actor = null
 	if aggro_on_cooldown == true:
 		aggro_cooldown+=1
-	if aggro_cooldown>=5:
+	if aggro_cooldown>=10:
 		aggro_cooldown = 0
 		aggro_on_cooldown = false
-	if turns_wasted>2:
-		attacking_actor = null
-		no_prey_in_sight = true
 	if attacking_actor == null:
 		for actor in map_data.get_actors():
 			var agr = aggro(user.fighter_component.aggression)
@@ -54,6 +54,11 @@ func perform() -> void:
 			var distance: int = max(abs(offset.x), abs(offset.y))
 			
 			if distance <= 1:
+				var skll = user.fighter_component.skill_tracker.get_children()
+				var kick:Skills = skll.pick_random()
+				if kick!=null:
+					if kick.tick_cooldown == kick.cooldown:
+						return SkillAction.new(entity,kick,entity.map_data,offset).perform()
 				return MeleeAction.new(entity, offset.x, offset.y).perform()
 			path = get_point_path_to(target_grid_position)
 			path.pop_front()
@@ -72,12 +77,12 @@ func perform() -> void:
 			if get_map_data().get_tile(entity.grid_position).is_in_view:
 				if distance <= 1:
 					if user.fighter_component.skill_tracker.get_child_count()!=0:
+						print(attacking_actor)
 						var skll = user.fighter_component.skill_tracker.get_children()
 						var kick:Skills = skll.pick_random()
-						
-						if kick.tick_cooldown== kick.cooldown:
-							
-							return SkillAction.new(entity,kick,entity.map_data,offset).perform()
+						if kick!=null:
+							if kick.tick_cooldown== kick.cooldown:
+								return SkillAction.new(entity,kick,entity.map_data,offset).perform()
 					return MeleeAction.new(entity, offset.x, offset.y).perform()
 				path = get_point_path_to(target_grid_position)
 				path.pop_front()
@@ -122,7 +127,7 @@ func possible_directions() ->Array[Vector2i]:
 		]
 	return direction.duplicate()
 func aggro(challenge:int) -> bool:
-	var agr = user.dicebag.roll_dice(1,100,roundi((user.fighter_component.hunger)))
+	var agr = user.dicebag.roll_dice(1,200,roundi((user.fighter_component.hunger)))
 	if agr>=challenge:
 		return true
 	else: 
@@ -150,20 +155,14 @@ func walk_rando():
 				return  MovementAction.new(entity, move_offset.x, move_offset.y).perform()
 	if previous_direction==null:
 		var go = possible_directions()
-		var forgiven = entity.dicebag.roll_dice(1,20,0)
+		var forgiven = entity.dicebag.roll_dice(1,100,0)
 		if forgiven>=aggression:
 			attacking_actor =null
 		turns_wasted = 0
 		var chosen_direction
 		while !go.is_empty():
 			randomize()
-			var coinflip = entity.dicebag.roll_dice(1,3)
-			if  coinflip == 1:
-				chosen_direction = go.pick_random()
-			elif coinflip == 2:
-				chosen_direction = go.pick_random()
-			elif  coinflip == 3:
-				chosen_direction = go.pick_random()
+			chosen_direction = go.pick_random()
 			if map_data.get_tile(user.grid_position+chosen_direction).is_walkable():
 				previous_direction = chosen_direction
 				return MovementAction.new(entity,chosen_direction.x,chosen_direction.y).perform()
@@ -172,7 +171,7 @@ func walk_rando():
 		var coinflip = entity.dicebag.roll_dice(1,6)
 		if coinflip <= 1:
 			var go = possible_directions()
-			var forgiven = entity.dicebag.roll_dice(1,20,0)
+			var forgiven = entity.dicebag.roll_dice(1,100,0)
 			if forgiven>=aggression:
 				attacking_actor =null
 			turns_wasted = 0
@@ -198,7 +197,7 @@ func walk_rando():
 				return
 			if tile.is_walkable():
 				randomize()
-				var forgiven = entity.dicebag.roll_dice(1,20,0)
+				var forgiven = entity.dicebag.roll_dice(1,100,0)
 				if forgiven>aggression and attacking_actor !=null:
 					#MessageLog.send_message("lost",GameColors.INVALID)
 					attacking_actor =null
@@ -206,7 +205,7 @@ func walk_rando():
 				return MovementAction.new(entity,previous_direction.x,previous_direction.y).perform()
 			else:
 				var go = possible_directions()
-				var forgiven = entity.dicebag.roll_dice(1,20,0)
+				var forgiven = entity.dicebag.roll_dice(1,100,0)
 				if forgiven>=aggression:
 					attacking_actor =null
 				turns_wasted = 0

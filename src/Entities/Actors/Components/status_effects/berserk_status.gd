@@ -36,7 +36,7 @@ func activate_effect(entity:Entity) -> void:
 		xp = entity.fighter_component.xp
 	
 		MessageLog.send_message("The %s rampage grows!!"%entity.get_entity_name(),GameColors.PLAYER_DIE) 
-	elif entity.fighter_component.turns_not_in_combat>0:
+	elif entity.fighter_component.turns_not_in_combat>turns:
 		MessageLog.send_message("NEED BLOOD!!!",GameColors.PLAYER_DIE)
 	elif entity.fighter_component.turns_not_in_combat == 0:
 		MessageLog.send_message("BLOOD!!!",GameColors.PLAYER_DIE)

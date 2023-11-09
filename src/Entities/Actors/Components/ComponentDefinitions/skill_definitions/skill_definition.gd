@@ -7,3 +7,5 @@ extends Resource
 @export var skill_cooldown:int
 @export var free_move:bool = false
 @export var skill_buff:bool = false
+@export var skill_message="%s uses %s"
+@export var message_color:Color =Color.WHITE

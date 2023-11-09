@@ -32,7 +32,7 @@ extends Resource
 @export var death_color: Color = Color.DARK_RED
 @export var corpse_food:FoodConsumableDefinition = preload("res://assets/definitions/entities/items/corpse_food.tres")
 @export_category("Audio")
-@export var death_noise: Array[AudioStreamWAV]
+@export var death_noise: Array[AudioStreamWAV] = [preload("res://assets/audio/sfx/ahhhh.wav")]
 @export_category("Body_Plan and Skills")
 @export var body_plan_definition: Body_Plan_Definition
 var body_plan_def :Body_Plan_Definition

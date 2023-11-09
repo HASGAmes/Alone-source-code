@@ -23,6 +23,9 @@ func perform() -> void:
 	user = get_parent()
 	aggression = user.fighter_component.aggression
 	map_data = get_map_data()
+	if attacking_actor!=null:
+		if !attacking_actor.is_alive():
+			attacking_actor = null
 	if attacking_actor == null:
 		for actor in map_data.get_actors():
 			var agr = aggro(user.fighter_component.aggression)
@@ -102,7 +105,7 @@ func possible_directions() ->Array[Vector2i]:
 
 
 func aggro(challenge:int) -> bool:
-	var agr = user.dicebag.roll_dice(1,20,roundi((user.fighter_component.hunger/10)))
+	var agr = user.dicebag.roll_dice(1,200,roundi((user.fighter_component.hunger/10)))
 	if agr>=challenge:
 		return true
 	else: 

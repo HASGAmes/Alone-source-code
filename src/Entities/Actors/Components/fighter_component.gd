@@ -113,9 +113,10 @@ func level_up():
 	heal(add_health)
 	lv +=1
 	xp -= lv
+	MessageLog.send_message("%s is now level:%x "%[entity.get_entity_name(),lv],GameColors.HEALTH_RECOVERED)
 	if xp>= lv*2:
 		level_up()
-	MessageLog.send_message("%s is now level:%x "%[entity.get_entity_name(),lv],GameColors.HEALTH_RECOVERED)
+	
 	
 func add_skills(listskills:Array[Skills_Definition]):
 	while !listskills.is_empty():

@@ -9,6 +9,8 @@ var target:Entity
 var tick_cooldown:int
 var free_move
 var skill_buff:bool
+var skill_message
+var message_color
 func _init(definition:Kick_Skill_Definition):
 	kick_str = definition.skill_power
 	cooldown = definition.skill_cooldown
@@ -17,6 +19,8 @@ func _init(definition:Kick_Skill_Definition):
 	tick_cooldown = cooldown
 	skill_name= definition.skill_name
 	self.skill_buff =definition.skill_buff
+	self.skill_message = definition.skill_message
+	self.message_color = definition.message_color
 func activate(user:Entity,action: SkillAction,target_position:Vector2i,mapdata:MapData) -> bool:
 	print("kicking?")
 	if tick_cooldown == cooldown:
@@ -26,7 +30,7 @@ func activate(user:Entity,action: SkillAction,target_position:Vector2i,mapdata:M
 			print("is?")
 			MessageLog.send_message("Target Invalid",GameColors.INVALID)
 			return false
-		MessageLog.send_message("The %s kicks the %s"%[user.get_entity_name(),target.get_entity_name()] ,GameColors.PLAYER_ATTACK)
+		MessageLog.send_message(skill_message %[user.get_entity_name(),skill_name,target.get_entity_name()],message_color)
 		target.ai_component.attacking_actor = user
 		target.knockback(knockbackvec,user.fighter_component.strength_mod+1)
 		tick_cooldown = 0
