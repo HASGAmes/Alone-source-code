@@ -1,21 +1,14 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=16 format=3 uid="uid://dnfscusf8bq1e"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=13 format=3 uid="uid://dnfscusf8bq1e"]
 
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_eu3md"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_fc2yb"]
-[ext_resource type="AudioStream" uid="uid://dk35sscfdh7vv" path="res://assets/audio/sfx/drink.wav" id="1_fjod3"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_fkqvq"]
 [ext_resource type="AudioStream" uid="uid://rrj1t860kl8g" path="res://assets/audio/sfx/momkeyfuckingdies.wav" id="2_cskif"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/consumable_definitions/food_consumable_component_definition.gd" id="2_o6bot"]
 [ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="3_bt3d0"]
 [ext_resource type="AudioStream" uid="uid://c0yf5hxc7onat" path="res://assets/audio/sfx/EHHHH.wav" id="3_kicoy"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="4_6cypw"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="5_ukfuu"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/kick_definition.gd" id="9_qfqlg"]
-
-[sub_resource type="Resource" id="Resource_hhvjq"]
-script = ExtResource("2_o6bot")
-food_amount = 10
-consumable_sfx = ExtResource("1_fjod3")
 
 [sub_resource type="Resource" id="Resource_at1me"]
 script = ExtResource("9_qfqlg")
@@ -72,6 +65,5 @@ type = 2
 starting_movement = 0
 fighter_definition = SubResource("Resource_fq03e")
 ai_type = 3
-consumable_definition = SubResource("Resource_hhvjq")
 inventory_capacity = 4
 starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

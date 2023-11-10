@@ -49,7 +49,7 @@ func activate_effect(entity:Entity) -> void:
 		if entity.consumable_component!= null:
 			definition.proc_chance = 50
 			entity.consumable_component.food_buff = definition.duplicate()
-		roll = entity.fighter_component._save_roll(5,entity.fighter_component.toughness_mod)
+		roll = entity.fighter_component._save_roll(18,entity.fighter_component.toughness_mod)
 		if roll == false and turns>2:
 			turns= 0
 			MessageLog.send_message("The %s twitch" % entity.get_entity_name(),GameColors.ENEMY_DIE)

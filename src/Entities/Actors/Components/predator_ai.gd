@@ -133,7 +133,7 @@ func aggro(challenge:int) -> bool:
 	else: 
 		return false
 func walk_rando():
-	if target_food == null and user.fighter_component.hunger< user.fighter_component.max_hunger-30:
+	if target_food == null and user.fighter_component.hunger!=user.fighter_component.max_hunger:
 		for item in map_data.get_items():
 			if item.consumable_component == FoodConsumable and map_data.get_tile(item.grid_position).is_in_view:
 				target_food = item

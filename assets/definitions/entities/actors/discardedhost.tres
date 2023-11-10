@@ -1,9 +1,7 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=25 format=3 uid="uid://cobefg5dint4k"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=22 format=3 uid="uid://cobefg5dint4k"]
 
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="1_b3ao4"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_f1son"]
-[ext_resource type="AudioStream" uid="uid://dk35sscfdh7vv" path="res://assets/audio/sfx/drink.wav" id="1_qfopp"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/consumable_definitions/food_consumable_component_definition.gd" id="2_gowt4"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/body_plan_definition.gd" id="2_juxu3"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="2_rjsg7"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/bleed_definition.gd" id="3_cud25"]
@@ -12,11 +10,6 @@
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="5_ebdbu"]
 [ext_resource type="AudioStream" uid="uid://i3la10x55mgh" path="res://assets/audio/sfx/ahhhh.wav" id="6_6gwmh"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="7_4nts4"]
-
-[sub_resource type="Resource" id="Resource_6xywi"]
-script = ExtResource("2_gowt4")
-food_amount = 10
-consumable_sfx = ExtResource("1_qfopp")
 
 [sub_resource type="Resource" id="Resource_r2viu"]
 script = ExtResource("1_b3ao4")
@@ -157,6 +150,5 @@ type = 2
 starting_movement = 0
 fighter_definition = SubResource("Resource_45db5")
 ai_type = 3
-consumable_definition = SubResource("Resource_6xywi")
 inventory_capacity = 2
 starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

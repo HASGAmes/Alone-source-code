@@ -50,13 +50,9 @@ func activate(action: ItemAction) -> bool:
 	for tile in map_data.get_tiles():
 		var distance = tile.distance(target_position)
 		
-		if distance<0:
-			distance*=-1
-		
 		if distance > radius:
 			print("distance",distance,"radius:",radius,"failed")
 		elif !tile.is_walkable()and distance<=radius:
-			print("distance",distance,"radius:",radius,"success?")
 			tile_targets.append(tile)
 	for tile in tile_targets:
 		if damage>tile.defense:

@@ -41,7 +41,7 @@ status_name = "berserk"
 turns = 8
 is_indefinite = false
 proc_chance = 100
-can_stack = true
+can_stack = false
 
 [sub_resource type="Resource" id="Resource_gvgkq"]
 script = ExtResource("8_dkd5v")

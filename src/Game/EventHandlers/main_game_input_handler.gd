@@ -37,7 +37,8 @@ func get_action(player: Entity) -> Action:
 			$input_delay.stop()
 	if Input.is_action_just_pressed("COMMAND_LINE"):
 		get_parent().transition_to(InputHandler.InputHandlers.DUMMY)
-	
+	if Input.is_action_just_pressed("ranged_attack"):
+		action = await ranged_attack(player)
 	if Input.is_action_just_pressed("force_melee"):
 		action =  await melee_direction(player)
 	if Input.is_action_just_pressed("view_history"):
@@ -75,7 +76,11 @@ func get_action(player: Entity) -> Action:
 		action = EscapeAction.new(player)
 	
 	return action
-
+func ranged_attack(player: Entity) -> Action:
+	var target = await get_grid_position(player,0,true)
+	if target == Vector2i(0,0):
+		return
+	return RangedAction.new(player,target)
 func activate_skill(player: Entity) -> Action:
 	var selected_item: Skills = await get_skills("Select a skill to use",player.skill_component,player)
 	if selected_item == null:
@@ -156,6 +161,7 @@ func get_skills(window_title: String, skill: SkillComponent,player:Entity) -> Sk
 func get_grid_position(player: Entity, radius: int,freemove:bool,stayinrange:bool = false) -> Vector2i:
 	get_parent().transition_to(InputHandler.InputHandlers.DUMMY)
 	var selected_position = await reticle.select_position(player, radius,freemove,stayinrange)
+	print(selected_position)
 	await get_tree().physics_frame
 	get_parent().call_deferred("transition_to", InputHandler.InputHandlers.MAIN_GAME)
 	return selected_position

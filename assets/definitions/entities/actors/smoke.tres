@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=12 format=3 uid="uid://c44pog4vwe1cd"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=13 format=3 uid="uid://c44pog4vwe1cd"]
 
 [ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="1_7sm63"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_e548o"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_jxtpn"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="2_7n200"]
 [ext_resource type="AudioStream" uid="uid://rrj1t860kl8g" path="res://assets/audio/sfx/momkeyfuckingdies.wav" id="2_dv55b"]
+[ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_hkoax"]
 [ext_resource type="AudioStream" uid="uid://c0yf5hxc7onat" path="res://assets/audio/sfx/EHHHH.wav" id="3_3duph"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="4_npkv5"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/temporal_definition.gd" id="4_v73ht"]
@@ -31,8 +32,10 @@ max_hunger = 100
 res = Array[int]([0])
 weakness = Array[int]([6])
 immunity = Array[int]([])
+items_on_death = Array[ExtResource("1_e548o")]([])
 death_texture = ExtResource("1_jxtpn")
 death_color = Color(0.545098, 0, 0, 1)
+corpse_food = ExtResource("2_hkoax")
 death_noise = Array[AudioStreamWAV]([ExtResource("2_dv55b"), ExtResource("3_3duph")])
 body_plan_definition = ExtResource("1_7sm63")
 skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
@@ -43,6 +46,7 @@ status_name = "unnamed status"
 turns = 3
 is_indefinite = false
 proc_chance = 100
+can_stack = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_85d2d"]
 atlas = ExtResource("4_npkv5")
@@ -55,6 +59,7 @@ texture = SubResource("AtlasTexture_85d2d")
 color = Color(1, 1, 1, 1)
 is_blocking_movment = false
 type = 2
+starting_movement = 0
 fighter_definition = SubResource("Resource_74nob")
 ai_type = 0
 inventory_capacity = 0

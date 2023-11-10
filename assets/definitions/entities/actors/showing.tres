@@ -14,6 +14,7 @@ texture = SubResource("AtlasTexture_p7655")
 color = Color(1, 1, 1, 1)
 is_blocking_movment = true
 type = 0
+starting_movement = 0
 ai_type = 0
 inventory_capacity = 0
 starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

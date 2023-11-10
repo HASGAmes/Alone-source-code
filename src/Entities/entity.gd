@@ -30,6 +30,7 @@ var skill_component:SkillComponent
 #####
 var status_tracker:Node
 var part_effect:GPUParticles2D
+var collision = preload("res://assets/resources/raycast_body.tscn")
 var turns_hunger:int = 0
 func _init(map_data: MapData, start_position: Vector2i, entity_definition: EntityDefinition) -> void:
 	centered = false
@@ -39,7 +40,10 @@ func _init(map_data: MapData, start_position: Vector2i, entity_definition: Entit
 
 
 func set_entity_type(entity_definition: EntityDefinition) -> void:
-	
+	collision = collision.instantiate()
+	add_child(collision)
+	collision.position = Vector2i(8,8)
+	collision.collision_layer = z_index
 	if entity_definition!= null:
 		_definition = entity_definition
 	type = _definition.type
@@ -158,10 +162,21 @@ func knockback(knockvec: Vector2i,knockbackforce) -> void:
 	visible = map_data.get_tile(grid_position).is_in_view
 	fighter_component.quickness = orginal_quickness
 
-func distance(other_position: Vector2i) -> float:
-	var relative: Vector2i = other_position - grid_position
-	return relative.length()
-
+func distance(other_position: Vector2i) -> int:
+	var distance_x = other_position.x-grid_position.x
+	var distance_y = other_position.y-grid_position.y
+	if distance_x<0:
+		distance_x*=-1
+	if distance_y<0:
+		distance_y*=-1
+	var distance:int
+	if distance_x>distance_y:
+		distance = distance_x
+	if distance_y>distance_x:
+		distance = distance_y
+	if distance_x == distance_y:
+		distance=distance_x
+	return distance
 
 func is_blocking_movement() -> bool:
 	return blocks_movement

@@ -26,6 +26,7 @@ var rubble_color:Color
 var destructible:bool
 var terrain_effect
 var grid_position:Vector2i
+var collision = preload("res://assets/resources/raycast_body.tscn")
 var is_explored: bool = false:
 	set(value):
 		is_explored = value
@@ -48,13 +49,15 @@ func _init(grid_position: Vector2i, tile_definition: TileDefinition) -> void:
 	set_tile_type(tile_definition)
 	walkable = tile_definition.is_walkable
 	transparent = tile_definition.is_transparent
-	
-func distance(other_position: Vector2i) -> float:
+	collision = collision.instantiate()
+	add_child(collision)
+	collision.position = Vector2i(8,8)
+	collision.collision_layer = 4
+	print(collision.position)
+func distance(other_position: Vector2i) -> int:
 	var distance_x = other_position.x-grid_position.x
-	print(distance_x)
 	
 	var distance_y = other_position.y-grid_position.y
-	print(distance_y)
 	if distance_x<0:
 		distance_x*=-1
 	if distance_y<0:

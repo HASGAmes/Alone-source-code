@@ -37,12 +37,11 @@ func _physics_process(_delta: float) -> void:
 			if player.fighter_component.turn<100:
 				player.fighter_component.turn+=player.fighter_component.quickness
 			var previous_player_position: Vector2i = player.grid_position
-			while player.fighter_component.turn<100:
+			while player.fighter_component.turn<100 and player.fighter_component.quickness!=0:
 				_handle_enemy_turns()
 				player.fighter_component.turn+=player.fighter_component.quickness
 				enemies_acted=true
 			#print(action)
-			
 			if action.perform():
 				map.update_fov(player.grid_position)
 				player.fighter_component.turns_not_in_combat +=1
