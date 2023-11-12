@@ -12,7 +12,7 @@
 [sub_resource type="Resource" id="Resource_r638u"]
 script = ExtResource("4_ydv83")
 status_name = "cloak"
-turns = 100
+turns = 50
 is_indefinite = false
 proc_chance = 100
 can_stack = false
@@ -23,10 +23,10 @@ status = SubResource("Resource_r638u")
 skill_range = 0
 skill_name = "cloak"
 skill_power = 0
-skill_cooldown = 50
+skill_cooldown = 100
 free_move = false
 skill_buff = true
-skill_message = "%s activates their cloak %s"
+skill_message = "%s activates their %s"
 message_color = Color(0.643137, 0, 0.658824, 1)
 
 [sub_resource type="Resource" id="Resource_5eo4b"]
