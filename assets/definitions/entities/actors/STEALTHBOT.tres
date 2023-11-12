@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=11 format=3 uid="uid://cvtcrpu275nm6"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=13 format=3 uid="uid://cvtcrpu275nm6"]
 
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_glo42"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_nkqvm"]
@@ -7,6 +7,27 @@
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="2_erdt6"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_pc7t1"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/invisible_definition.gd" id="4_ydv83"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/add_status_self_definition.gd" id="5_v5752"]
+
+[sub_resource type="Resource" id="Resource_r638u"]
+script = ExtResource("4_ydv83")
+status_name = "cloak"
+turns = 100
+is_indefinite = false
+proc_chance = 100
+can_stack = false
+
+[sub_resource type="Resource" id="Resource_hiwdj"]
+script = ExtResource("5_v5752")
+status = SubResource("Resource_r638u")
+skill_range = 0
+skill_name = "cloak"
+skill_power = 0
+skill_cooldown = 50
+free_move = false
+skill_buff = true
+skill_message = "%s activates their cloak %s"
+message_color = Color(0.643137, 0, 0.658824, 1)
 
 [sub_resource type="Resource" id="Resource_5eo4b"]
 script = ExtResource("2_ekykn")
@@ -36,15 +57,7 @@ death_color = Color(0.545098, 0, 0, 1)
 corpse_food = ExtResource("2_pc7t1")
 death_noise = Array[AudioStreamWAV]([])
 body_plan_definition = ExtResource("1_rbg2d")
-skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
-
-[sub_resource type="Resource" id="Resource_i0d0q"]
-script = ExtResource("4_ydv83")
-status_name = "unnamed status"
-turns = 4
-is_indefinite = true
-proc_chance = 100
-can_stack = true
+skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([SubResource("Resource_hiwdj")])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c12nh"]
 atlas = ExtResource("2_erdt6")
@@ -61,4 +74,4 @@ starting_movement = 0
 fighter_definition = SubResource("Resource_5eo4b")
 ai_type = 3
 inventory_capacity = 10
-starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([SubResource("Resource_i0d0q")])
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

@@ -22,7 +22,6 @@ func _init(definition:Kick_Skill_Definition):
 	self.skill_message = definition.skill_message
 	self.message_color = definition.message_color
 func activate(user:Entity,action: SkillAction,target_position:Vector2i,mapdata:MapData) -> bool:
-	print("kicking?")
 	if tick_cooldown == cooldown:
 		target = user.map_data.get_actor_at_location(target_position+user.grid_position)
 		var knockbackvec = -target_position

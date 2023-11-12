@@ -29,6 +29,12 @@ func perform() -> void:
 	if aggro_cooldown>=10:
 		aggro_cooldown = 0
 		aggro_on_cooldown = false
+	var skll = user.fighter_component.skill_tracker.get_children()
+	var kick:Skills = skll.pick_random()
+	if kick!= null and kick is AddStatusSelfSkill:
+		if user.visible == true and kick.tick_cooldown == kick.cooldown:
+			return SkillAction.new(entity,kick,entity.map_data,Vector2i.ZERO).perform()
+	
 	if attacking_actor == null:
 		for actor in map_data.get_actors():
 			var agr = aggro(user.fighter_component.aggression)
@@ -54,8 +60,6 @@ func perform() -> void:
 			var distance: int = max(abs(offset.x), abs(offset.y))
 			
 			if distance <= 1:
-				var skll = user.fighter_component.skill_tracker.get_children()
-				var kick:Skills = skll.pick_random()
 				if kick!=null:
 					if kick.tick_cooldown == kick.cooldown:
 						return SkillAction.new(entity,kick,entity.map_data,offset).perform()
@@ -78,8 +82,6 @@ func perform() -> void:
 				if distance <= 1:
 					if user.fighter_component.skill_tracker.get_child_count()!=0:
 						print(attacking_actor)
-						var skll = user.fighter_component.skill_tracker.get_children()
-						var kick:Skills = skll.pick_random()
 						if kick!=null:
 							if kick.tick_cooldown== kick.cooldown:
 								return SkillAction.new(entity,kick,entity.map_data,offset).perform()

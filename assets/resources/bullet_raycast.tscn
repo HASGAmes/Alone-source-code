@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bfqtfacdx7sus"]
 
-[node name="bullet_raycast" type="RayCast2D"]
-target_position = Vector2(0, 0)
+[node name="rotate" type="Node2D"]
+
+[node name="bullet_raycast" type="RayCast2D" parent="."]
+target_position = Vector2(160, 0)
 collision_mask = 15
 hit_from_inside = true
-collide_with_areas = true
-collide_with_bodies = false

@@ -36,24 +36,23 @@ func activate(action: ItemAction) -> bool:
 		if target.type != Entity.EntityType.CORPSE:
 			var damroll = target.dicebag.roll_dice(2,damage,-target.fighter_component.defense)
 			damage = damroll
+			var message
 			if damage<=0:
 				MessageLog.send_message("The %s is engulfed in a fiery explosion, but is unharmed!?!" % [target.get_entity_name()], GameColors.CRIT)
 			else:
-				MessageLog.send_message("The %s is engulfed in a fiery explosion, taking %d damage!" % [target.get_entity_name(), damage], GameColors.CRIT)
-				
+				message = "The %s is engulfed in a fiery explosion," % target.get_entity_name()
 				if target_position !=target.grid_position:
 					var knockbackvec = target_position - target.grid_position
 					target.knockback(knockbackvec,damage)
 				target.fighter_component.body_plan.dismember(true)
-				target.fighter_component.take_damage(target.fighter_component.max_hp,DamageTypes.DAMAGE_TYPES.EXPLOSIVE)
+				target.fighter_component.take_damage(target.fighter_component.max_hp,DamageTypes.DAMAGE_TYPES.EXPLOSIVE,message)
 	var tile_targets := []
 	for tile in map_data.get_tiles():
 		var distance = tile.distance(target_position)
 		
-		if distance > radius:
-			print("distance",distance,"radius:",radius,"failed")
-		elif !tile.is_walkable()and distance<=radius:
-			tile_targets.append(tile)
+		if distance < radius:
+			if !tile.is_walkable():
+				tile_targets.append(tile)
 	for tile in tile_targets:
 		if damage>tile.defense:
 			tile.hp -=damage

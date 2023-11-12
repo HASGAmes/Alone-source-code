@@ -151,22 +151,31 @@ func heal(amount: int) -> int:
 	return amount_recovered
 
 
-func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES) -> void:
+func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES,damage_message:String) -> void:
 	var imm = immune.duplicate()
 	var resistance = res.duplicate()
 	var weak = weakness.duplicate()
+	var resistances_message:String
 	while !weak.is_empty():
 		var damage = weak.pop_front()
 		if damage_type == damage:
 			amount *= 2
+			resistances_message = "FOR %d HITPOINTS!!!!" % amount
 	while !resistance.is_empty():
 		var damage = resistance.pop_front()
 		if damage_type == damage:
 			amount /= 2
+			resistances_message = ",for a pityful %d hit points." % amount
+	
 	while !imm.is_empty():
 		var damage = imm.pop_front()
 		if damage_type == damage:
 			amount = 0
+			resistances_message += " but they weren't fazed." 
+	if resistances_message== null:
+		resistances_message = " for a  %d hit points." % amount
+	damage_message+= resistances_message
+	MessageLog.send_message(damage_message,GameColors.ENEMY_ATTACK)
 	hp -= amount
 	turns_not_in_combat = 0
 func gain_random_stat(amount:int)-> void:

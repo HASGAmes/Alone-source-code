@@ -7,7 +7,6 @@ func perform() -> bool:
 	var attacker_stat = entity.fighter_component
 	var defender_stat
 	var attacking_limb
-	
 	if target_entity == null and target_tile== null:
 		return false
 	if target_entity!=null:
@@ -50,15 +49,11 @@ func perform() -> bool:
 						target_entity.add_status(attacker_stat.onhit_effects.duplicate())
 			if hit_roll >=20:
 				attack_description+=" CRIT!!!!!!!!!!!!!!"
-				attack_description += " for %d hit points." % damage
-				MessageLog.send_message(attack_description, crit,entity)
-				defender_stat.hp -= damage
+				defender_stat.take_damage(damage,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
 			else:
 				if dismember_chance>=21:
 					defender_stat.body_plan.dismember(attacker_stat.decap)
-				attack_description += " for %d hit points." % damage
-				MessageLog.send_message(attack_description, attack_color,entity)
-				defender_stat.take_damage(damage,DamageTypes.DAMAGE_TYPES.BLUDGEONING)
+				defender_stat.take_damage(damage,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
 		else:
 			attack_description += " but does no damage..."
 			MessageLog.send_message(attack_description, attack_color)

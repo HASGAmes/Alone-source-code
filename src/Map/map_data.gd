@@ -93,6 +93,7 @@ func register_blocking_entity(entity: Entity) -> void:
 
 func unregister_blocking_entity(entity: Entity) -> void:
 	pathfinder.set_point_weight_scale(entity.grid_position, 0)
+	
 func get_tiles() ->Array[Tile]:
 	var list_Tiles:Array[Tile] = []
 	for tile in tiles:
@@ -120,3 +121,26 @@ func get_actor_at_location(location: Vector2i) -> Entity:
 		if actor.grid_position == location:
 			return actor
 	return null
+
+func diagonal_distance(p0, p1):
+	var dvector = Vector2i(p1.x - p0.x, p1.y - p0.y)
+	return max(abs(dvector.x), abs(dvector.y))
+
+
+func lerp(start, end, t):
+	return start * (1.0 - t) + t * end
+
+
+func lerp_line(p0, p1):
+	var points = []
+	var N = diagonal_distance(p0, p1)
+	var step = 0
+	while  step <= N:
+		step+=1
+		var t = N 
+		if N != 0:
+			t = step/N
+		var x = round(lerp(p0.x, p1.x, t))
+		var y = round(lerp(p0.y, p1.y, t))
+		points.append(Vector2i(x,y))
+	return points

@@ -9,7 +9,7 @@ var current_movement:MOVEMENT_TYPE
 var grid_position: Vector2i:
 	set(value):
 		grid_position = value
-		position = Grid.grid_to_world(grid_position)
+		global_position = Grid.grid_to_world(grid_position)
 var _definition: EntityDefinition
 var entity_name: String
 var blocks_movement: bool
@@ -101,10 +101,10 @@ func move(move_offset: Vector2i) -> void:
 	
 
 func knockback(knockvec: Vector2i,knockbackforce) -> void:
-	map_data.unregister_blocking_entity(self)
 	var destination = grid_position+knockvec*-1
 	var destination_entity: Entity = map_data.get_actor_at_location(destination)
 	var destination_tile: Tile = map_data.get_tile(destination)
+	map_data.unregister_blocking_entity(self)
 	var orginal_quickness = fighter_component.quickness
 	while knockbackforce>0:
 		fighter_component.quickness = 0
@@ -120,45 +120,37 @@ func knockback(knockvec: Vector2i,knockbackforce) -> void:
 					if entityknockedbacktile.is_walkable() or entityknockedbacktile == null:
 						destination_entity.knockback(knockvec,knockbackforce)
 					else:
-						if destination_entity.ai_component !=null:
+						if destination_entity.is_alive():
 							var  attack_description: String = "%s crashes into a wall!!!" % [destination_entity.get_entity_name()]
 							var crashingdam= dicebag.roll_dice(knockbackforce,6,0)
 							var crit:Color
 							crit = GameColors.CRIT
-							attack_description += " and takes %d damage." % crashingdam
-							destination_entity.fighter_component.hp -= crashingdam
-							MessageLog.send_message(attack_description, crit)
+							destination_entity.fighter_component.take_damage(crashingdam,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
 							knockbackforce-=1
-					if ai_component !=null:
-						var  attack_description: String = "%s crashes into a %s!!!" % [get_entity_name(),destination_entity.get_entity_name()]
+					if is_alive():
+						var  attack_description: String = "%s crashes into the %s!!!" % [get_entity_name(),destination_entity.get_entity_name()]
 						var crashingdam= randi_range(1,6)*knockbackforce
 						var crit:Color
 						crit = GameColors.CRIT
-						attack_description += " and takes %d damage." % crashingdam
-						fighter_component.hp -= crashingdam
-						MessageLog.send_message(attack_description, crit)
+						destination_entity.fighter_component.take_damage(crashingdam,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
 						knockbackforce-=1
 						continue
 		else:
 			if not destination_tile.is_walkable():
 				if destination_tile.is_destructible() and destination_tile.defense<=knockbackforce*5:
-					
-					print("yes")
 					if ai_component !=null:
-						var  attack_description: String = "%s crashes into a wall!!!" % [get_entity_name()]
+						var attack_description: String = "%s crashes into a wall!!!" % [get_entity_name()]
 						var crashingdam= randi_range(1,6)
 						var crit:Color
 						crit = GameColors.CRIT
-						attack_description += " and takes %d damage." % crashingdam
-						MessageLog.send_message(attack_description, crit)
-						fighter_component.hp -= crashingdam
+						fighter_component.take_damage(crashingdam,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
 						knockbackforce -= 1
 						destination_tile.hp = 0
 						continue
 		knockbackforce-=1
 	map_data.register_blocking_entity(self)
 	if map_data.get_tile(grid_position) == null:
-		grid_position = Vector2i(40,40)
+		grid_position = Vector2i(1,1)
 	visible = map_data.get_tile(grid_position).is_in_view
 	fighter_component.quickness = orginal_quickness
 
@@ -207,7 +199,7 @@ func passed_turn():
 			fighter_component.hunger -=2
 			turns_hunger = 0
 	if fighter_component.hunger == 0 and fighter_component.hp >=1:
-		fighter_component.take_damage(1,DamageTypes.DAMAGE_TYPES.INTERNAL)
+		fighter_component.take_damage(1,DamageTypes.DAMAGE_TYPES.INTERNAL,"")
 	while !status.is_empty():
 		var current_status= status.pop_front()
 		current_status.activate_effect(self)

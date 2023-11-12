@@ -14,10 +14,10 @@ func _init(definition: Bleed_Definition):
 	
 func activate_effect(entity:Entity) -> void:
 	var damage_taken = entity.dicebag.roll_dice(1,damage)
-	entity.fighter_component.take_damage(damage_taken,DamageTypes.DAMAGE_TYPES.PIERCING)
+	var damage_message = "%s bleeds for %d damage"% [entity.entity_name ,damage_taken]
+	entity.fighter_component.take_damage(damage_taken,DamageTypes.DAMAGE_TYPES.PIERCING,damage_message)
 	if forever == false:
 		turns = turns -1
-	MessageLog.send_message("%s bleeds for %d damage"% [entity.entity_name ,damage_taken],GameColors.ENEMY_ATTACK)
 	if turns <=0:
 		MessageLog.send_message("%s stops bleeding"%entity.entity_name,GameColors.STATUS_END)
 		queue_free()

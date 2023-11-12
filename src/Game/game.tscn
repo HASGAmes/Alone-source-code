@@ -83,7 +83,7 @@ stretch = true
 disable_3d = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
-size = Vector2i(2, 2)
+size = Vector2i(820, 648)
 render_target_update_mode = 4
 
 [node name="Game" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport"]
@@ -118,11 +118,11 @@ fov_radius = 8
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_15hgc")
-map_width = 10
-map_height = 10
-max_rooms = 1
-room_min_size = 10
-max_monsters_per_room = 0
+map_width = 400
+map_height = 200
+max_rooms = 40
+room_max_size = 112
+max_monsters_per_room = 6
 max_items_per_room = 4
 
 [node name="FieldOfView" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]

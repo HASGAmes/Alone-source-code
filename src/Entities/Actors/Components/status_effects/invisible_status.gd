@@ -28,14 +28,12 @@ func activate_effect(entity:Entity) -> void:
 		turns -= 1
 	randomize()
 	var chance = entity.dicebag.roll_dice(1,100,0)
-	if turns <= 0 or entity.fighter_component.hp <previoshp:
+	if entity.fighter_component.hp <previoshp:
 		MessageLog.send_message("%s's cloak got damaged in the fight"%entity.get_entity_name(),GameColors.STATUS_END,entity)
 		entity.visible = true
 		entity.modulate= entity._definition.color
-		
 		queue_free()
-	
-	elif chance <= 1:
+	elif turns <= 0:
 		MessageLog.send_message("%s's cloak ran out of juice!!"%entity.get_entity_name(),GameColors.STATUS_END,entity)
 		if entity.map_data.get_tile(entity.grid_position).is_in_view:
 			entity.visible = true
