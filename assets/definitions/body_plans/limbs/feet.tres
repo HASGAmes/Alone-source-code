@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Limb_Definition" load_steps=2 format=3 uid="uid://b1ddpmh8xwgg"]
 
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="1_pqxvw"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_pqxvw"]
 
 [resource]
 resource_local_to_scene = true

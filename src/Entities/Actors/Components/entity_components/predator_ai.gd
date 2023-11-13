@@ -30,7 +30,9 @@ func perform() -> void:
 		aggro_cooldown = 0
 		aggro_on_cooldown = false
 	var skll = user.fighter_component.skill_tracker.get_children()
-	var kick:Skills = skll.pick_random()
+	var kick:Skills
+	if skll!=null:
+		kick = skll.pick_random()
 	if kick!= null and kick is AddStatusSelfSkill:
 		if user.visible == true and kick.tick_cooldown == kick.cooldown:
 			return SkillAction.new(entity,kick,entity.map_data,Vector2i.ZERO).perform()

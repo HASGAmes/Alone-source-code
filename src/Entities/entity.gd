@@ -26,6 +26,7 @@ var ai_component: BaseAIComponent
 var consumable_component: ConsumableComponent
 var inventory_component: InventoryComponent
 var equipment_component :EquipmentComponent
+var equipment_item_component:EquipmentItemComponent
 var skill_component:SkillComponent
 #####
 var status_tracker:Node
@@ -59,6 +60,10 @@ func set_entity_type(entity_definition: EntityDefinition) -> void:
 	add_child(part_effect)
 	add_child(status_tracker)
 	part_effect.position += Vector2(8,-8)
+	if entity_definition.equipment_item_component:
+		print("yes5")
+		equipment_item_component = EquipmentItemComponent.new(entity_definition.equipment_item_component)
+		add_child(equipment_item_component)
 	match entity_definition.ai_type:
 		AIType.NONE:
 			ai_component = null

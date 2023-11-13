@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Body_Plan_Definition" load_steps=14 format=3 uid="uid://2cikbcm7s7f7"]
 
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="1_w16tv"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/body_plan_definition.gd" id="2_oo18g"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_w16tv"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/body_plan_definition.gd" id="2_oo18g"]
 
 [sub_resource type="Resource" id="Resource_3rd1x"]
 script = ExtResource("1_w16tv")

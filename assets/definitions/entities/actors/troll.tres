@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="EntityDefinition" load_steps=13 format=3 uid="uid://dnfscusf8bq1e"]
 
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_eu3md"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_fc2yb"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_fkqvq"]
 [ext_resource type="AudioStream" uid="uid://rrj1t860kl8g" path="res://assets/audio/sfx/momkeyfuckingdies.wav" id="2_cskif"]
 [ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="3_bt3d0"]
 [ext_resource type="AudioStream" uid="uid://c0yf5hxc7onat" path="res://assets/audio/sfx/EHHHH.wav" id="3_kicoy"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="4_6cypw"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="5_ukfuu"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="6_e7vdr"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/kick_definition.gd" id="9_qfqlg"]
 
 [sub_resource type="Resource" id="Resource_at1me"]
@@ -22,7 +22,7 @@ skill_message = "The %s %s the %s"
 message_color = Color(1, 0.423529, 0.368627, 1)
 
 [sub_resource type="Resource" id="Resource_fq03e"]
-script = ExtResource("1_fc2yb")
+script = ExtResource("6_e7vdr")
 max_hp = 14
 str = 16
 dex = 8

@@ -155,25 +155,28 @@ func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES,damage_messag
 	var imm = immune.duplicate()
 	var resistance = res.duplicate()
 	var weak = weakness.duplicate()
-	var resistances_message:String
+	var resistances_message:String = ""
 	while !weak.is_empty():
 		var damage = weak.pop_front()
 		if damage_type == damage:
 			amount *= 2
-			resistances_message = "FOR %d HITPOINTS!!!!" % amount
+			resistances_message += "FOR %d HITPOINTS!!!!" % amount
 	while !resistance.is_empty():
 		var damage = resistance.pop_front()
 		if damage_type == damage:
 			amount /= 2
-			resistances_message = ",for a pityful %d hit points." % amount
+			resistances_message += ",for a pityful %d hit points." % amount
 	
 	while !imm.is_empty():
 		var damage = imm.pop_front()
 		if damage_type == damage:
 			amount = 0
 			resistances_message += " but they weren't fazed." 
-	if resistances_message== null:
+	if resistances_message== "":
 		resistances_message = " for a  %d hit points." % amount
+	if amount<=defense:
+		resistances_message = " but it didn't inflict damage"
+		amount = 0
 	damage_message+= resistances_message
 	MessageLog.send_message(damage_message,GameColors.ENEMY_ATTACK)
 	hp -= amount

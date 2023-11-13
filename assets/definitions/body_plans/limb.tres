@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="EntityDefinition" load_steps=14 format=3 uid="uid://lgsrlhpk7vuq"]
 
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/consumable_definitions/food_consumable_component_definition.gd" id="2_oabop"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="3_lnjvg"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/body_plan_definition.gd" id="4_3cqso"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="3_lnjvg"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/body_plan_definition.gd" id="4_3cqso"]
 [ext_resource type="Texture2D" uid="uid://bi8cwg81ax7ep" path="res://assets/resources/limb_sprite.tres" id="4_c8i82"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="4_l0tbv"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="5_a4b5q"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="6_5l5rm"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="6_5l5rm"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="7_b4pa4"]
 
 [sub_resource type="Resource" id="Resource_7sswd"]

@@ -17,3 +17,4 @@ extends Resource
 @export var consumable_definition: ConsumableComponentDefinition
 @export var inventory_capacity: int = 0
 @export var starting_status:Array[StatusEffectDefinition]
+@export var equipment_item_component:EquipmentDefinition

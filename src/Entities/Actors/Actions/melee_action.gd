@@ -34,29 +34,25 @@ func perform() -> bool:
 			attack_description+= " but misses!!"
 			MessageLog.send_message(attack_description, attack_color)
 			return true
-		if damage > 0:
-			attacker_stat.turns_not_in_combat = 0
-			defender_stat.credit_exp = entity
-			if target_entity.ai_component is PredatorAi and !target_entity == self:
-				target_entity.ai_component.attacking_actor = entity
-			if target_entity.ai_component is PreyAi and !target_entity == self:
-				target_entity.ai_component.attacking_actor = entity
-			var dismember_chance = target_entity.dicebag.roll_dice(1,20,attacker_stat.dismember_chance)
-			if !attacker_stat.onhit_effects.is_empty():
-				for StatusEffectDefinition in attacker_stat.onhit_effects:
-					var proc = randi_range(1,100)
-					if proc <= StatusEffectDefinition.proc_chance:
-						target_entity.add_status(attacker_stat.onhit_effects.duplicate())
-			if hit_roll >=20:
-				attack_description+=" CRIT!!!!!!!!!!!!!!"
-				defender_stat.take_damage(damage,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
-			else:
-				if dismember_chance>=21:
-					defender_stat.body_plan.dismember(attacker_stat.decap)
-				defender_stat.take_damage(damage,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
+		attacker_stat.turns_not_in_combat = 0
+		defender_stat.credit_exp = entity
+		if target_entity.ai_component is PredatorAi and !target_entity == self:
+			target_entity.ai_component.attacking_actor = entity
+		if target_entity.ai_component is PreyAi and !target_entity == self:
+			target_entity.ai_component.attacking_actor = entity
+		var dismember_chance = target_entity.dicebag.roll_dice(1,20,attacker_stat.dismember_chance)
+		if !attacker_stat.onhit_effects.is_empty():
+			for StatusEffectDefinition in attacker_stat.onhit_effects:
+				var proc = randi_range(1,100)
+				if proc <= StatusEffectDefinition.proc_chance:
+					target_entity.add_status(attacker_stat.onhit_effects.duplicate())
+		if hit_roll >=20:
+			attack_description+=" CRIT!!!!!!!!!!!!!!"
+			defender_stat.take_damage(damage,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
 		else:
-			attack_description += " but does no damage..."
-			MessageLog.send_message(attack_description, attack_color)
+			if dismember_chance>=21:
+				defender_stat.body_plan.dismember(attacker_stat.decap)
+			defender_stat.take_damage(damage,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
 		return true
 	elif target_tile!=null:
 		if not target_tile:

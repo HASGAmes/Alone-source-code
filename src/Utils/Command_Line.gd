@@ -157,7 +157,7 @@ func runCommand(command : String, value : String, commandCode : int) -> String:
 	return command
 	
 func woundme():
-	game.player.fighter_component.take_damage(game.player.fighter_component.hp-1,DamageTypes.DAMAGE_TYPES.INTERNAL)
+	game.player.fighter_component.take_damage(game.player.fighter_component.hp-1,DamageTypes.DAMAGE_TYPES.INTERNAL,"Debug Damage hurts %s"%game.player.get_entity_name())
 	clearMessage("Success",true)
 func realive():
 	game.player.fighter_component.reanimate()

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Limb_Definition" load_steps=3 format=3 uid="uid://24yoeoi3xonm"]
 
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/limb_definition.gd" id="1_h61id"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_h61id"]
 
 [sub_resource type="Resource" id="Resource_ne5xd"]
 script = ExtResource("1_h61id")

@@ -119,7 +119,12 @@ func change_equipment(player: Entity) -> Action:
 		get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME)
 		return null
 	var selected_item = await get_item("Select an item to equip", player.inventory_component)
-		
+	if selected_item.equipment_item_component == null:
+		get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME)
+		return null
+	if selected_item.equipment_item_component.equipment_slot!= selected_limb.limb_type:
+		get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME)
+		return null
 	return Equip_Action.new(player,selected_limb,selected_item)
 func get_item(window_title: String, inventory: InventoryComponent) -> Entity:
 	var inventory_menu: InventoryMenu = inventory_menu_scene.instantiate()

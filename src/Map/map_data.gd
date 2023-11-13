@@ -111,7 +111,7 @@ func get_actors() -> Array[Entity]:
 func get_items() -> Array[Entity]:
 	var items: Array[Entity] = []
 	for entity in entities:
-		if entity.consumable_component != null:
+		if entity.consumable_component != null or entity.equipment_item_component!=null:
 			items.append(entity)
 	return items
 

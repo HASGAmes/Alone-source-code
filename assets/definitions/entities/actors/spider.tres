@@ -4,12 +4,12 @@
 [ext_resource type="AudioStream" uid="uid://c0yf5hxc7onat" path="res://assets/audio/sfx/EHHHH.wav" id="4_0m1yy"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="4_df4mw"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="4_q23lh"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="5_pe7a6"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="5_7xck5"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="6_4kk0v"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="7_xmbu0"]
 
 [sub_resource type="Resource" id="Resource_7jmmy"]
-script = ExtResource("5_pe7a6")
+script = ExtResource("5_7xck5")
 max_hp = 20
 str = 2
 dex = 12
@@ -28,7 +28,7 @@ on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentD
 aggression = 55
 max_hunger = 100
 res = Array[int]([])
-weakness = Array[int]([])
+weakness = Array[int]([0])
 immunity = Array[int]([])
 items_on_death = Array[ExtResource("6_4kk0v")]([])
 death_texture = ExtResource("4_q23lh")
