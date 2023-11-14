@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ci0srvo6s748y"]
 
-[ext_resource type="FontFile" uid="uid://bk0fq2awle8d5" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Pixel.ttf" id="1_jpnhb"]
+[ext_resource type="FontFile" uid="uid://d10ie3uus5eky" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Mini Square.ttf" id="1_76y0e"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mg1cb"]
 
@@ -24,7 +24,8 @@ theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_jpnhb")
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_76y0e")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_mg1cb")
 theme_override_styles/hover = SubResource("StyleBoxFlat_xa2i8")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xa2i8")

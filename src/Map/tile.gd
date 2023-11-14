@@ -46,14 +46,13 @@ func _init(grid_position: Vector2i, tile_definition: TileDefinition) -> void:
 	centered = false
 	self.grid_position = grid_position
 	global_position = Grid.grid_to_world(grid_position)
-	set_tile_type(tile_definition)
-	walkable = tile_definition.is_walkable
-	transparent = tile_definition.is_transparent
 	collision = collision.instantiate()
 	add_child(collision)
 	collision.position = Vector2i(8,8)
-	collision.collision_layer = 4
-	print(collision.position)
+	set_tile_type(tile_definition)
+	walkable = tile_definition.is_walkable
+	transparent = tile_definition.is_transparent
+	
 func distance(other_position: Vector2i) -> int:
 	var distance_x = other_position.x-grid_position.x
 	
@@ -93,6 +92,13 @@ func set_tile_type(tile_definition: TileDefinition) -> void:
 	DV = _definition.DV
 	rubble_color = _definition.rubble_color
 	terrain_effect = _definition.terrain_effect
+	if !is_walkable():
+		print(tile_name,"wall?")
+		collision.collision_layer = 8
+	else:
+		print(tile_name,"not wall?")
+		collision.collision_layer = 0
+		
 func open_or_close():
 	if opened == false:
 		_definition.is_transparent = true

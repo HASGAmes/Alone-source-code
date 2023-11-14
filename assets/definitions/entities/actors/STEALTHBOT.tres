@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=13 format=3 uid="uid://cvtcrpu275nm6"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=14 format=3 uid="uid://cvtcrpu275nm6"]
 
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_glo42"]
-[ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_nkqvm"]
 [ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="1_rbg2d"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="2_ekykn"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="2_erdt6"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_pc7t1"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/invisible_definition.gd" id="4_ydv83"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/add_status_self_definition.gd" id="5_v5752"]
+[ext_resource type="Texture2D" uid="uid://bdecjy78lmxvk" path="res://assets/resources/place_holder_skill.tres" id="6_7gkk6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13153"]
+atlas = ExtResource("2_erdt6")
+region = Rect2(112, 112, 16, 16)
 
 [sub_resource type="Resource" id="Resource_r638u"]
 script = ExtResource("4_ydv83")
@@ -28,6 +32,7 @@ free_move = false
 skill_buff = true
 skill_message = "%s activates their %s"
 message_color = Color(0.643137, 0, 0.658824, 1)
+skill_icon = ExtResource("6_7gkk6")
 
 [sub_resource type="Resource" id="Resource_5eo4b"]
 script = ExtResource("2_ekykn")
@@ -52,7 +57,7 @@ res = Array[int]([])
 weakness = Array[int]([])
 immunity = Array[int]([])
 items_on_death = Array[ExtResource("1_glo42")]([])
-death_texture = ExtResource("1_nkqvm")
+death_texture = SubResource("AtlasTexture_13153")
 death_color = Color(0.545098, 0, 0, 1)
 corpse_food = ExtResource("2_pc7t1")
 death_noise = Array[AudioStreamWAV]([])

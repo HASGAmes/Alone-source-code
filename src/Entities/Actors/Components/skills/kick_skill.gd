@@ -11,10 +11,12 @@ var free_move
 var skill_buff:bool
 var skill_message
 var message_color
+var skill_icon:AtlasTexture
 func _init(definition:Kick_Skill_Definition):
 	kick_str = definition.skill_power
 	cooldown = definition.skill_cooldown
 	self.free_move = definition.free_move
+	self.skill_icon = definition.skill_icon
 	range = definition.skill_range
 	tick_cooldown = cooldown
 	skill_name= definition.skill_name

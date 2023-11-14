@@ -27,6 +27,9 @@ func build(title_text: String, inventory: InventoryComponent) -> void:
 
 func _register_item(index: int, item: Entity) -> void:
 	var item_button: Button = inventory_menu_item_scene.instantiate()
+	item_button.icon = item.texture
+	item_button.add_theme_color_override("icon_normal_color",item.modulate)
+	item_button.add_theme_color_override("icon_focus_color",item.modulate)
 	var char: String = String.chr("a".unicode_at(0) + index)
 	item_button.text = "( %s ) %s" % [char, item.get_entity_name()]
 	var shortcut_event := InputEventKey.new()

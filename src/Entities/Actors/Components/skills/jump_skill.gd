@@ -10,6 +10,7 @@ var skill_buff
 var definition
 var skill_message
 var message_color
+var skill_icon:AtlasTexture
 func _init(definition:JumpDefinition):
 	self.definition = definition
 	change_stats(self.definition)
@@ -17,6 +18,7 @@ func change_stats(definition:JumpDefinition):
 	cooldown = definition.skill_cooldown
 	range = definition.skill_range
 	tick_cooldown = cooldown
+	self.skill_icon = definition.skill_icon
 	self.free_move = definition.free_move
 	skill_name= definition.skill_name
 	self.skill_buff =definition.skill_buff

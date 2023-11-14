@@ -33,6 +33,7 @@ var status_tracker:Node
 var part_effect:GPUParticles2D
 var collision = preload("res://assets/resources/raycast_body.tscn")
 var turns_hunger:int = 0
+var hunger:HungryDefinition = preload("res://assets/definitions/status_effects/hungerstage1.tres")
 func _init(map_data: MapData, start_position: Vector2i, entity_definition: EntityDefinition) -> void:
 	centered = false
 	grid_position = start_position
@@ -44,7 +45,7 @@ func set_entity_type(entity_definition: EntityDefinition) -> void:
 	collision = collision.instantiate()
 	add_child(collision)
 	collision.position = Vector2i(8,8)
-	collision.collision_layer = z_index
+	collision.set_collision_layer(8)
 	if entity_definition!= null:
 		_definition = entity_definition
 	type = _definition.type
@@ -203,8 +204,8 @@ func passed_turn():
 		if hunger_dice <=2:
 			fighter_component.hunger -=2
 			turns_hunger = 0
-	if fighter_component.hunger == 0 and fighter_component.hp >=1:
-		fighter_component.take_damage(1,DamageTypes.DAMAGE_TYPES.INTERNAL,"")
+	if fighter_component.hunger <= 0 and fighter_component.hp >=1:
+		add_status([hunger])
 	while !status.is_empty():
 		var current_status= status.pop_front()
 		current_status.activate_effect(self)

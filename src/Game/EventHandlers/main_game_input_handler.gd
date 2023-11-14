@@ -77,7 +77,8 @@ func get_action(player: Entity) -> Action:
 	
 	return action
 func ranged_attack(player: Entity) -> Action:
-	var target = await get_grid_position(player,0,true)
+	var target = await get_grid_position(player,0,true,false,true)
+	print(target)
 	if target == Vector2i(0,0):
 		return
 	return RangedAction.new(player,target)
@@ -119,7 +120,7 @@ func change_equipment(player: Entity) -> Action:
 		get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME)
 		return null
 	var selected_item = await get_item("Select an item to equip", player.inventory_component)
-	if selected_item.equipment_item_component == null:
+	if selected_item == null or selected_item.equipment_item_component == null:
 		get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME)
 		return null
 	if selected_item.equipment_item_component.equipment_slot!= selected_limb.limb_type:
@@ -163,10 +164,10 @@ func get_skills(window_title: String, skill: SkillComponent,player:Entity) -> Sk
 	var selected_skill: Skills = await skill_menu.skill_selected
 	#print(selected_equipment.natural_weapon)
 	return selected_skill
-func get_grid_position(player: Entity, radius: int,freemove:bool,stayinrange:bool = false) -> Vector2i:
+func get_grid_position(player: Entity, radius: int,freemove:bool,stayinrange:bool = false,return_offset:bool = false) -> Vector2i:
 	get_parent().transition_to(InputHandler.InputHandlers.DUMMY)
-	var selected_position = await reticle.select_position(player, radius,freemove,stayinrange)
-	print(selected_position)
+	var selected_position = await reticle.select_position(player, radius,freemove,stayinrange,return_offset)
+	
 	await get_tree().physics_frame
 	get_parent().call_deferred("transition_to", InputHandler.InputHandlers.MAIN_GAME)
 	return selected_position

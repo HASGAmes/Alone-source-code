@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=18 format=3 uid="uid://nonyedj0ufmd"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=21 format=3 uid="uid://nonyedj0ufmd"]
 
 [ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="1_85qls"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_lshad"]
@@ -7,10 +7,15 @@
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/kick_definition.gd" id="5_k7g2s"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="5_y6owh"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="6_2vpf6"]
+[ext_resource type="Texture2D" uid="uid://bdecjy78lmxvk" path="res://assets/resources/place_holder_skill.tres" id="7_gql23"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="7_nfbru"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/jump_definition.gd" id="7_vo6dd"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/add_status_self_definition.gd" id="8_dkd5v"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/berserk_definition.gd" id="9_tlnya"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5schc"]
+atlas = ExtResource("7_nfbru")
+region = Rect2(32, 112, 16, 16)
 
 [sub_resource type="Resource" id="Resource_wx7es"]
 script = ExtResource("7_vo6dd")
@@ -21,7 +26,8 @@ skill_cooldown = 5
 free_move = true
 skill_buff = false
 skill_message = "The %s %s"
-message_color = Color(1, 1, 1, 1)
+message_color = Color(0.407843, 1, 0.192157, 1)
+skill_icon = SubResource("AtlasTexture_5schc")
 
 [sub_resource type="Resource" id="Resource_wvxuf"]
 script = ExtResource("5_k7g2s")
@@ -33,6 +39,11 @@ free_move = false
 skill_buff = false
 skill_message = "The %s %s the %s"
 message_color = Color(1, 1, 1, 1)
+skill_icon = ExtResource("7_gql23")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74kkj"]
+atlas = ExtResource("7_nfbru")
+region = Rect2(64, 112, 16, 16)
 
 [sub_resource type="Resource" id="Resource_tg6n6"]
 script = ExtResource("9_tlnya")
@@ -54,6 +65,7 @@ free_move = false
 skill_buff = true
 skill_message = "%s is going %s!!!"
 message_color = Color(0.870588, 0, 0.290196, 1)
+skill_icon = SubResource("AtlasTexture_74kkj")
 
 [sub_resource type="Resource" id="Resource_l86vm"]
 script = ExtResource("5_y6owh")
@@ -73,7 +85,7 @@ DV = 10
 critdam = 1
 on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
 aggression = 0
-max_hunger = 100
+max_hunger = 5
 res = Array[int]([])
 weakness = Array[int]([])
 immunity = Array[int]([])

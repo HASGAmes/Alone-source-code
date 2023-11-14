@@ -6,8 +6,11 @@
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="2_ibkb2"]
 [ext_resource type="AudioStream" uid="uid://i3la10x55mgh" path="res://assets/audio/sfx/ahhhh.wav" id="3_6tjuh"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="3_en4m0"]
-[ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="3_peo23"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/bleed_definition.gd" id="3_xcaef"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swvub"]
+atlas = ExtResource("3_en4m0")
+region = Rect2(112, 112, 16, 16)
 
 [sub_resource type="Resource" id="Resource_hdbkd"]
 script = ExtResource("3_xcaef")
@@ -41,7 +44,7 @@ res = Array[int]([])
 weakness = Array[int]([])
 immunity = Array[int]([])
 items_on_death = Array[ExtResource("2_ibkb2")]([])
-death_texture = ExtResource("3_peo23")
+death_texture = SubResource("AtlasTexture_swvub")
 death_color = Color(0.545098, 0, 0, 1)
 corpse_food = ExtResource("2_0djd7")
 death_noise = Array[AudioStreamWAV]([ExtResource("3_6tjuh")])

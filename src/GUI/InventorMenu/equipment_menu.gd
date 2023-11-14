@@ -20,12 +20,11 @@ func build(title_text: String, Equipment_slots: EquipmentComponent) -> void:
 #		return
 	title_label.text = title_text
 	var slots =Equipment_slots.body.duplicate()
+	var slot = -1
 	while !slots.is_empty():
-		var slot = 1
-		var current_slot = slots.pop_front()
-		
-		_register_item(slot,current_slot,current_slot.equiped_item)
 		slot+=1
+		var current_slot = slots.pop_front()
+		_register_item(slot,current_slot,current_slot.equiped_item)
 	inventory_list.get_child(0).grab_focus()
 	show()
 
@@ -34,14 +33,17 @@ func _register_item(index: int, slot: Limb_Component, item:Entity = null) -> voi
 	var item_button: Button = inventory_menu_item_scene.instantiate()
 	var char: String = String.chr("a".unicode_at(0) + index)
 	if item!=null:
-		item_button.text = "( %s ) %s" % [char, slot.name_limb+ "( "+item.get_entity_name()+" )"]
+		item_button.icon = item.texture
+		item_button.add_theme_color_override("icon_normal_color",item.modulate)
+		item_button.add_theme_color_override("icon_focus_color",item.modulate)
+		var button_text = slot.name_limb+ "( "+item.get_entity_name()+" )"
+		item_button.text = "( %s ) %s" % [char,button_text ]
 	else:
 		item_button.text = "( %s ) %s" % [char, slot.name_limb]
 	var shortcut_event := InputEventKey.new()
 	shortcut_event.keycode = KEY_A + index
 	item_button.shortcut = Shortcut.new()
 	item_button.shortcut.events = [shortcut_event]
-	print(slot)
 	item_button.pressed.connect(button_pressed.bind(slot))
 	inventory_list.add_child(item_button)
 

@@ -10,6 +10,7 @@ script = ExtResource("1_80f0r")
 music_tracks = Array[AudioStreamWAV]([ExtResource("2_d7ogh"), ExtResource("3_svsnk"), ExtResource("4_pu8g8")])
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
+volume_db = -80.0
 mix_target = 2
 
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

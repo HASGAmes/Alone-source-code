@@ -10,11 +10,13 @@ var skill_buff
 var skill_message:String
 var status
 var message_color
+var skill_icon:AtlasTexture
 func _init(definition:AddStatusSelfDefinition):
 	self.skill_message = definition.skill_message
 	cooldown = definition.skill_cooldown
 	range = definition.skill_range
 	tick_cooldown = cooldown
+	self.skill_icon = definition.skill_icon
 	self.free_move = definition.free_move
 	skill_name= definition.skill_name
 	self.status = definition.status

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://djj5t8fntvpd7"]
+
+[ext_resource type="FontFile" uid="uid://blphdmn5njiwo" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Future.ttf" id="1_38l84"]
+
+[sub_resource type="Theme" id="Theme_mqhff"]
+default_base_scale = 3.6
+default_font = ExtResource("1_38l84")
+
+[node name="Control" type="Popup"]
+title = "text_popup"
+initial_position = 2
+unresizable = false
+theme = SubResource("Theme_mqhff")

@@ -27,6 +27,9 @@ func build(title_text: String, skil: FighterComponent) -> void:
 
 func _register_item(index: int, Skill: Skills) -> void:
 	var item_button: Button = inventory_menu_item_scene.instantiate()
+	item_button.icon = Skill.skill_icon
+	item_button.add_theme_color_override("icon_normal_color",Skill.message_color)
+	item_button.add_theme_color_override("icon_focus_color",Skill.message_color)
 	var char: String = String.chr("a".unicode_at(0) + index)
 	var button_text = "%s %s/%s"%[Skill.skill_name,Skill.tick_cooldown,Skill.cooldown]
 	item_button.text = "( %s ) %s" % [char, button_text]
