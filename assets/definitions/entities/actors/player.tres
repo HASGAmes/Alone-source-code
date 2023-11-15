@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=21 format=3 uid="uid://nonyedj0ufmd"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=36 format=3 uid="uid://nonyedj0ufmd"]
 
-[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="1_85qls"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_bt7jo"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/body_plan_definition.gd" id="2_4f4jm"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_lshad"]
 [ext_resource type="AudioStream" uid="uid://26yrll0u8ha3" path="res://assets/audio/sfx/allbarknobite.wav" id="2_toeov"]
+[ext_resource type="Resource" uid="uid://bs5pcyi0l2m85" path="res://assets/definitions/entities/items/shotgun.tres" id="2_uyuhn"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="3_pp4ao"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/kick_definition.gd" id="5_k7g2s"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="5_y6owh"]
@@ -12,6 +14,157 @@
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/jump_definition.gd" id="7_vo6dd"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/add_status_self_definition.gd" id="8_dkd5v"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/berserk_definition.gd" id="9_tlnya"]
+
+[sub_resource type="Resource" id="Resource_3rd1x"]
+script = ExtResource("1_bt7jo")
+is_important = false
+name = "face"
+limb_type = 6
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_bt7jo")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_law6f"]
+script = ExtResource("1_bt7jo")
+is_important = true
+name = "head"
+limb_type = 0
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_3rd1x")])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_elmpr"]
+script = ExtResource("1_bt7jo")
+is_important = false
+name = "back"
+limb_type = 7
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_bt7jo")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_tyur4"]
+script = ExtResource("1_bt7jo")
+is_important = false
+name = "body"
+limb_type = 1
+can_be_dismembered = false
+attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_elmpr")])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_trmpa"]
+script = ExtResource("1_bt7jo")
+is_important = false
+name = "hand"
+limb_type = 5
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_bt7jo")]([])
+damage_type = Array[int]([0])
+damage_dice = 2
+damage_dice_sides = 1
+is_natural_weapon = true
+
+[sub_resource type="Resource" id="Resource_fp6ub"]
+script = ExtResource("1_bt7jo")
+is_important = false
+name = "arm"
+limb_type = 2
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_trmpa")])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_k6gdh"]
+script = ExtResource("1_bt7jo")
+is_important = false
+name = "hand"
+limb_type = 5
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_bt7jo")]([])
+damage_type = Array[int]([0])
+damage_dice = 2
+damage_dice_sides = 1
+is_natural_weapon = true
+starting_equipment = ExtResource("2_uyuhn")
+
+[sub_resource type="Resource" id="Resource_dk2de"]
+script = ExtResource("1_bt7jo")
+is_important = false
+name = "arm"
+limb_type = 2
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_k6gdh")])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_ujbka"]
+script = ExtResource("1_bt7jo")
+is_important = false
+name = "foot"
+limb_type = 4
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_bt7jo")]([])
+damage_type = Array[int]([])
+damage_dice = 4
+damage_dice_sides = 1
+is_natural_weapon = true
+
+[sub_resource type="Resource" id="Resource_t0yic"]
+script = ExtResource("1_bt7jo")
+is_important = false
+name = "leg"
+limb_type = 3
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_ujbka")])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_yrng4"]
+script = ExtResource("1_bt7jo")
+is_important = false
+name = "foot"
+limb_type = 4
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_bt7jo")]([])
+damage_type = Array[int]([])
+damage_dice = 4
+damage_dice_sides = 1
+is_natural_weapon = true
+
+[sub_resource type="Resource" id="Resource_po41s"]
+script = ExtResource("1_bt7jo")
+is_important = false
+name = "leg"
+limb_type = 3
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_yrng4")])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_a7usb"]
+resource_local_to_scene = true
+script = ExtResource("2_4f4jm")
+limbs_are_alive = false
+body_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_law6f"), SubResource("Resource_tyur4"), SubResource("Resource_fp6ub"), SubResource("Resource_dk2de"), SubResource("Resource_t0yic"), SubResource("Resource_po41s")])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5schc"]
 atlas = ExtResource("7_nfbru")
@@ -94,7 +247,7 @@ death_texture = ExtResource("3_pp4ao")
 death_color = Color(0.545098, 0, 0, 1)
 corpse_food = ExtResource("2_lshad")
 death_noise = Array[AudioStreamWAV]([ExtResource("2_toeov")])
-body_plan_definition = ExtResource("1_85qls")
+body_plan_definition = SubResource("Resource_a7usb")
 skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([SubResource("Resource_wx7es"), SubResource("Resource_wvxuf"), SubResource("Resource_gvgkq")])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ubwe"]

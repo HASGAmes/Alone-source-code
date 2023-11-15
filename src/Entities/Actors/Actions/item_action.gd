@@ -18,6 +18,7 @@ func get_target_actor() -> Entity:
 
 
 func perform() -> bool:
-	if item == null:
+	if item == null or item.consumable_component == null:
 		return false
+		
 	return item.consumable_component.activate(self)

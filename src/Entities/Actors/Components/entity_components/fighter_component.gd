@@ -85,16 +85,14 @@ func _init(definition: FighterComponentDefinition) -> void:
 	
 	if definition.skills:
 		add_skills(definition.skills.duplicate())
-	if definition.body_plan_definition:
-		definition.body_plan_def = definition.body_plan_definition.duplicate()
-		body_plan = Body_Plan.new(definition.body_plan_def)
-		add_child(body_plan)
-		body_plan.list_of_limbs = body_plan.list_of_limbs.duplicate()
+	
 	max_hp = definition.max_hp+toughness_mod
 	decap = definition.decap
 	hp = max_hp
 	max_hunger = definition.max_hunger
 	hunger = max_hunger
+	if definition.body_plan_definition:
+		set_up_body(definition)
 func level_up():
 	var particle = preload("res://assets/resources/animations/levelup.tres")
 	var texture = preload("res://assets/resources/animations/particleeffectstestericon.tres")
@@ -117,8 +115,22 @@ func level_up():
 	if xp>= lv*2:
 		level_up()
 	
-	
-func add_skills(listskills:Array[Skills_Definition]):
+func set_up_body(definition:FighterComponentDefinition)->void:
+	definition.body_plan_def = definition.body_plan_definition.duplicate()
+	await entity != null
+	body_plan = Body_Plan.new(definition.body_plan_def,entity)
+	add_child(body_plan)
+	body_plan.list_of_limbs = body_plan.list_of_limbs.duplicate()
+	set_up_equipment(body_plan)
+func set_up_equipment(body:Body_Plan)->void:
+	var check_body = body.get_children().duplicate()
+	while !check_body.is_empty():
+		print("hm1")
+		var limb_check:Limb_Component = check_body.pop_front()
+		if limb_check.equiped_item_definition!=null and limb_check.equiped_item==null:
+			print("hm2")
+			limb_check.equiped_item = Entity.new(null,Vector2i(10,10),limb_check.equiped_item_definition)
+func add_skills(listskills:Array[Skills_Definition])->void:
 	while !listskills.is_empty():
 		var current_skill =listskills.pop_front()
 		var skill:Skills
@@ -126,7 +138,7 @@ func add_skills(listskills:Array[Skills_Definition]):
 		skill = current_skill.skill_id.new(current_skill)
 		skill_tracker.add_child(skill)
 		
-func setup_mods():
+func setup_mods()->void:
 	strength_mod = str-9
 	dex_mod = dex-9
 	toughness_mod = tough-9
@@ -181,6 +193,7 @@ func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES,damage_messag
 	MessageLog.send_message(damage_message,GameColors.ENEMY_ATTACK)
 	hp -= amount
 	turns_not_in_combat = 0
+	
 func gain_random_stat(amount:int)-> void:
 	randomize()
 	var stats = {
@@ -238,11 +251,12 @@ func die() -> void:
 		entity.type = Entity.EntityType.CORPSE
 	get_map_data().unregister_blocking_entity(entity)
 
-func reanimate():
+func reanimate()->void:
 	entity.set_entity_type(entity._definition)
 	pass
 	
-func passively_heal():
+
+func passively_heal()->void:
 	var new_heal :float
 	new_heal = (20+2*(toughness_mod+wisdom_mod))*0.01 
 	healed_amount += new_heal 
@@ -260,3 +274,23 @@ func _handle_death_drops(consumable_definition: Array[EntityDefinition]) -> void
 		consumable_component = Entity.new(entity.map_data, entity.grid_position, definition)
 		entity.map_data.entities.append(consumable_component)
 		entity.get_parent().add_child(consumable_component)
+		
+func get_weapon(entity:Entity,target_weapon:EquipmentItemComponent.WEAPON_TYPES)->Array[Entity]:
+	var list = body_plan.get_children().duplicate()
+	var return_list:Array[Entity]
+	while !list.is_empty():
+		var limb:Limb_Component= list.pop_front()
+		var weapon:Entity = limb.equiped_item
+		if weapon !=null:
+			if weapon.equipment_item_component.weapon_type == target_weapon:
+				return_list+=[weapon]
+	return return_list
+	
+func get_body_part(entity:Entity,target_part:Body_Plan_Definition.TYPE_OF_PARTS)-> Array[Limb_Component]:
+	var list = body_plan.get_children().duplicate()
+	var return_list:Array[Limb_Component]
+	while !list.is_empty():
+		var limb:Limb_Component = list.pop_front()
+		if limb.limb_type == target_part:
+			return_list+=[limb]
+	return return_list

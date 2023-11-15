@@ -68,20 +68,32 @@ func get_action(player: Entity) -> Action:
 	if Input.is_action_just_pressed("look"):
 		await get_grid_position(player, 0,true)
 	
-	if Input.is_action_just_pressed("skill_menu"):
-		player.skill_component.update_slots(player.fighter_component)
-		action = await activate_skill(player)
-		get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME) 
+	if Input.is_action_pressed("skill_menu"):
+		if Input.is_action_just_pressed("skill_menu"):
+			player.skill_component.update_slots(player.fighter_component)
+			action = await activate_skill(player)
+			get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME) 
 	if Input.is_action_just_pressed("quit"):
 		action = EscapeAction.new(player)
 	
 	return action
 func ranged_attack(player: Entity) -> Action:
+	var hands = await player.fighter_component.get_weapon(player,EquipmentItemComponent.WEAPON_TYPES.LONGGUN)
+	var ranged_weapon:Entity
+	while !hands.is_empty():
+		var hand:Entity = hands.pop_front()
+		ranged_weapon = hand
+		break
+	if hands == [] and ranged_weapon == null:
+		MessageLog.send_message("No ranged weapon equipped",GameColors.IMPOSSIBLE)
+		return
 	var target = await get_grid_position(player,0,true,false,true)
 	print(target)
+	var stat = ranged_weapon.equipment_item_component
 	if target == Vector2i(0,0):
 		return
-	return RangedAction.new(player,target)
+	return RangedAction.new(player,target,stat.damage_dice,stat.bullets,stat.spread)
+
 func activate_skill(player: Entity) -> Action:
 	var selected_item: Skills = await get_skills("Select a skill to use",player.skill_component,player)
 	if selected_item == null:

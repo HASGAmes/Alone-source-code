@@ -14,6 +14,7 @@ var target_food:Entity
 var user:Entity
 var aggression:int
 var map_data: MapData 
+var list_of_friendlys:Array[Entity]
 func perform() -> void:
 	user = get_parent()
 	aggression = user.fighter_component.aggression

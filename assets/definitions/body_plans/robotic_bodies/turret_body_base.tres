@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="Body_Plan_Definition" load_steps=9 format=3 uid="uid://crf4nlseexqhp"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_4c0im"]
+[ext_resource type="Resource" uid="uid://bs5pcyi0l2m85" path="res://assets/definitions/entities/items/shotgun.tres" id="2_nlhib"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/body_plan_definition.gd" id="2_v5cyp"]
+
+[sub_resource type="Resource" id="Resource_spky8"]
+script = ExtResource("1_4c0im")
+is_important = false
+name = "Turret Hardpoint"
+limb_type = 5
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_4c0im")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_8l62o"]
+script = ExtResource("1_4c0im")
+is_important = true
+name = "Central Computer"
+limb_type = 0
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_4c0im")]([SubResource("Resource_spky8")])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+starting_equipment = ExtResource("2_nlhib")
+
+[sub_resource type="Resource" id="Resource_7nik0"]
+script = ExtResource("1_4c0im")
+is_important = false
+name = "tripod leg 1"
+limb_type = 3
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_4c0im")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_4aj47"]
+script = ExtResource("1_4c0im")
+is_important = false
+name = "tripod leg 2"
+limb_type = 3
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_4c0im")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[sub_resource type="Resource" id="Resource_0hdm8"]
+script = ExtResource("1_4c0im")
+is_important = false
+name = "tripod leg 3"
+limb_type = 3
+can_be_dismembered = true
+attached_parts = Array[ExtResource("1_4c0im")]([])
+damage_type = Array[int]([])
+damage_dice = 0
+damage_dice_sides = 0
+is_natural_weapon = false
+
+[resource]
+script = ExtResource("2_v5cyp")
+limbs_are_alive = false
+body_parts = Array[ExtResource("1_4c0im")]([SubResource("Resource_8l62o"), SubResource("Resource_7nik0"), SubResource("Resource_4aj47"), SubResource("Resource_0hdm8")])

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EntityDefinition" load_steps=13 format=3 uid="uid://c44pog4vwe1cd"]
 
-[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="1_7sm63"]
+[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/humanoid_bodies/humanoid.tres" id="1_7sm63"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_e548o"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_jxtpn"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="2_7n200"]

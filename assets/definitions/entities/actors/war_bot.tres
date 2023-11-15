@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EntityDefinition" load_steps=12 format=3 uid="uid://d1aa7fy0bujgb"]
 
-[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="1_as8br"]
+[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/humanoid_bodies/humanoid.tres" id="1_a6kkc"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="1_x086p"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_0djd7"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="2_ibkb2"]
@@ -48,7 +48,7 @@ death_texture = SubResource("AtlasTexture_swvub")
 death_color = Color(0.545098, 0, 0, 1)
 corpse_food = ExtResource("2_0djd7")
 death_noise = Array[AudioStreamWAV]([ExtResource("3_6tjuh")])
-body_plan_definition = ExtResource("1_as8br")
+body_plan_definition = ExtResource("1_a6kkc")
 skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ae40k"]

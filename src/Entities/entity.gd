@@ -1,7 +1,7 @@
 class_name Entity
 extends Sprite2D
 
-enum AIType {NONE, HOSTILE,PREY,PREDATOR}
+enum AIType {NONE, HOSTILE,PREY,PREDATOR,TURRET}
 enum EntityType {CORPSE, ITEM, ACTOR}
 enum MOVEMENT_TYPE{WALK,CROUCH,PRONE,SPRINT}
 var current_movement:MOVEMENT_TYPE
@@ -77,7 +77,11 @@ func set_entity_type(entity_definition: EntityDefinition) -> void:
 		AIType.PREDATOR:
 			ai_component = PredatorAi.new()
 			add_child(ai_component)
+		AIType.TURRET:
+			ai_component = TurretAi.new()
+			add_child(ai_component)
 	if entity_definition.fighter_definition:
+		
 		fighter_component = FighterComponent.new(entity_definition.fighter_definition)
 		add_child(fighter_component)
 		

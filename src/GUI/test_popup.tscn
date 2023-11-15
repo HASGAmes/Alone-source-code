@@ -9,5 +9,6 @@ default_font = ExtResource("1_38l84")
 [node name="Control" type="Popup"]
 title = "text_popup"
 initial_position = 2
+visible = true
 unresizable = false
 theme = SubResource("Theme_mqhff")

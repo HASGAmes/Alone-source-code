@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_ikxiy"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="1_ixs8m"]
-[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/animal_bodies/humanoid.tres" id="1_lw0ps"]
+[ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/humanoid_bodies/humanoid.tres" id="1_lw0ps"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_qj2ue"]
 [ext_resource type="AudioStream" uid="uid://i3la10x55mgh" path="res://assets/audio/sfx/ahhhh.wav" id="2_el5re"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_gh8vg"]

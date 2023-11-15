@@ -4,6 +4,7 @@ extends BaseAIComponent
 
 var path: Array = []
 var attacking_actor:Entity
+var list_of_friendlys:Array[Entity]
 func perform() -> void:
 	var target: Entity = get_map_data().player
 	var target_grid_position: Vector2i = target.grid_position

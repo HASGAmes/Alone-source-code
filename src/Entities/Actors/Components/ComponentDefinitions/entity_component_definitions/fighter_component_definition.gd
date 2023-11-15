@@ -30,7 +30,7 @@ extends Resource
 @export_category("Visuals")
 @export var death_texture: AtlasTexture = preload("res://assets/resources/default_death_texture.tres")
 @export var death_color: Color = Color.DARK_RED
-@export var corpse_food:FoodConsumableDefinition = preload("res://assets/definitions/entities/items/corpse_food.tres")
+@export var corpse_food:FoodConsumableDefinition = load("res://assets/definitions/entities/items/corpse_food.tres")
 @export_category("Audio")
 @export var death_noise: Array[AudioStreamWAV] = [preload("res://assets/audio/sfx/ahhhh.wav")]
 @export_category("Body_Plan and Skills")

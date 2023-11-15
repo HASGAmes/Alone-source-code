@@ -13,6 +13,7 @@ var target_food:Entity
 var aggression:int
 var turns_wasted:int
 var map_data: MapData 
+var list_of_friendlys:Array[Entity]
 func perform() -> void:
 	
 	if aggro_on_cooldown == true:

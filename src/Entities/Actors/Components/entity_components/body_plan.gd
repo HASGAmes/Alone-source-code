@@ -7,11 +7,13 @@ var amount_of_important_limbs
 var adding_limbs: Limb_Component
 var stored_limbs:Array[Limb_Component]
 var limb_is_alive:bool = false
+var parent:Entity
 var bleed:StatusEffectDefinition = load("res://assets/definitions/status_effects/severed_limb_bleeding.tres")
 var limb:EntityDefinition = load("res://assets/definitions/body_plans/limb.tres")
-func _init(definition: Body_Plan_Definition) -> void:
+func _init(definition: Body_Plan_Definition,parent:Entity) -> void:
 	original_limbs = definition.body_parts
 	limb_is_alive = definition.limbs_are_alive
+	self.parent = parent
 	if definition.body_parts!=null:
 		set_up_body(definition)
 func set_up_body(definition:Body_Plan_Definition):
@@ -20,18 +22,25 @@ func set_up_body(definition:Body_Plan_Definition):
 	original_limbs = list_of_limbs
 	#print(list_of_limbs)
 	while !list_of_limbs.is_empty():
-		adding_limbs = Limb_Component.new(definition.body_parts.front())
-		adding_limbs.definition_limb
+		var current_definition:Limb_Definition = definition.body_parts.front()
+		adding_limbs = Limb_Component.new(current_definition)
+		adding_limbs.definition_limb = current_definition
+		print(current_definition.starting_equipment)
+		if current_definition.starting_equipment !=null:
+			print("gets def")
+			adding_limbs.equiped_item_definition = current_definition.starting_equipment
 		list_of_limbs.erase(list_of_limbs.front())
-		
 		add_child(adding_limbs)
 		list_of_equipment_limbs.append(adding_limbs)
 		track_importantlimbs(adding_limbs)
 		while !adding_limbs.attached_parts.is_empty():
-			print("h,")
 			var attached:Limb_Component
-			attached = Limb_Component.new(adding_limbs.attached_parts.pop_front())
+			var current_part = adding_limbs.attached_parts.pop_front()
+			attached = Limb_Component.new(current_part)
 			adding_limbs.connected+=[attached]
+			if current_part.starting_equipment !=null:
+				print("gets def")
+				attached.equiped_item_definition = current_part.starting_equipment
 			adding_limbs.get_parent().add_child(attached)
 	list_of_limbs = original_limbs
 func track_importantlimbs(important_limbs:Limb_Component):

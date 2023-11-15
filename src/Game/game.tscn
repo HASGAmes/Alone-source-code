@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://n87rw5cxnnn8"]
+[gd_scene load_steps=25 format=3 uid="uid://n87rw5cxnnn8"]
 
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_ne6pe"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/input_handler.gd" id="2_4winb"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://src/GUI/hp_display.gd" id="9_njvq4"]
 [ext_resource type="PackedScene" uid="uid://d36pgskfsvwj2" path="res://src/GUI/Reticle/reticle.tscn" id="11_n4t22"]
 [ext_resource type="Script" path="res://src/GUI/message_log.gd" id="11_xxafc"]
-[ext_resource type="PackedScene" uid="uid://djj5t8fntvpd7" path="res://src/GUI/test_popup.tscn" id="14_k1edn"]
 [ext_resource type="FontFile" uid="uid://dikrxfgf1i6e7" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Mini Square Mono.ttf" id="15_hqss3"]
 [ext_resource type="Script" path="res://src/Game/playericon.gd" id="26_l0ljo"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="26_lc2fb"]
@@ -171,12 +170,6 @@ script = ExtResource("11_xxafc")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="Control" parent="VBoxContainer/gamebox" instance=ExtResource("14_k1edn")]
-visible = true
-transparent = true
-content_scale_mode = 1
-content_scale_aspect = 1
 
 [node name="InfoBar" type="HBoxContainer" parent="."]
 layout_mode = 2

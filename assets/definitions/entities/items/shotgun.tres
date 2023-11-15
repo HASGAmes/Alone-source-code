@@ -9,6 +9,10 @@ script = ExtResource("1_ukrmh")
 equipment_slot = 5
 equipment_type = 0
 weapon_type = 4
+damage_dice = Array[int]([2, 3])
+defense = 0
+bullets = 8
+spread = 0.861
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7g4na"]
 atlas = ExtResource("3_7g4vv")

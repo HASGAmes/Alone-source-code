@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1queaj2byhvj"]
+
+[ext_resource type="Script" path="res://bullet_line.gd" id="1_ghdf2"]
+
+[node name="Line2D" type="Line2D"]
+width = 1.0
+script = ExtResource("1_ghdf2")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.3
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

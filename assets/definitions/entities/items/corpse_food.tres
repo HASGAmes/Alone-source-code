@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/consumable_definitions/food_consumable_component_definition.gd" id="2_uqt5n"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("2_uqt5n")
 food_amount = 10
 consumable_sfx = ExtResource("1_aefe2")
