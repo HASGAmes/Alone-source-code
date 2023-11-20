@@ -78,7 +78,7 @@ func get_action(player: Entity) -> Action:
 	
 	return action
 func ranged_attack(player: Entity) -> Action:
-	var hands = await player.fighter_component.get_weapon(player,EquipmentItemComponent.WEAPON_TYPES.LONGGUN)
+	var hands = await player.fighter_component.get_weapon(player,[EquipmentItemComponent.WEAPON_TYPES.LONGGUN,EquipmentItemComponent.WEAPON_TYPES.HANDGUN])
 	var ranged_weapon:Entity
 	while !hands.is_empty():
 		var hand:Entity = hands.pop_front()
@@ -162,9 +162,7 @@ func get_equipment(window_title: String, equipment: EquipmentComponent,player:En
 	get_parent().transition_to(InputHandler.InputHandlers.DUMMY)
 	var fight :FighterComponent= player.fighter_component
 	var selected_equipment: Limb_Component = await equipment_menu.equipment_selected
-	if Input.is_action_just_pressed("select_attacking_limb") and selected_equipment.natural_weapon == true:
-		fight.current_weapon_dice = selected_equipment.damage_dice
-		fight.current_weapon_side_dice = selected_equipment.damage_sides
+	
 	#print(selected_equipment.natural_weapon)
 	return selected_equipment
 func get_skills(window_title: String, skill: SkillComponent,player:Entity) -> Skills:

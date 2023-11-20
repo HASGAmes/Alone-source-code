@@ -17,7 +17,6 @@ func _init(definition: BerserkStatusDefinition):
 func activate_effect(entity:Entity) -> void:
 	var screen :CanvasModulate
 	screen = entity.get_parent().get_parent().screeneffects
-	
 	if power == 0:
 		power = entity.fighter_component.power
 		xp = entity.fighter_component.xp
@@ -46,4 +45,5 @@ func end_effect(entity:Entity)-> void:
 	MessageLog.send_message("%s has calmed down"%entity.get_entity_name(),GameColors.STATUS_END)
 	screen.color = Color.WHITE
 	entity.fighter_component.power = power
+	power = 0
 	queue_free()

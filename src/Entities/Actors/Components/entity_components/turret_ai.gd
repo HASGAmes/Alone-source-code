@@ -11,7 +11,7 @@ func perform() -> void:
 	var offset: Vector2i = target_grid_position - entity.grid_position
 	var distance: int = max(abs(offset.x), abs(offset.y))
 	attacking_actor = target
-	var ranged_weapon:Array[Entity] = entity.fighter_component.get_weapon(entity,entity.equipment_item_component.WEAPON_TYPES.LONGGUN).duplicate()
+	var ranged_weapon:Array[Entity] = entity.fighter_component.get_weapon(entity,[entity.equipment_item_component.WEAPON_TYPES.LONGGUN,EquipmentItemComponent.WEAPON_TYPES.HANDGUN]).duplicate()
 	var weapon_stats
 	if !ranged_weapon.is_empty():
 		var current_weapon = ranged_weapon.pop_front()

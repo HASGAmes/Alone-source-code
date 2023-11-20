@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="EntityDefinition" load_steps=36 format=3 uid="uid://nonyedj0ufmd"]
 
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_bt7jo"]
+[ext_resource type="Resource" uid="uid://b4vqybsfbyrlk" path="res://assets/definitions/entities/items/ax.tres" id="2_3o5vw"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/body_plan_definition.gd" id="2_4f4jm"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_lshad"]
 [ext_resource type="AudioStream" uid="uid://26yrll0u8ha3" path="res://assets/audio/sfx/allbarknobite.wav" id="2_toeov"]
-[ext_resource type="Resource" uid="uid://bs5pcyi0l2m85" path="res://assets/definitions/entities/items/shotgun.tres" id="2_uyuhn"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="3_pp4ao"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/kick_definition.gd" id="5_k7g2s"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="5_y6owh"]
@@ -23,8 +23,7 @@ limb_type = 6
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_bt7jo")]([])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_law6f"]
@@ -35,8 +34,7 @@ limb_type = 0
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_3rd1x")])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_elmpr"]
@@ -47,8 +45,7 @@ limb_type = 7
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_bt7jo")]([])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_tyur4"]
@@ -59,8 +56,7 @@ limb_type = 1
 can_be_dismembered = false
 attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_elmpr")])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_trmpa"]
@@ -71,8 +67,7 @@ limb_type = 5
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_bt7jo")]([])
 damage_type = Array[int]([0])
-damage_dice = 2
-damage_dice_sides = 1
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = true
 
 [sub_resource type="Resource" id="Resource_fp6ub"]
@@ -83,8 +78,7 @@ limb_type = 2
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_trmpa")])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_k6gdh"]
@@ -95,10 +89,9 @@ limb_type = 5
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_bt7jo")]([])
 damage_type = Array[int]([0])
-damage_dice = 2
-damage_dice_sides = 1
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = true
-starting_equipment = ExtResource("2_uyuhn")
+starting_equipment = ExtResource("2_3o5vw")
 
 [sub_resource type="Resource" id="Resource_dk2de"]
 script = ExtResource("1_bt7jo")
@@ -108,8 +101,7 @@ limb_type = 2
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_k6gdh")])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_ujbka"]
@@ -120,8 +112,7 @@ limb_type = 4
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_bt7jo")]([])
 damage_type = Array[int]([])
-damage_dice = 4
-damage_dice_sides = 1
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = true
 
 [sub_resource type="Resource" id="Resource_t0yic"]
@@ -132,8 +123,7 @@ limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_ujbka")])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_yrng4"]
@@ -144,8 +134,7 @@ limb_type = 4
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_bt7jo")]([])
 damage_type = Array[int]([])
-damage_dice = 4
-damage_dice_sides = 1
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = true
 
 [sub_resource type="Resource" id="Resource_po41s"]
@@ -156,8 +145,7 @@ limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_bt7jo")]([SubResource("Resource_yrng4")])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_a7usb"]
@@ -199,6 +187,7 @@ atlas = ExtResource("7_nfbru")
 region = Rect2(64, 112, 16, 16)
 
 [sub_resource type="Resource" id="Resource_tg6n6"]
+resource_local_to_scene = true
 script = ExtResource("9_tlnya")
 bonus_damage = 8
 status_name = "berserk"

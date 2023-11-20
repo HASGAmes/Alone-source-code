@@ -93,10 +93,8 @@ func set_tile_type(tile_definition: TileDefinition) -> void:
 	rubble_color = _definition.rubble_color
 	terrain_effect = _definition.terrain_effect
 	if !is_walkable():
-		print(tile_name,"wall?")
 		collision.collision_layer = 8
 	else:
-		print(tile_name,"not wall?")
 		collision.collision_layer = 0
 		
 func open_or_close():

@@ -2,7 +2,7 @@ class_name RangedAction
 extends ActionWithDirection
 var bullets:int
 var spread:float
-var target:Vector2i
+var target:Vector2
 var damage_dice:Array[int]
 var raycast = preload("res://assets/resources/bullet_raycast.tscn")
 var line = preload("res://assets/resources/line_2d.tscn")
@@ -26,29 +26,29 @@ func perform() -> bool:
 		trace = line.instantiate()
 		entity.add_child(trace)
 		entity.add_child(user_ray)
-		var lookray = user_ray.grid_position
-		trace.position = Vector2i(8,8)
 		user_ray.target_position = target*320
-		trace.points = [entity.grid_position,user_ray.target_position]
-		print(lookray,target,user_ray.target_position)
 		user_ray.position = Vector2i(8,8)
 		user_ray.rotation += randf_range(-spread,spread)
 		trace.rotation = user_ray.rotation
 		user_ray.force_raycast_update()
 		var collider = await user_ray.get_collider()
-		print(collider)
+		var trace_end:Vector2  = target*user_ray.get_collision_point().normalized()
+		print(user_ray.get_collision_point(),"clooosiion",trace_end)
+		trace.points = [Vector2i.ZERO,trace_end]
+		print(trace.points)
+		trace.position = user_ray.position
+		
 		var struck 
 		if collider!=null:
 			struck = collider.get_parent()
-		if struck is Tile:
-			print(struck.tile_name)
-			
-		if struck is Entity:
-			if struck.fighter_component!=null and struck.is_alive():
-				var damage_message = "%s is caught in a blast of pellets"% struck.get_entity_name()
-				struck.ai_component.attacking_actor = entity
-				struck.fighter_component.take_damage(damage,DamageTypes.DAMAGE_TYPES.PIERCING,damage_message)
-			print(struck.entity_name)
+			if struck is Tile:
+				print(struck.tile_name)
+			if struck is Entity:
+				if struck.fighter_component!=null and struck.is_alive():
+					var damage_message = "%s is caught in a blast of pellets"% struck.get_entity_name()
+					struck.ai_component.attacking_actor = entity
+					struck.fighter_component.take_damage(damage,DamageTypes.DAMAGE_TYPES.PIERCING,damage_message)
+				print(struck.entity_name)
 		bullets-=1
 		user_ray.rotation = 0
 		entity.remove_child(user_ray)

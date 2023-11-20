@@ -16,8 +16,12 @@ func perform() -> bool:
 			if entity == get_map_data().player:
 				MessageLog.send_message("Nothing to attack.", GameColors.IMPOSSIBLE)
 			return false
+	
+		var dice:Array[int] = attacker_stat.current_weapon_dice.duplicate()
+		print(dice,"DICE")
 		var hit_roll = entity.dicebag.roll_dice(1,20,attacker_stat.critdam)
-		var damroll: int = entity.dicebag.roll_dice(1,attacker_stat.power,attacker_stat.str)
+		var damroll: int = entity.dicebag.roll_dice(dice.pop_front(),dice.pop_front())
+		print(damroll,"DAMAGE")
 		var hit: int = hit_roll+entity.fighter_component.hit_chance
 		var damage: int = damroll - defender_stat.defense
 		var attack_color: Color
@@ -29,7 +33,7 @@ func perform() -> bool:
 		crit = GameColors.CRIT
 		var attack_description: String = "%s attacks %s" % [entity.get_entity_name(), target_entity.get_entity_name()]
 		if hit_roll>=20:
-			damage=attacker_stat.power*2
+			damage*=2
 		elif hit <defender_stat.DV:
 			attack_description+= " but misses!!"
 			MessageLog.send_message(attack_description, attack_color)
@@ -60,8 +64,10 @@ func perform() -> bool:
 				if entity.map_data.get_tile(entity.map_data.player.grid_position).is_in_view:
 					MessageLog.send_message("Nothing to attack.", GameColors.IMPOSSIBLE)
 			return false
+		var dice:Array[int] = attacker_stat.current_weapon_dice.duplicate()
 		var hit_roll = entity.dicebag.roll_dice(1,20,attacker_stat.critdam)
-		var damroll: int = entity.dicebag.roll_dice(1,attacker_stat.power,attacker_stat.str)
+		var damroll: int = entity.dicebag.roll_dice(dice.pop_front(),dice.pop_front(),attacker_stat.str)
+		print(damroll,"DAMAGE")
 		var hit: int = hit_roll+entity.fighter_component.hit_chance
 		var damage: int = damroll - target_tile.defense
 		var attack_color: Color
@@ -73,7 +79,7 @@ func perform() -> bool:
 		crit = GameColors.CRIT
 		var attack_description: String = "%s attacks %s" % [entity.get_entity_name(), target_tile.tile_name]
 		if hit_roll>=20:
-			damage=attacker_stat.power*2
+			damage*=2
 		elif hit <target_tile.DV:
 			attack_description+= " but misses!!"
 			if entity.map_data.get_tile(entity.map_data.player.grid_position).is_in_view:

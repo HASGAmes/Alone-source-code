@@ -3,7 +3,7 @@ extends CanvasLayer
 
 signal equipment_selected(slot)
 
-const inventory_menu_item_scene := preload("res://src/GUI/InventorMenu/inventory_menu_item.tscn")
+@onready var inventory_menu_item_scene= preload("res://src/GUI/InventorMenu/inventory_menu_item.tscn")
 
 @onready var inventory_list: VBoxContainer = $"%InventoryList"
 @onready var title_label: Label = $"%TitleLabel"
@@ -32,14 +32,22 @@ func build(title_text: String, Equipment_slots: EquipmentComponent) -> void:
 func _register_item(index: int, slot: Limb_Component, item:Entity = null) -> void:
 	var item_button: Button = inventory_menu_item_scene.instantiate()
 	var char: String = String.chr("a".unicode_at(0) + index)
+	item_button.current_limb = slot
 	if item!=null:
 		item_button.icon = item.texture
+		var weapon_dice = slot.equiped_item_definition.equipment_item_component.damage_dice.duplicate()
+		var weapon_text= " %sd%s"%[weapon_dice.pop_front(),weapon_dice.pop_front()]
 		item_button.add_theme_color_override("icon_normal_color",item.modulate)
 		item_button.add_theme_color_override("icon_focus_color",item.modulate)
 		var button_text = slot.name_limb+ "( "+item.get_entity_name()+" )"
 		item_button.text = "( %s ) %s" % [char,button_text ]
+		item_button.text+=weapon_text
 	else:
+		var weapon_dice = slot.damage_dice.duplicate()
+		var weapon_text= " %sd%s"%[weapon_dice.pop_front(),weapon_dice.pop_front()]
 		item_button.text = "( %s ) %s" % [char, slot.name_limb]
+		if slot.natural_weapon == true:
+			item_button.text+=weapon_text
 	var shortcut_event := InputEventKey.new()
 	shortcut_event.keycode = KEY_A + index
 	item_button.shortcut = Shortcut.new()
@@ -49,6 +57,17 @@ func _register_item(index: int, slot: Limb_Component, item:Entity = null) -> voi
 
 
 func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("select_attacking_limb"):
+		var button = inventory_list.get_children()
+		var limb:Limb_Component
+		while button.size() >1:
+			var current_button:Button = button.pop_front()
+			if current_button.has_focus():
+				limb = current_button.current_limb
+		if limb.equiped_item!= null:
+			get_parent().get_parent().get_parent().player.fighter_component.current_weapon_dice = limb.equiped_item.equipment_item_component.damage_dice
+		else:
+			get_parent().get_parent().get_parent().player.fighter_component.current_weapon_dice = limb.damage_dice
 	if Input.is_action_just_pressed("ui_back"):
 		equipment_selected.emit(null)
 		queue_free()

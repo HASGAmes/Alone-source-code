@@ -7,7 +7,6 @@ extends  Resource
 @export var can_be_dismembered:bool = true
 @export var attached_parts: Array[Limb_Definition]
 @export var damage_type:Array[DamageTypes.DAMAGE_TYPES]
-@export var damage_dice:int
-@export var damage_dice_sides:int
+@export var damage_dice:Array[int] = [2,1]
 @export var is_natural_weapon:bool = false
 @export var starting_equipment:EntityDefinition = null

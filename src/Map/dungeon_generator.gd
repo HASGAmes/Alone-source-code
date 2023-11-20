@@ -135,20 +135,11 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 		
 		if can_place:
 			var new_entity: Entity
-			if _rng.randf() < 0.2:
-				new_entity = Entity.new(dungeon, new_entity_position, entity_types.troll)
-			elif _rng.randf() < 0.3:
-				new_entity = Entity.new(dungeon, new_entity_position, entity_types.STEALTHBOT)
-			elif _rng.randf() < 0.4:
-				new_entity = Entity.new(dungeon, new_entity_position, entity_types.dog)
-			elif _rng.randf() < 0.6:
-				new_entity = Entity.new(dungeon, new_entity_position, entity_types.spider)
-			elif _rng.randf() < 0.8:
-				new_entity = Entity.new(dungeon, new_entity_position, entity_types.cat)
-			elif _rng.randf() < 1.0:
-				new_entity = Entity.new(dungeon, new_entity_position, entity_types.WARBOT)
-#			elif _rng.randf() < 1.0:
-#				new_entity = Entity.new(dungeon, new_entity_position, entity_types.WARBOT)
+			randomize()
+			var zone_entities =zones_info.entities_enemies.pick_random()
+			
+			new_entity = Entity.new(dungeon, new_entity_position, zone_entities)
+			
 			dungeon.entities.append(new_entity)
 			
 	

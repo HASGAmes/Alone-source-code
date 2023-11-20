@@ -19,8 +19,7 @@ limb_type = 0
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_5x0xl"]
@@ -31,8 +30,7 @@ limb_type = 1
 can_be_dismembered = false
 attached_parts = Array[ExtResource("1_lwofb")]([])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_4ieqr"]
@@ -43,8 +41,7 @@ limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_bdiji"]
@@ -55,8 +52,7 @@ limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_du1ym"]
@@ -67,8 +63,7 @@ limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_8ulw0"]
@@ -79,8 +74,7 @@ limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_nlto2"]

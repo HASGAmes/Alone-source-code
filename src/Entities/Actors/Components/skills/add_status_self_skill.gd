@@ -19,11 +19,13 @@ func _init(definition:AddStatusSelfDefinition):
 	self.skill_icon = definition.skill_icon
 	self.free_move = definition.free_move
 	skill_name= definition.skill_name
-	self.status = definition.status
+	self.status = definition.status.duplicate()
 	self.skill_buff =definition.skill_buff
 	self.message_color = definition.message_color
 func activate(user:Entity,action: SkillAction,target_position:Vector2i,mapdata:MapData) -> bool:
 	if tick_cooldown ==cooldown:
+		var add = status.duplicate()
+		print(status,"status")
 		user.add_status([status])
 		tick_cooldown = 0
 		MessageLog.send_message(skill_message %[user.get_entity_name(),skill_name],message_color)

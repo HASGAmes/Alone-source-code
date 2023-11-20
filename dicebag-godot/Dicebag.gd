@@ -17,7 +17,8 @@ func flip_coin() -> bool:
 #D&D-style dice roll, for example 3d6+2. Returns resulting roll value.
 func roll_dice(num_dice = 1, num_sides = 6, modifier = 0) -> int:
 	var result = modifier
-
+	if num_dice <=0:
+		num_dice = 1
 	for i in range(0, num_dice):
 		result += rng.randi_range(1, num_sides)
 

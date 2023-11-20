@@ -4,9 +4,8 @@ var is_important :bool
 var name_limb
 var limb_type
 var can_be_dismembered:bool
-var damage_dice:int
+var damage_dice:Array[int]
 var natural_weapon:bool
-var damage_sides:int
 var connected:Array[Limb_Component]
 var equiped_item:Entity
 var equiped_item_definition:EntityDefinition
@@ -16,7 +15,6 @@ func _init(definition :Limb_Definition):
 	definition_limb = definition.duplicate()
 	natural_weapon = definition.is_natural_weapon
 	damage_dice = definition.damage_dice
-	damage_sides = definition.damage_dice_sides
 	name_limb =definition_limb.name
 	is_important = definition_limb.is_important
 	can_be_dismembered = definition_limb.can_be_dismembered

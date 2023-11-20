@@ -39,7 +39,7 @@ func set_up_body(definition:Body_Plan_Definition):
 			attached = Limb_Component.new(current_part)
 			adding_limbs.connected+=[attached]
 			if current_part.starting_equipment !=null:
-				print("gets def")
+				
 				attached.equiped_item_definition = current_part.starting_equipment
 			adding_limbs.get_parent().add_child(attached)
 	list_of_limbs = original_limbs

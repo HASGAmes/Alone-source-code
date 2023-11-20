@@ -42,8 +42,7 @@ var body_plan: Body_Plan
 var death_sound: AudioStreamWAV
 var healed_amount:float
 var onhit_effects:Array[StatusEffectDefinition]
-var current_weapon_dice:int
-var current_weapon_side_dice:int
+var current_weapon_dice:Array[int]
 #####################
 var xp:int
 var lv:int =1
@@ -122,6 +121,16 @@ func set_up_body(definition:FighterComponentDefinition)->void:
 	add_child(body_plan)
 	body_plan.list_of_limbs = body_plan.list_of_limbs.duplicate()
 	set_up_equipment(body_plan)
+	set_current_damage_dice(body_plan)
+func set_current_damage_dice(body:Body_Plan):
+	var check_body = body.get_children().duplicate()
+	while !check_body.is_empty():
+		var limb_check:Limb_Component = check_body.pop_front()
+		if limb_check.equiped_item!=null:
+			current_weapon_dice = limb_check.equiped_item.equipment_item_component.damage_dice
+		elif limb_check.natural_weapon == true:
+			current_weapon_dice = limb_check.damage_dice
+	print(current_weapon_dice,"damage dics is")
 func set_up_equipment(body:Body_Plan)->void:
 	var check_body = body.get_children().duplicate()
 	while !check_body.is_empty():
@@ -172,7 +181,7 @@ func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES,damage_messag
 		var damage = weak.pop_front()
 		if damage_type == damage:
 			amount *= 2
-			resistances_message += "FOR %d HITPOINTS!!!!" % amount
+			resistances_message += " FOR %d HITPOINTS!!!!" % amount
 	while !resistance.is_empty():
 		var damage = resistance.pop_front()
 		if damage_type == damage:
@@ -185,7 +194,7 @@ func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES,damage_messag
 			amount = 0
 			resistances_message += " but they weren't fazed." 
 	if resistances_message== "":
-		resistances_message = " for a  %d hit points." % amount
+		resistances_message = "  for a  %d hit points." % amount
 	if amount<=defense:
 		resistances_message = " but it didn't inflict damage"
 		amount = 0
@@ -275,15 +284,16 @@ func _handle_death_drops(consumable_definition: Array[EntityDefinition]) -> void
 		entity.map_data.entities.append(consumable_component)
 		entity.get_parent().add_child(consumable_component)
 		
-func get_weapon(entity:Entity,target_weapon:EquipmentItemComponent.WEAPON_TYPES)->Array[Entity]:
+func get_weapon(entity:Entity,target_weapon:Array[EquipmentItemComponent.WEAPON_TYPES])->Array[Entity]:
 	var list = body_plan.get_children().duplicate()
 	var return_list:Array[Entity]
 	while !list.is_empty():
 		var limb:Limb_Component= list.pop_front()
 		var weapon:Entity = limb.equiped_item
 		if weapon !=null:
-			if weapon.equipment_item_component.weapon_type == target_weapon:
-				return_list+=[weapon]
+			while !target_weapon.is_empty():
+				if weapon.equipment_item_component.weapon_type == target_weapon.pop_front():
+					return_list+=[weapon]
 	return return_list
 	
 func get_body_part(entity:Entity,target_part:Body_Plan_Definition.TYPE_OF_PARTS)-> Array[Limb_Component]:
