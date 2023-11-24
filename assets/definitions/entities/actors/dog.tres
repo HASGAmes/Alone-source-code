@@ -12,16 +12,16 @@
 
 [sub_resource type="Resource" id="Resource_l5edc"]
 script = ExtResource("3_73ybl")
-max_hp = 20
-str = 10
-dex = 10
-toughness = 10
-will = 10
+max_hp = 0
+str = 0
+dex = 0
+toughness = 0
+will = 0
 prescence = 0
 dismember_chance = 0
 decap = false
 power = 3
-quickness = 100
+quickness = 0
 defense = 0
 hit_chance = 0
 DV = 5

@@ -2,18 +2,18 @@ class_name FighterComponentDefinition
 extends Resource
 
 @export_category("Stats")
-@export var max_hp: int
-@export var str:int
-@export var dex:int
-@export var toughness:int
-@export var will:int
+@export var max_hp: int = 20
+@export var str:int= 10
+@export var dex:int = 10
+@export var toughness:int= 10
+@export var will:int= 10
 @export var prescence:int
 @export_category("Advanced_Stats")
-@export var dismember_chance:int
+@export var dismember_chance:int = 0
 @export var decap:bool = false
-@export var power: int
-@export var quickness:int
-@export var defense: int
+@export var power: int = 0
+@export var quickness:int = 100
+@export var defense: int = 0
 @export_range(-21,21) var hit_chance: int
 @export_range(-21,21) var DV: int
 @export_range(-21,21) var critdam:int

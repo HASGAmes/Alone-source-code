@@ -10,11 +10,11 @@
 
 [sub_resource type="Resource" id="Resource_7jmmy"]
 script = ExtResource("5_7xck5")
-max_hp = 20
+max_hp = 0
 str = 2
 dex = 12
-toughness = 10
-will = 10
+toughness = 0
+will = 0
 prescence = 0
 dismember_chance = 0
 decap = false
