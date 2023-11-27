@@ -162,7 +162,7 @@ can_stack = false
 
 [sub_resource type="Resource" id="Resource_sodnv"]
 script = ExtResource("1_x086p")
-max_hp = 0
+max_hp = 20
 str = 15
 dex = 15
 toughness = 20
