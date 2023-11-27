@@ -7,6 +7,14 @@ func perform() -> bool:
 	var attacker_stat:FighterComponent = entity.fighter_component
 	var defender_stat:FighterComponent
 	var attacking_limb
+	var dice:Array[int]
+	var hit_roll
+	var hit: int
+	var damroll: int
+	var damage: int
+	var attack_color: Color
+	var crit:Color = GameColors.CRIT
+	var attack_description:String
 	if target_entity == null and target_tile== null:
 		return false
 	if target_entity!=null:
@@ -16,19 +24,11 @@ func perform() -> bool:
 			if entity == get_map_data().player:
 				MessageLog.send_message("Nothing to attack.", GameColors.IMPOSSIBLE)
 			return false
-		var dice:Array[int]
-		var hit_roll
-		var hit: int
-		var damroll: int
-		var damage: int
-		var attack_color: Color
+		
 		if entity == get_map_data().player:
 			attack_color = GameColors.PLAYER_ATTACK
 		else:
 			attack_color = GameColors.ENEMY_ATTACK
-		
-		var crit:Color = GameColors.CRIT
-		var attack_description:String
 		if attacker_stat.base_offhand_attack_chance >0:
 			var offhand_roll:int
 			var offhandlimbs:Array[Limb_Component] = attacker_stat.offhand_limbs.duplicate()
@@ -38,15 +38,18 @@ func perform() -> bool:
 				var get_currentlimb:Limb_Component  = offhandlimbs.pop_front()
 				if offhand_roll> attacker_stat.base_offhand_attack_chance:
 					continue
-				dice = attacker_stat.current_primary_limb.damage_dice
+				if attacker_stat.current_primary_limb.equiped_item_definition!=null:
+					dice = attacker_stat.current_primary_limb.equiped_item_definition.equipment_item_component.damage_dice.duplicate()
+				else:
+					dice = attacker_stat.current_primary_limb.damage_dice.duplicate()
 				hit_roll = entity.dicebag.roll_dice(1,20,attacker_stat.critdam)
 				damroll = entity.dicebag.roll_dice(dice.pop_front(),dice.pop_front())
 				hit= hit_roll+entity.fighter_component.hit_chance
 				damage= damroll - defender_stat.defense
-				if attacker_stat.current_primary_limb.equiped_item_definition != null:
-					attack_description = "%s attacks %s with their %s" %[entity.get_entity_name(),target_entity.get_entity_name(),get_currentlimb.equiped_item_definition.name]
+				if get_currentlimb.equiped_item != null:
+					attack_description = "%s attacks %s with their %s" %[entity.get_entity_name(),target_entity.get_entity_name(),get_currentlimb.equiped_item.get_entity_name()]
 				else:
-					attack_description = "%s attacks %s with their %s" %[entity.get_entity_name(),target_entity.get_entity_name(),get_currentlimb.name]
+					attack_description = "%s attacks %s with their %s" %[entity.get_entity_name(),target_entity.get_entity_name(),get_currentlimb.name_limb]
 				if hit_roll>=20:
 					damage*=2
 				elif hit <defender_stat.DV:
@@ -73,7 +76,10 @@ func perform() -> bool:
 						defender_stat.body_plan.dismember(attacker_stat.decap)
 					defender_stat.take_damage(damage,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
 				return true
-		dice = attacker_stat.current_primary_limb.damage_dice
+		if attacker_stat.current_primary_limb.equiped_item_definition!=null:
+			dice = attacker_stat.current_primary_limb.equiped_item_definition.equipment_item_component.damage_dice.duplicate()
+		else:
+			dice = attacker_stat.current_primary_limb.damage_dice.duplicate()
 		hit_roll = entity.dicebag.roll_dice(1,20,attacker_stat.critdam)
 		damroll = entity.dicebag.roll_dice(dice.pop_front(),dice.pop_front())
 		hit= hit_roll+entity.fighter_component.hit_chance
@@ -81,7 +87,7 @@ func perform() -> bool:
 		if attacker_stat.current_primary_limb.equiped_item_definition != null:
 			attack_description = "%s attacks %s with their %s" %[entity.get_entity_name(),target_entity.get_entity_name(),attacker_stat.current_primary_limb.equiped_item_definition.name]
 		else:
-			attack_description = "%s attacks %s with their %s" %[entity.get_entity_name(),target_entity.get_entity_name(),attacker_stat.current_primary_limb.name]
+			attack_description = "%s attacks %s with their %s" %[entity.get_entity_name(),target_entity.get_entity_name(),attacker_stat.current_primary_limb.name_limb]
 		if hit_roll>=20:
 			damage*=2
 		elif hit <defender_stat.DV:
@@ -114,20 +120,12 @@ func perform() -> bool:
 				if entity.map_data.get_tile(entity.map_data.player.grid_position).is_in_view:
 					MessageLog.send_message("Nothing to attack.", GameColors.IMPOSSIBLE)
 			return false
-		var dice:Array[int] = attacker_stat.current_weapon_dice.duplicate()
-		var hit_roll = entity.dicebag.roll_dice(1,20,attacker_stat.critdam)
-		var damroll: int = entity.dicebag.roll_dice(dice.pop_front(),dice.pop_front(),attacker_stat.str)
-		print(damroll,"DAMAGE")
-		var hit: int = hit_roll+entity.fighter_component.hit_chance
-		var damage: int = damroll - target_tile.defense
-		var attack_color: Color
-		var crit:Color
 		if entity == get_map_data().player:
 			attack_color = GameColors.PLAYER_ATTACK
 		else:
 			attack_color = GameColors.ENEMY_ATTACK
 		crit = GameColors.CRIT
-		var attack_description: String = "%s attacks %s" % [entity.get_entity_name(), target_tile.tile_name]
+		attack_description= "%s attacks %s" % [entity.get_entity_name(), target_tile.tile_name]
 		if hit_roll>=20:
 			damage*=2
 		elif hit <target_tile.DV:

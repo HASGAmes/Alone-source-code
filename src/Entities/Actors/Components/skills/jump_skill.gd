@@ -26,12 +26,10 @@ func change_stats(definition:JumpDefinition):
 	self.message_color = definition.message_color
 func activate(user:Entity,action: SkillAction,target_position:Vector2i,mapdata:MapData) -> bool:
 	map = user.map_data
-
 	if tick_cooldown == cooldown:
 		var firsttile:Tile = map.get_tile(user.grid_position)
 		var secondtile:Tile = map.get_tile(target_position)
 		var distance:int = firsttile.distance(secondtile.grid_position)
-		
 		print(distance,range)
 		if distance>range:
 			

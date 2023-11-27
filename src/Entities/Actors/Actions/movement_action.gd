@@ -14,8 +14,12 @@ func perform() -> bool:
 		return true
 	if map_data.get_actor_at_location(destination) and entity == get_map_data().player:
 		var actor = map_data.get_actor_at_location(destination)
-		entity.swap(actor)
-		return true
+		if actor.current_movement == entity.MOVEMENT_TYPE.PRONE:
+			MessageLog.send_message("%s cannot be moved"%actor.get_entity_name(), GameColors.IMPOSSIBLE)
+			return false
+		else:
+			entity.swap(actor)
+			return true
 	if not destination_tile or not destination_tile.is_walkable() or get_blocking_entity_at_destination():
 		if entity == get_map_data().player:
 			MessageLog.send_message("That way is blocked.", GameColors.IMPOSSIBLE)

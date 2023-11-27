@@ -116,6 +116,7 @@ defense = 7
 hit_chance = 16
 DV = -15
 critdam = 4
+base_offhand_attack_change = 1
 on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([SubResource("Resource_lmtf2"), SubResource("Resource_yc18x")])
 aggression = 200
 max_hunger = 0

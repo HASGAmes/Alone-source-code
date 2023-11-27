@@ -10,13 +10,13 @@
 
 [sub_resource type="Resource" id="Resource_7jmmy"]
 script = ExtResource("5_7xck5")
-max_hp = 0
+max_hp = 20
 str = 2
 dex = 12
 toughness = 0
 will = 0
 prescence = 0
-dismember_chance = 0
+dismember_chance = 10
 decap = false
 power = 2
 quickness = 101
@@ -24,6 +24,7 @@ defense = 1
 hit_chance = 0
 DV = 10
 critdam = 1
+base_offhand_attack_change = 1
 on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
 aggression = 55
 max_hunger = 100
