@@ -1,142 +1,142 @@
-[gd_resource type="Resource" script_class="Body_Plan_Definition" load_steps=15 format=3 uid="uid://2cikbcm7s7f7"]
+[gd_resource type="Resource" script_class="Body_Plan_Definition" load_steps=15 format=3 uid="uid://cdsi3p0niuqhl"]
 
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_aret8"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/body_plan_definition.gd" id="2_3cxcr"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_ohlgf"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/body_plan_definition.gd" id="2_4lt2d"]
 
 [sub_resource type="Resource" id="Resource_3rd1x"]
-script = ExtResource("1_aret8")
+script = ExtResource("1_ohlgf")
 is_important = false
 name = "face"
 limb_type = 6
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_aret8")]([])
+attached_parts = Array[ExtResource("1_ohlgf")]([])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_law6f"]
-script = ExtResource("1_aret8")
+script = ExtResource("1_ohlgf")
 is_important = true
 name = "head"
 limb_type = 0
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_aret8")]([SubResource("Resource_3rd1x")])
+attached_parts = Array[ExtResource("1_ohlgf")]([SubResource("Resource_3rd1x")])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_elmpr"]
-script = ExtResource("1_aret8")
+script = ExtResource("1_ohlgf")
 is_important = false
 name = "back"
 limb_type = 7
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_aret8")]([])
+attached_parts = Array[ExtResource("1_ohlgf")]([])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_tyur4"]
-script = ExtResource("1_aret8")
+script = ExtResource("1_ohlgf")
 is_important = false
 name = "body"
 limb_type = 1
 can_be_dismembered = false
-attached_parts = Array[ExtResource("1_aret8")]([SubResource("Resource_elmpr")])
+attached_parts = Array[ExtResource("1_ohlgf")]([SubResource("Resource_elmpr")])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_6icd4"]
-script = ExtResource("1_aret8")
+script = ExtResource("1_ohlgf")
 is_important = false
-name = "hand"
+name = "saw  blade"
 limb_type = 5
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_aret8")]([])
+attached_parts = Array[ExtResource("1_ohlgf")]([])
 damage_type = Array[int]([1])
 damage_dice = Array[int]([1, 8])
 is_natural_weapon = true
 
 [sub_resource type="Resource" id="Resource_kuc26"]
-script = ExtResource("1_aret8")
+script = ExtResource("1_ohlgf")
 is_important = false
 name = "arm"
 limb_type = 2
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_aret8")]([SubResource("Resource_6icd4")])
+attached_parts = Array[ExtResource("1_ohlgf")]([SubResource("Resource_6icd4")])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
-[sub_resource type="Resource" id="Resource_hwnq3"]
-script = ExtResource("1_aret8")
+[sub_resource type="Resource" id="Resource_cgs83"]
+script = ExtResource("1_ohlgf")
 is_important = false
-name = "hand"
+name = "saw  blade"
 limb_type = 5
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_aret8")]([])
+attached_parts = Array[ExtResource("1_ohlgf")]([])
 damage_type = Array[int]([1])
 damage_dice = Array[int]([1, 8])
 is_natural_weapon = true
 
 [sub_resource type="Resource" id="Resource_behuf"]
-script = ExtResource("1_aret8")
+script = ExtResource("1_ohlgf")
 is_important = false
 name = "arm"
 limb_type = 2
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_aret8")]([SubResource("Resource_hwnq3")])
+attached_parts = Array[ExtResource("1_ohlgf")]([SubResource("Resource_cgs83")])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_ujbka"]
-script = ExtResource("1_aret8")
+script = ExtResource("1_ohlgf")
 is_important = false
 name = "foot"
 limb_type = 4
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_aret8")]([])
+attached_parts = Array[ExtResource("1_ohlgf")]([])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = true
 
 [sub_resource type="Resource" id="Resource_t0yic"]
-script = ExtResource("1_aret8")
+script = ExtResource("1_ohlgf")
 is_important = false
 name = "leg"
 limb_type = 3
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_aret8")]([SubResource("Resource_ujbka")])
+attached_parts = Array[ExtResource("1_ohlgf")]([SubResource("Resource_ujbka")])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_yrng4"]
-script = ExtResource("1_aret8")
+script = ExtResource("1_ohlgf")
 is_important = false
 name = "foot"
 limb_type = 4
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_aret8")]([])
+attached_parts = Array[ExtResource("1_ohlgf")]([])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = true
 
 [sub_resource type="Resource" id="Resource_po41s"]
-script = ExtResource("1_aret8")
+script = ExtResource("1_ohlgf")
 is_important = false
-name = "leg"
+name = "treads"
 limb_type = 3
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_aret8")]([SubResource("Resource_yrng4")])
+attached_parts = Array[ExtResource("1_ohlgf")]([SubResource("Resource_yrng4")])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [resource]
 resource_local_to_scene = true
-script = ExtResource("2_3cxcr")
+script = ExtResource("2_4lt2d")
 limbs_are_alive = false
-body_parts = Array[ExtResource("1_aret8")]([SubResource("Resource_law6f"), SubResource("Resource_tyur4"), SubResource("Resource_kuc26"), SubResource("Resource_behuf"), SubResource("Resource_t0yic"), SubResource("Resource_po41s")])
+body_parts = Array[ExtResource("1_ohlgf")]([SubResource("Resource_law6f"), SubResource("Resource_tyur4"), SubResource("Resource_kuc26"), SubResource("Resource_behuf"), SubResource("Resource_t0yic"), SubResource("Resource_po41s")])

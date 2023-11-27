@@ -64,10 +64,8 @@ func _physics_process(_delta: float) -> void:
 			var current_button:Button = button.pop_front()
 			if current_button.has_focus():
 				limb = current_button.current_limb
-		if limb.equiped_item!= null:
-			get_parent().get_parent().get_parent().player.fighter_component.current_weapon_dice = limb.equiped_item.equipment_item_component.damage_dice
-		else:
-			get_parent().get_parent().get_parent().player.fighter_component.current_weapon_dice = limb.damage_dice
+		get_parent().get_parent().get_parent().player.fighter_component.set_attacking_limbs(null,limb)
+
 	if Input.is_action_just_pressed("ui_back"):
 		equipment_selected.emit(null)
 		queue_free()

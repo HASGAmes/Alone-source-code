@@ -42,7 +42,10 @@ var body_plan: Body_Plan
 var death_sound: AudioStreamWAV
 var healed_amount:float
 var onhit_effects:Array[StatusEffectDefinition]
-var current_weapon_dice:Array[int]
+var current_primary_limb:Limb_Component
+var offhand_limbs:Array[Limb_Component]
+var total_attacking_limbs:Array[Limb_Component]
+var base_offhand_attack_chance:int = 0
 #####################
 var xp:int
 var lv:int =1
@@ -61,6 +64,7 @@ func _init(definition: FighterComponentDefinition) -> void:
 	res = definition.res
 	weakness = definition.weakness
 	immune = definition.immunity
+	base_offhand_attack_chance = definition.base_offhand_attack_change
 	items_to_drop = definition.items_on_death.duplicate()
 	skill_tracker = Node.new()
 	add_child(skill_tracker)
@@ -116,21 +120,26 @@ func level_up():
 	
 func set_up_body(definition:FighterComponentDefinition)->void:
 	definition.body_plan_def = definition.body_plan_definition.duplicate()
-	await entity != null
-	body_plan = Body_Plan.new(definition.body_plan_def,entity)
+	body_plan = Body_Plan.new(definition.body_plan_def,get_parent())
 	add_child(body_plan)
 	body_plan.list_of_limbs = body_plan.list_of_limbs.duplicate()
 	set_up_equipment(body_plan)
-	set_current_damage_dice(body_plan)
-func set_current_damage_dice(body:Body_Plan):
-	var check_body = body.get_children().duplicate()
+	set_attacking_limbs(body_plan)
+func set_attacking_limbs(body:Body_Plan = null,selected_limb:Limb_Component = null) -> void:
+	var check_body:Array
+	if body!=null:
+		check_body = body.get_children().duplicate()
 	while !check_body.is_empty():
 		var limb_check:Limb_Component = check_body.pop_front()
-		if limb_check.equiped_item!=null:
-			current_weapon_dice = limb_check.equiped_item.equipment_item_component.damage_dice
-		elif limb_check.natural_weapon == true:
-			current_weapon_dice = limb_check.damage_dice
-	print(current_weapon_dice,"damage dics is")
+		if limb_check.equiped_item!=null or limb_check.natural_weapon == true:
+			total_attacking_limbs.append(limb_check)
+			current_primary_limb = limb_check
+	offhand_limbs = total_attacking_limbs.duplicate()
+	offhand_limbs.remove_at(offhand_limbs.size()-1)
+	print(offhand_limbs,total_attacking_limbs,current_primary_limb)
+	if selected_limb!=null:
+		if selected_limb.equiped_item!=null or selected_limb.natural_weapon == true:
+			current_primary_limb = selected_limb
 func set_up_equipment(body:Body_Plan)->void:
 	var check_body = body.get_children().duplicate()
 	while !check_body.is_empty():

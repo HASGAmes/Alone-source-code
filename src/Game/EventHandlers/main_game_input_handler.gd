@@ -62,8 +62,7 @@ func get_action(player: Entity) -> Action:
 	if Input.is_action_just_pressed("activate"):
 		if !player.inventory_component.items.is_empty():
 			action = await activate_item(player)
-			get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME) 
-		else :
+		else:
 			MessageLog.send_message("Your pockets are empty",GameColors.INVALID)
 	if Input.is_action_just_pressed("look"):
 		await get_grid_position(player, 0,true)
@@ -109,6 +108,7 @@ func activate_skill(player: Entity) -> Action:
 	if selected_item.tick_cooldown!=selected_item.cooldown:
 		MessageLog.send_message("Skill not off cooldown",GameColors.INVALID)
 		return
+	get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME) 
 	return SkillAction.new(player,selected_item,player.map_data,target_position)
 func activate_item(player: Entity) -> Action:
 	var selected_item: Entity = await get_item("Select an item to use", player.inventory_component)
@@ -119,11 +119,13 @@ func activate_item(player: Entity) -> Action:
 	if selected_item.consumable_component != null:
 		target_radius = selected_item.consumable_component.get_targeting_radius()
 	if target_radius == -1:
+		get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME) 
 		return ItemAction.new(player, selected_item)
 	
 	var target_position: Vector2i = await get_grid_position(player, target_radius,true)
 	if target_position == Vector2i(-1, -1):
 		return null
+	get_parent().transition_to(InputHandler.InputHandlers.MAIN_GAME) 
 	return ItemAction.new(player, selected_item, target_position)
 func change_equipment(player: Entity) -> Action:
 	

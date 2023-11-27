@@ -1,0 +1,24 @@
+{
+    "activeFile": "testing.tsx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "testing.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/hayde/Desktop/roguelikegodot/assets/images",
+    "openFiles": [
+        "testing.tsx"
+    ],
+    "project": "testomg.tiled-project",
+    "recentFiles": [
+        "testing.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
