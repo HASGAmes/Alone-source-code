@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=36 format=3 uid="uid://nonyedj0ufmd"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=35 format=3 uid="uid://nonyedj0ufmd"]
 
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_bt7jo"]
-[ext_resource type="Resource" uid="uid://b4vqybsfbyrlk" path="res://assets/definitions/entities/items/ax.tres" id="2_3o5vw"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/body_plan_definition.gd" id="2_4f4jm"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_lshad"]
 [ext_resource type="AudioStream" uid="uid://26yrll0u8ha3" path="res://assets/audio/sfx/allbarknobite.wav" id="2_toeov"]
@@ -91,7 +90,6 @@ attached_parts = Array[ExtResource("1_bt7jo")]([])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = true
-starting_equipment = ExtResource("2_3o5vw")
 
 [sub_resource type="Resource" id="Resource_dk2de"]
 script = ExtResource("1_bt7jo")
@@ -217,15 +215,15 @@ dex = 12
 toughness = 11
 will = 11
 prescence = 0
-dismember_chance = 3
-decap = true
-power = 8
-quickness = 0
+dismember_chance = 0
+decap = false
+power = 0
+quickness = 100
 defense = 0
 hit_chance = 4
 DV = 10
 critdam = 1
-base_offhand_attack_change = 1
+base_offhand_attack_change = 0
 on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
 aggression = 0
 max_hunger = 5

@@ -1,6 +1,13 @@
 class_name Tile
 extends Sprite2D
-
+const tile_types = {
+	"floor": preload("res://assets/definitions/tiles/tile_definition_floor.tres"),
+	"wall": preload("res://assets/definitions/tiles/tile_definition_wall.tres"),
+	"rocks": preload("res://assets/definitions/tiles/tile_definition_rocks.tres"),
+	"door": preload("res://assets/definitions/tiles/tile_definition_door.tres"),
+	"skulls":preload("res://assets/definitions/tiles/tile_definition_skulls.tres")
+}
+var key: String
 var _definition: TileDefinition
 var walkable
 var transparent
@@ -41,17 +48,17 @@ var is_in_view: bool = false:
 			is_explored = true
 
 
-func _init(grid_position: Vector2i, tile_definition: TileDefinition) -> void:
+func _init(grid_position: Vector2i, key: String) -> void:
 	visible = false
 	centered = false
+	position = Grid.grid_to_world(grid_position)
+	set_tile_type(key)
 	self.grid_position = grid_position
 	global_position = Grid.grid_to_world(grid_position)
 	collision = collision.instantiate()
 	add_child(collision)
 	collision.position = Vector2i(8,8)
-	set_tile_type(tile_definition)
-	walkable = tile_definition.is_walkable
-	transparent = tile_definition.is_transparent
+	
 	
 func distance(other_position: Vector2i) -> int:
 	var distance_x = other_position.x-grid_position.x
@@ -70,19 +77,23 @@ func distance(other_position: Vector2i) -> int:
 		distance=distance_x
 	return distance
 
-func set_tile_type(tile_definition: TileDefinition) -> void:
-	_definition = tile_definition.duplicate()
+func set_tile_type(key: String) -> void:
+	self.key = key
+	_definition = tile_types[key]
+	_definition = _definition.duplicate()
 	randomize()
 	var size = _definition.texture.size()
 	var random_num: int = randi_range(0,size-1)
 	var random_texture = _definition.texture.pop_at(random_num)
 	texture = random_texture
 	rubble_texture = _definition.rubble
-	openable = tile_definition.is_openable
-	open_texture = tile_definition.open_texture
-	closed_texture = tile_definition.closed_texture
+	openable = _definition.is_openable
+	open_texture = _definition.open_texture
+	closed_texture = _definition.closed_texture
 	chosen_dark_color =_definition.color_dark.pop_at(random_num)
 	chosen_light_color = _definition.color_lit.pop_at(random_num)
+	walkable = _definition.is_walkable
+	transparent = _definition.is_transparent
 	modulate = chosen_dark_color
 	destructible = _definition.is_destructible
 	tile_name = _definition.name
@@ -92,10 +103,10 @@ func set_tile_type(tile_definition: TileDefinition) -> void:
 	DV = _definition.DV
 	rubble_color = _definition.rubble_color
 	terrain_effect = _definition.terrain_effect
-	if !is_walkable():
-		collision.collision_layer = 8
-	else:
-		collision.collision_layer = 0
+#	if !is_walkable():
+#		collision.collision_layer = 8
+#	else:
+#		collision.collision_layer = 0
 		
 func open_or_close():
 	if opened == false:
@@ -113,12 +124,27 @@ func open_or_close():
 
 func is_walkable() -> bool:
 	return _definition.is_walkable
+	
 func is_slippery() -> bool:
 	return _definition.is_slippery
+	
 func is_transparent() -> bool:
 	return _definition.is_transparent
+	
 func is_destructible() -> bool:
 	return _definition.is_destructible
+	
+func get_save_data() -> Dictionary:
+	return {
+		"key": key,
+		"is_explored": is_explored
+	}
+
+
+func restore(save_data: Dictionary) -> void:
+	set_tile_type(save_data["key"])
+	is_explored = save_data["is_explored"]
+
 func destroy() -> void:
 	var death_message: String
 	var death_message_color: Color

@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://byh5efdkagfh4"]
+
+[ext_resource type="PackedScene" uid="uid://fk4lwk11y7bn" path="res://src/Level_Editor/editor_objects/item_texture.tscn" id="1_y2itf"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="2_kt84h"]
+[ext_resource type="Resource" uid="uid://nonyedj0ufmd" path="res://assets/definitions/entities/actors/player.tres" id="3_lgj0j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nym0r"]
+atlas = ExtResource("2_kt84h")
+region = Rect2(96, 80, 16, 16)
+
+[node name="Item_Texture" instance=ExtResource("1_y2itf")]
+modulate = Color(1, 0.137255, 0.172549, 1)
+texture = SubResource("AtlasTexture_nym0r")
+this_scene = ExtResource("3_lgj0j")

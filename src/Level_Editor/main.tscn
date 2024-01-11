@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjx0ptwq0metx"]
+
+[ext_resource type="Script" path="res://src/Level_Editor/editor_objects/Editor_Object.gd" id="1_tqwyo"]
+[ext_resource type="PackedScene" uid="uid://cfkvktvkcvv7b" path="res://src/Level_Editor/control.tscn" id="2_shkyx"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Editor_Object" type="Node2D" parent="."]
+script = ExtResource("1_tqwyo")
+
+[node name="Sprite" type="Sprite2D" parent="Editor_Object"]
+
+[node name="selectionmenu" parent="." instance=ExtResource("2_shkyx")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="TabContainer" parent="selectionmenu" index="0"]
+offset_right = 546.0
+offset_bottom = 321.0
+
+[editable path="selectionmenu"]

@@ -7,8 +7,7 @@ var hp: int:
 	set(value):
 		hp = clampi(value, 0, max_hp)
 		hp_changed.emit(hp, max_hp)
-		if hp <= 0:
-			die()
+		
 var defense: int
 var rubble_texture: Texture
 func _init(definition: Destructible_Tile_Definition) -> void:

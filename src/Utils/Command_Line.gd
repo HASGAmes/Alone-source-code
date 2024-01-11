@@ -195,10 +195,10 @@ func spawnEntity(value : String, path : String):
 		return
 	if !file.file_exists(path + value + ".tres"):
 
-		clearMessage(value + ".tres" + " cannot be found!",false)
+		clearMessage(value +  " cannot be found!",false)
 		return
 	
-	var entity = load(path + value + ".tres")
+	var entity = value
 	var new_entity: Entity
 	new_entity = Entity.new(dungeon, game.player.grid_position + Vector2i(1,1),entity)
 	dungeon.entities.append(new_entity)

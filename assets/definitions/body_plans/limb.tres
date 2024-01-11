@@ -21,8 +21,7 @@ limb_type = 0
 can_be_dismembered = false
 attached_parts = Array[ExtResource("3_lnjvg")]([])
 damage_type = Array[int]([])
-damage_dice = 0
-damage_dice_sides = 0
+damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_qlr5w"]
@@ -46,6 +45,7 @@ defense = 2
 hit_chance = 2
 DV = 2
 critdam = 1
+base_offhand_attack_change = 1
 on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
 aggression = 200
 max_hunger = 100
@@ -71,6 +71,7 @@ texture = SubResource("AtlasTexture_4p48r")
 color = Color(0.545098, 0, 0, 1)
 is_blocking_movment = true
 type = 2
+starting_movement = 0
 fighter_definition = SubResource("Resource_j6q5m")
 ai_type = 3
 consumable_definition = SubResource("Resource_7sswd")

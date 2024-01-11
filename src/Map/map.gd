@@ -29,6 +29,14 @@ func update_fov(player_position: Vector2i) -> void:
 #	points.push(round_point(lerp_point(p0, p1, t)))
 #	return points
 
+func load_game(player: Entity) -> bool:
+	map_data = MapData.new(0, 0, player)
+	map_data.entity_placed.connect(entities.add_child)
+	if not map_data.load_game():
+		return false
+	_place_tiles()
+	_place_entities()
+	return true
 
 func _place_tiles() -> void:
 	for tile in map_data.tiles:

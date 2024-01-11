@@ -1,22 +1,12 @@
+## this randomly generates a dungeon
 class_name DungeonGenerator
 extends Node
 @export var zones_info:Zone_Info
-const entity_types = {
-	"spider": preload("res://assets/definitions/entities/actors/spider.tres"),
-	"troll":preload("res://assets/definitions/entities/actors/troll.tres"),
-	"WARBOT":preload("res://assets/definitions/entities/actors/war_bot.tres"),
-	"STEALTHBOT":preload("res://assets/definitions/entities/actors/STEALTHBOT.tres"),
-	"dog":preload("res://assets/definitions/entities/actors/dog.tres"),
-	"cat":preload("res://assets/definitions/entities/actors/cat.tres"),
-	"health_potion": preload("res://assets/definitions/entities/items/health_potion.tres"),
-	"lightning_scroll": preload("res://assets/definitions/entities/items/lightning_scroll.tres"),
-	"confusion_scroll": preload("res://assets/definitions/entities/items/confusion_scroll.tres"),
-	"fireball_scroll": preload("res://assets/definitions/entities/items/fireball_scroll.tres"),
-}
+
 
 @export_category("Map Dimensions")
-@export var map_width: int = 80
-@export var map_height: int = 45
+@export var map_width: int = 80##the width of a map
+@export var map_height: int = 45##the height of a map
 
 @export_category("Rooms RNG")
 @export var max_rooms: int = 30
@@ -84,23 +74,13 @@ func _carve_room(dungeon: MapData, room: Rect2i) -> void:
 func _tunnel_horizontal(dungeon: MapData, y: int, x_start: int, x_end: int) -> void:
 	var x_min: int = mini(x_start, x_end)
 	var x_max: int = maxi(x_start, x_end)
-	var chosen_tile :Array=[dungeon.tile_types.floor,dungeon.tile_types.rocks]
-	var picked = chosen_tile.pick_random()
 	for x in range(x_min, x_max + 1):
-		if x ==x_min+3 or x == x_max-3:
-			_carve_tile(dungeon, x, y,dungeon.tile_types.floor)
-		else :
-			_carve_tile(dungeon, x, y,dungeon.tile_types.floor)
+		_carve_tile(dungeon, x, y,"floor")
 func _tunnel_vertical(dungeon: MapData, x: int, y_start: int, y_end: int) -> void:
 	var y_min: int = mini(y_start, y_end)
 	var y_max: int = maxi(y_start, y_end)
-	var chosen_tile :Array=[dungeon.tile_types.floor,dungeon.tile_types.rocks]
-	var picked = chosen_tile.pick_random()
 	for y in range(y_min, y_max + 1):
-		if y ==y_min-3 or y == y_max+3:
-			_carve_tile(dungeon, x, y,dungeon.tile_types.floor)
-		else :
-			_carve_tile(dungeon, x, y,dungeon.tile_types.floor)
+		_carve_tile(dungeon, x, y,"floor")
 
 
 func _tunnel_between(dungeon: MapData, start: Vector2i, end: Vector2i) -> void:
@@ -112,10 +92,10 @@ func _tunnel_between(dungeon: MapData, start: Vector2i, end: Vector2i) -> void:
 		_tunnel_horizontal(dungeon, end.y, start.x, end.x)
 
 
-func _carve_tile(dungeon: MapData, x: int, y: int,type = dungeon.tile_types.floor) -> void:
+func _carve_tile(dungeon: MapData, x: int, y: int,string = null) -> void:
 		var tile_position = Vector2i(x, y)
 		var tile: Tile = dungeon.get_tile(tile_position)
-		tile.set_tile_type(type)
+		tile.set_tile_type("floor")
 
 
 func _place_entities(dungeon: MapData, room: Rect2i) -> void:
@@ -135,11 +115,18 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 		
 		if can_place:
 			var new_entity: Entity
-			randomize()
-			var zone_entities =zones_info.entities_enemies.pick_random()
-			
-			new_entity = Entity.new(dungeon, new_entity_position, zone_entities)
-			
+			if _rng.randf() < 0.1:
+				new_entity = Entity.new(dungeon, new_entity_position, "warbot")
+			elif _rng.randf() < 0.2:
+				new_entity = Entity.new(dungeon, new_entity_position, "stealthbot")
+			elif _rng.randf() < 0.3:
+				new_entity = Entity.new(dungeon, new_entity_position, "spider")
+			elif _rng.randf() < 0.5:
+				new_entity = Entity.new(dungeon, new_entity_position, "troll")
+			elif _rng.randf() < 0.7:
+				new_entity = Entity.new(dungeon, new_entity_position, "dog")
+			else:
+				new_entity = Entity.new(dungeon, new_entity_position, "cat")
 			dungeon.entities.append(new_entity)
 			
 	
@@ -150,6 +137,7 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 		
 		var can_place = true
 		for entity in dungeon.entities:
+			
 			if entity.grid_position == new_entity_position:
 				can_place = false
 				break
@@ -158,11 +146,11 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 			var item_chance: float = _rng.randf()
 			var new_entity: Entity
 			if item_chance < 0.7:
-				new_entity = Entity.new(dungeon, new_entity_position, entity_types.health_potion)
+				new_entity = Entity.new(dungeon, new_entity_position,"health_potion")
 			elif item_chance < 0.8:
-				new_entity = Entity.new(dungeon, new_entity_position, entity_types.fireball_scroll)
+				new_entity = Entity.new(dungeon, new_entity_position, "fireball_scroll")
 			elif item_chance < 0.9:
-				new_entity = Entity.new(dungeon, new_entity_position, entity_types.confusion_scroll)
+				new_entity = Entity.new(dungeon, new_entity_position,"confusion_scroll")
 			else:
-				new_entity = Entity.new(dungeon, new_entity_position, entity_types.lightning_scroll)
+				new_entity = Entity.new(dungeon, new_entity_position, "lightning_scroll")
 			dungeon.entities.append(new_entity)

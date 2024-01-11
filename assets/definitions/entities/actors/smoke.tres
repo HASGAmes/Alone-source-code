@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://2cikbcm7s7f7" path="res://assets/definitions/body_plans/humanoid_bodies/humanoid.tres" id="1_7sm63"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_e548o"]
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="1_jxtpn"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="2_7n200"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="2_7n200"]
 [ext_resource type="AudioStream" uid="uid://rrj1t860kl8g" path="res://assets/audio/sfx/momkeyfuckingdies.wav" id="2_dv55b"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_hkoax"]
 [ext_resource type="AudioStream" uid="uid://c0yf5hxc7onat" path="res://assets/audio/sfx/EHHHH.wav" id="3_3duph"]
@@ -26,6 +26,7 @@ defense = 5
 hit_chance = 15
 DV = -15
 critdam = 139
+base_offhand_attack_change = 1
 on_hit_effects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
 aggression = 0
 max_hunger = 100

@@ -69,7 +69,7 @@ func activate_effect(entity:Entity) -> void:
 	if can_spawn>=3:
 		screen.modulate = Color(1,1,1)
 		var new_entity: Entity
-		new_entity = Entity.new(entity.map_data, entity.grid_position ,host)
+		new_entity = Entity.new(entity.map_data, entity.grid_position ,"host")
 		var parent = entity.get_parent()
 		entity.map_data.entities.append(new_entity)
 		parent.add_child(new_entity)

@@ -1,3 +1,4 @@
+## This status lets actors rampage and get bonus damage for killing
 class_name BerserkStatus
 extends StatusBase
 var bonus_damage:int

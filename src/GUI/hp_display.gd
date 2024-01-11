@@ -5,7 +5,10 @@ extends MarginContainer
 @onready var hunger_label:Label = $"HungerLabel"
 var prev_player:Entity
 func initialize(player: Entity) -> void:
-	await ready
+	#await ready
+	
+	if player==null:
+		player = SignalBus.player
 	SignalBus.player_changed.connect(connect_player)
 	connect_player(player)
 

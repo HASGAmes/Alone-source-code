@@ -11,7 +11,7 @@ equipment_type = 0
 weapon_type = 4
 damage_dice = Array[int]([3, 2])
 defense = 0
-bullets = 14
+bullets = 6
 spread = 0.861
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7g4na"]

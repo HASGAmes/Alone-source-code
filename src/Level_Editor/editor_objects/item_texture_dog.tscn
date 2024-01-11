@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0pqakxmyro7q"]
+
+[ext_resource type="PackedScene" uid="uid://fk4lwk11y7bn" path="res://src/Level_Editor/editor_objects/item_texture.tscn" id="1_cfgym"]
+[ext_resource type="Resource" uid="uid://b0oms0uqjbp66" path="res://assets/definitions/entities/actors/dog.tres" id="2_t1qwx"]
+
+[node name="Item_Texture" instance=ExtResource("1_cfgym")]
+this_scene = ExtResource("2_t1qwx")

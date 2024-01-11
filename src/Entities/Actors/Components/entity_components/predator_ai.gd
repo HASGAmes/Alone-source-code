@@ -228,3 +228,5 @@ func walk_rando():
 						previous_direction = chosen_direction
 						return MovementAction.new(entity,chosen_direction.x,chosen_direction.y).perform()
 	
+func get_save_data() -> Dictionary:
+	return {"type": "PredatorAi"}

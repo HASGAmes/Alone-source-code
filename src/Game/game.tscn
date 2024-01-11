@@ -1,5 +1,6 @@
-[gd_scene load_steps=34 format=3 uid="uid://n87rw5cxnnn8"]
+[gd_scene load_steps=31 format=3 uid="uid://n87rw5cxnnn8"]
 
+[ext_resource type="Script" path="res://src/Game/game_root.gd" id="1_bhywp"]
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_ne6pe"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/input_handler.gd" id="2_4winb"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/main_game_input_handler.gd" id="3_08i3b"]
@@ -9,28 +10,19 @@
 [ext_resource type="Script" path="res://src/Map/field_of_view.gd" id="5_bvmgb"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/history_viewer_input_handler.gd" id="5_hrkyq"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/base_input_handler.gd" id="6_ay8ab"]
-[ext_resource type="Resource" uid="uid://bwitk4gu7ejbm" path="res://assets/definitions/entities/actors/cat.tres" id="9_ddqra"]
 [ext_resource type="Script" path="res://src/GUI/mouseover_checker.gd" id="9_eusf6"]
 [ext_resource type="Script" path="res://src/GUI/hp_display.gd" id="9_njvq4"]
-[ext_resource type="Resource" uid="uid://b0oms0uqjbp66" path="res://assets/definitions/entities/actors/dog.tres" id="10_et8p5"]
-[ext_resource type="Resource" uid="uid://bhfg7nmsrxyk1" path="res://assets/definitions/entities/actors/shotgun_turret.tres" id="11_hhsh3"]
 [ext_resource type="PackedScene" uid="uid://d36pgskfsvwj2" path="res://src/GUI/Reticle/reticle.tscn" id="11_n4t22"]
 [ext_resource type="Script" path="res://src/GUI/message_log.gd" id="11_xxafc"]
-[ext_resource type="Resource" uid="uid://cvtcrpu275nm6" path="res://assets/definitions/entities/actors/STEALTHBOT.tres" id="12_s877n"]
-[ext_resource type="Resource" uid="uid://c4gnnotoy1r1l" path="res://assets/definitions/entities/actors/spider.tres" id="13_wb6y7"]
-[ext_resource type="Resource" uid="uid://dnfscusf8bq1e" path="res://assets/definitions/entities/actors/troll.tres" id="14_n8kur"]
-[ext_resource type="Resource" uid="uid://d1aa7fy0bujgb" path="res://assets/definitions/entities/actors/war_bot.tres" id="15_caskm"]
+[ext_resource type="Script" path="res://src/Level_Editor/editor_objects/Editor_Object.gd" id="13_d0jjk"]
+[ext_resource type="Script" path="res://src/Level_Editor/TabContainer.gd" id="14_h65dh"]
+[ext_resource type="Script" path="res://src/Game/scrollcontainer.gd" id="14_nslxa"]
+[ext_resource type="PackedScene" uid="uid://d0pqakxmyro7q" path="res://src/Level_Editor/editor_objects/item_texture_dog.tscn" id="15_c5kjn"]
 [ext_resource type="FontFile" uid="uid://dikrxfgf1i6e7" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Mini Square Mono.ttf" id="15_hqss3"]
-[ext_resource type="Script" path="res://src/Map/zone_container_info.gd" id="16_h3wwn"]
+[ext_resource type="PackedScene" uid="uid://byh5efdkagfh4" path="res://src/Level_Editor/editor_objects/item_textureplayer.tscn" id="15_o1eeg"]
 [ext_resource type="Script" path="res://src/Game/playericon.gd" id="26_l0ljo"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="26_lc2fb"]
 [ext_resource type="PackedScene" uid="uid://dx7wsxpo1qfmc" path="res://src/Utils/Commandline.tscn" id="30_i2lvc"]
-
-[sub_resource type="Resource" id="Resource_cp2t1"]
-script = ExtResource("16_h3wwn")
-entities_enemies = Array[Resource("res://src/Entities/entity_definition.gd")]([ExtResource("9_ddqra"), ExtResource("10_et8p5"), ExtResource("11_hhsh3"), ExtResource("12_s877n"), ExtResource("13_wb6y7"), ExtResource("14_n8kur"), ExtResource("15_caskm")])
-zone_tiles = Array[Resource("res://src/Map/tile_definition.gd")]([])
-zone_items = Array[Resource("res://src/Entities/entity_definition.gd")]([])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q7j4i"]
 atlas = ExtResource("26_lc2fb")
@@ -71,6 +63,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_bhywp")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -101,10 +94,12 @@ size = Vector2i(820, 648)
 render_target_update_mode = 4
 
 [node name="Game" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
 script = ExtResource("1_ne6pe")
 
 [node name="InputHandler" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("2_4winb")
+start_input_handler = 3
 
 [node name="MainGameInputHandler" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler" node_paths=PackedStringArray("reticle")]
 script = ExtResource("3_08i3b")
@@ -132,8 +127,12 @@ fov_radius = 8
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_15hgc")
-zones_info = SubResource("Resource_cp2t1")
-max_items_per_room = 4
+map_height = 80
+max_rooms = 1
+room_max_size = 50
+room_min_size = 50
+max_monsters_per_room = 0
+max_items_per_room = 0
 
 [node name="FieldOfView" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("5_bvmgb")
@@ -150,12 +149,97 @@ script = ExtResource("9_eusf6")
 [node name="screeneffects" type="CanvasModulate" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 
 [node name="Camera2D" type="Camera2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game"]
+unique_name_in_owner = true
 zoom = Vector2(2, 2)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+
+[node name="Main" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main"]
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 122.325
+offset_top = 608.5
+offset_right = 295.105
+offset_bottom = 649.12
+text = "switch cameras"
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer"]
+top_level = true
+anchors_preset = -1
+anchor_left = -0.00138452
+anchor_top = 1.3327
+anchor_right = 0.998616
+anchor_bottom = 1.3327
+offset_left = 293.165
+offset_top = -362.06
+offset_right = -258.835
+offset_bottom = -287.499
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.945, 1.945)
+tab_alignment = 1
+script = ExtResource("14_h65dh")
+metadata/_edit_use_anchors_ = true
+
+[node name="Actors" type="ScrollContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer"]
+layout_mode = 2
+script = ExtResource("14_nslxa")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Actors"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Actors/VBoxContainer"]
+layout_mode = 2
+
+[node name="Item_Texture" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Actors/VBoxContainer/HBoxContainer" instance=ExtResource("15_o1eeg")]
+layout_mode = 2
+
+[node name="Items" type="ScrollContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("14_nslxa")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Items"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Items/VBoxContainer"]
+layout_mode = 2
+
+[node name="Item_Texture" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Items/VBoxContainer/HBoxContainer" instance=ExtResource("15_c5kjn")]
+layout_mode = 2
+
+[node name="Tiles" type="ScrollContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("14_nslxa")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Tiles"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Tiles/VBoxContainer"]
+layout_mode = 2
+
+[node name="Editor_Object" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main"]
+unique_name_in_owner = true
+script = ExtResource("13_d0jjk")
+
+[node name="Sprite" type="Sprite2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object"]
+centered = false
+
+[node name="cameracontainer" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main"]
+unique_name_in_owner = true
+
+[node name="editorcam" type="Camera2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/cameracontainer"]
+unique_name_in_owner = true
+z_index = 5
+editor_draw_limits = true
+editor_draw_drag_margin = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/gamebox"]
 layout_mode = 2
@@ -207,7 +291,6 @@ metadata/_edit_lock_ = true
 
 [node name="HpBar" type="ProgressBar" parent="InfoBar/StatsPanel/VBoxContainer/HpDisplay"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_oyudx")
@@ -277,5 +360,10 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cifx1")
 [connection signal="player_created" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game" to="InfoBar/StatsPanel/VBoxContainer/HpDisplay" method="initialize"]
 [connection signal="timeout" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler/input_delay" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler" method="_on_input_delay_timeout"]
 [connection signal="entities_focussed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="InfoBar/StatsPanel/VBoxContainer/MouseoverLabel" method="set_text"]
+[connection signal="button_down" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_button_down"]
+[connection signal="button_up" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_button_up"]
+[connection signal="toggled" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_toggled"]
+[connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer" method="_on_mouse_entered" flags=18]
+[connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer" method="_on_mouse_exited" flags=18]
 
 [editable path="Node"]

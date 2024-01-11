@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfkvktvkcvv7b"]
+
+[ext_resource type="Script" path="res://src/Level_Editor/TabContainer.gd" id="1_3hs0k"]
+[ext_resource type="PackedScene" uid="uid://byh5efdkagfh4" path="res://src/Level_Editor/editor_objects/item_textureplayer.tscn" id="1_l5c1b"]
+
+[node name="selectionmenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.399
+anchor_bottom = 0.427
+offset_right = 0.35199
+offset_bottom = 0.303986
+script = ExtResource("1_3hs0k")
+
+[node name="Actors" type="ScrollContainer" parent="TabContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Actors"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Actors/VBoxContainer"]
+layout_mode = 2
+
+[node name="Item_Texture" parent="TabContainer/Actors/VBoxContainer/HBoxContainer" instance=ExtResource("1_l5c1b")]
+layout_mode = 2
+
+[node name="Items" type="ScrollContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Items/VBoxContainer"]
+layout_mode = 2
+
+[node name="Tiles" type="ScrollContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Tiles"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Tiles/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="mouse_entered" from="TabContainer" to="TabContainer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="TabContainer" to="TabContainer" method="_on_mouse_exited"]

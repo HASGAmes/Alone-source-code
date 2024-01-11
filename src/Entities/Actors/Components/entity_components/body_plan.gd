@@ -1,18 +1,20 @@
+## This is used by actors to manage and have equipment as well as important body parts and appadages
 class_name Body_Plan
 extends FighterComponent
 
-var list_of_limbs: Array[Limb_Definition]#a array of an entities limbs
-var original_limbs: Array[Limb_Definition]#a array of an entities orignal limbs
-var list_of_equipment_limbs: Array[Limb_Component]# a array of all the limbs with equipment
-var amount_of_important_limbs# this is the total important limbs like the head but not limited to
-var adding_limbs: Limb_Component# a var used to add limbs
-var stored_limbs:Array[Limb_Component]# a array used to store limbs for a bit
-var limb_is_alive:bool = false# if true limbs that are severed will come to life
-var parent:Entity#var for the parent entity
-#used to inflict bleed on lost limb
+var list_of_limbs: Array[Limb_Definition]##a array of an entities limbs
+var original_limbs: Array[Limb_Definition]##a array of an entities orignal limbs
+var list_of_equipment_limbs: Array[Limb_Component]## a array of all the limbs with equipment
+var amount_of_important_limbs## this is the total important limbs like the head but not limited to
+var adding_limbs: Limb_Component## a var used to add limbs
+var stored_limbs:Array[Limb_Component]## a array used to store limbs for a bit
+var limb_is_alive:bool = false## if true limbs that are severed will come to life
+var parent:Entity##var for the parent entity
+##used to inflict bleed on lost limb
 var bleed:StatusEffectDefinition = load("res://assets/definitions/status_effects/severed_limb_bleeding.tres")
-# used as the body plan if the limb is alive
+## used as the body plan if the limb is alive
 var limb:EntityDefinition = load("res://assets/definitions/body_plans/limb.tres")
+## you must first have a body definition like in res://assets/definitions/body_plans/
 func _init(definition: Body_Plan_Definition,parent:Entity) -> void:
 	original_limbs = definition.body_parts
 	limb_is_alive = definition.limbs_are_alive
@@ -45,18 +47,22 @@ func set_upbody(definition:Body_Plan_Definition) ->void:
 				attached.equiped_item_definition = current_part.starting_equipment
 			adding_limbs.get_parent().add_child(attached)
 	list_of_limbs = original_limbs
-func track_importantlimbs(important_limbs:Limb_Component):# tracks all important limbs like the head
+## tracks all important limbs like the head
+func track_importantlimbs(important_limbs:Limb_Component):
 	if important_limbs.important_limb():
 		amount_of_important_limbs+=1
 		#print(amount_of_important_limbs)
-func addlimb()->void:#this func actually adds the limb
+##this func actually adds the limb
+func addlimb()->void:
 	pass
-func removelimb()->void:#this func actually removes the limb
+##this func actually removes the limb
+func removelimb()->void:
 	pass
-func dismember(can_decap: bool) -> void:# this func starts the process of removing limbs
-	var dismemberable :Array=[Limb_Component]#list of dismemberable limbs
+## this func starts the process of removing limbs
+func dismember(can_decap: bool) -> void:
+	var dismemberable :Array=[Limb_Component]##list of dismemberable limbs
 	dismemberable = get_children()
-	var dismember_target = get_parent()#gets fighter component
+	var dismember_target = get_parent()##gets fighter component
 	var chosen_limb = dismemberable.pick_random()
 	if chosen_limb!=null:
 		if can_decap ==true:
@@ -77,7 +83,7 @@ func dismember(can_decap: bool) -> void:# this func starts the process of removi
 			var new_entity: Entity
 			var map_data = get_parent().get_parent().map_data
 			var pare = get_parent().get_parent()
-			new_entity = Entity.new(map_data,pare.grid_position + random_dir(),limb)
+			new_entity = Entity.new(map_data,pare.grid_position + random_dir(),"limb")
 			map_data.entities.append(new_entity)
 			var arry:Array[StatusEffectDefinition]
 			arry += [bleed]
@@ -113,7 +119,7 @@ func dismember(can_decap: bool) -> void:# this func starts the process of removi
 			var arry:Array[StatusEffectDefinition]
 			arry += [bleed]
 			pare.add_status(arry)
-			new_entity = Entity.new(map_data,pare.grid_position + random_dir(),limb)
+			new_entity = Entity.new(map_data,pare.grid_position + random_dir(),"limb")
 			map_data.entities.append(new_entity)
 			pare.get_parent().add_child(new_entity)
 			if limb_is_alive == false:
@@ -140,6 +146,7 @@ func dismember(can_decap: bool) -> void:# this func starts the process of removi
 	else:
 		print("shame")
 	
+##this grows back limbs from the list of lost ones
 func regen_limb():
 	if !stored_limbs.is_empty():
 		var regrow = stored_limbs.pick_random()
@@ -153,7 +160,7 @@ func regen_limb():
 		track_importantlimbs(regrow)
 		MessageLog.send_message(messsage,GameColors.HEALTH_RECOVERED,get_parent().get_parent())
 	
-	
+## picks a random direction maybe will move to a different script everything can access so it makes it easy
 func random_dir()-> Vector2i:
 	var direction: Vector2i = [
 			Vector2i(-1, -1),

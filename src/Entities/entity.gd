@@ -1,47 +1,71 @@
+## This is the base for all interactive parts of my roguelike.
 class_name Entity
 extends Sprite2D
 
-enum AIType {NONE, HOSTILE,PREY,PREDATOR,TURRET}
-enum EntityType {CORPSE, ITEM, ACTOR}
-enum MOVEMENT_TYPE{WALK,CROUCH,PRONE,SPRINT}
-var current_movement:MOVEMENT_TYPE
-@onready var dicebag = Dicebag.new()
+enum AIType {NONE, HOSTILE,PREY,PREDATOR,TURRET}##controls the ai of a entity
+enum EntityType {CORPSE, ITEM, ACTOR}##decides if it is a corpse item or actor
+enum MOVEMENT_TYPE{WALK,CROUCH,PRONE,SPRINT}##affects the movement mode
+const entity_types = {
+	"player": "res://assets/definitions/entities/actors/player.tres",
+	"spider": "res://assets/definitions/entities/actors/spider.tres",
+	"troll":"res://assets/definitions/entities/actors/troll.tres",
+	"warbot":"res://assets/definitions/entities/actors/war_bot.tres",
+	"stealthbot":"res://assets/definitions/entities/actors/STEALTHBOT.tres",
+	"dog":"res://assets/definitions/entities/actors/dog.tres",
+	"cat":"res://assets/definitions/entities/actors/cat.tres",
+	"host":"res://assets/definitions/entities/actors/discardedhost.tres",
+	"health_potion": "res://assets/definitions/entities/items/health_potion.tres",
+	"lightning_scroll": "res://assets/definitions/entities/items/lightning_scroll.tres",
+	"confusion_scroll": "res://assets/definitions/entities/items/confusion_scroll.tres",
+	"fireball_scroll":"res://assets/definitions/entities/items/fireball_scroll.tres",
+	"limb":"res://assets/definitions/body_plans/limb.tres",
+	"ax":"res://assets/definitions/entities/items/ax.tres"
+}
+##the list of current defined entities
+var key: String##takes from entity types to load a entity
+var current_movement:MOVEMENT_TYPE##current movement mode
+@onready var dicebag = Dicebag.new()## is used for rolling for stuff
+##is the position of a entity
 var grid_position: Vector2i:
 	set(value):
 		grid_position = value
 		global_position = Grid.grid_to_world(grid_position)
-var _definition: EntityDefinition
-var entity_name: String
-var blocks_movement: bool
+var _definition: EntityDefinition##loads a entity definition to get stuff like sprites,stats,etc
+var entity_name: String## is the name of a entity
+var blocks_movement: bool##if true you or other entities cannot walk or normally be on the same tile as this entity
+## this uses the EntityType Enum to set the z level going to Corpse:1 Item:2 Actor:3
 var type: EntityType:
 	set(value):
 		type = value
 		z_index = type
-var map_data: MapData
-var texture_size:Vector2i
+var map_data: MapData##lets a entity access mapdata functions
+var texture_size:Vector2i##the size of a current texture. unused for now
 #components
-var current_statuses:Array[StatusBase]
-var fighter_component: FighterComponent
-var ai_component: BaseAIComponent
-var consumable_component: ConsumableComponent
-var inventory_component: InventoryComponent
-var equipment_component :EquipmentComponent
-var equipment_item_component:EquipmentItemComponent
-var skill_component:SkillComponent
-#####
-var status_tracker:Node
-var part_effect:GPUParticles2D
+var current_statuses:Array[StatusBase]##these are the current status effects on a entity
+var fighter_component: FighterComponent##the component for effecting fighting stats
+var ai_component: BaseAIComponent##determines the ai of a entity
+var consumable_component: ConsumableComponent##if a item like a potion is used it has this on it
+var inventory_component: InventoryComponent## controls the inventory of a entity. must have at least one slot to carry
+var equipment_component :EquipmentComponent## controls the equipment which is based on the fightingcomponents bodyplan
+var equipment_item_component:EquipmentItemComponent##this effects a entity's stats when equiped
+var skill_component:SkillComponent##this used for using skills
+var status_tracker:Node##tracks the skills of a entity
+var part_effect:GPUParticles2D##used for particles
 var collision = preload("res://assets/resources/raycast_body.tscn")
 var turns_hunger:int = 0
 var hunger:HungryDefinition = preload("res://assets/definitions/status_effects/hungerstage1.tres")
-func _init(map_data: MapData, start_position: Vector2i, entity_definition: EntityDefinition) -> void:
+##sets up a entity. mapdata, start position and the key is needed to make one without problems
+func _init(map_data: MapData, start_position: Vector2i, key: String = "") -> void:
 	centered = false
 	grid_position = start_position
 	self.map_data = map_data
-	set_entity_type(entity_definition)
-
-
-func set_entity_type(entity_definition: EntityDefinition) -> void:
+	if key != "":
+		set_entity_type(key)
+##sets the entity type with a string which coresponds with the dict with the list of entities. will cause a error if it either doesn't have a string or has the wrong one 
+func set_entity_type(key: String) -> void:
+	self.key = key
+	var entity_definition: EntityDefinition = load(entity_types[key])
+	_definition = entity_definition
 	collision = collision.instantiate()
 	add_child(collision)
 	collision.position = Vector2i(8,8)
@@ -54,7 +78,6 @@ func set_entity_type(entity_definition: EntityDefinition) -> void:
 	entity_name = _definition.name
 	texture = entity_definition.texture
 	texture_size = texture.get_size()
-	print(texture_size)
 	modulate = entity_definition.color
 	status_tracker = Node.new()
 	part_effect = GPUParticles2D.new()
@@ -81,10 +104,8 @@ func set_entity_type(entity_definition: EntityDefinition) -> void:
 			ai_component = TurretAi.new()
 			add_child(ai_component)
 	if entity_definition.fighter_definition:
-		
 		fighter_component = FighterComponent.new(entity_definition.fighter_definition)
 		add_child(fighter_component)
-		
 	if entity_definition.consumable_definition:
 		_handle_consumable(entity_definition.consumable_definition)
 	if entity_definition.inventory_capacity > 0:
@@ -100,7 +121,7 @@ func set_entity_type(entity_definition: EntityDefinition) -> void:
 		add_status(status)
 
 
-
+## moves a entity using the offset
 func move(move_offset: Vector2i) -> void:
 	map_data.unregister_blocking_entity(self)
 	grid_position += move_offset
@@ -109,7 +130,11 @@ func move(move_offset: Vector2i) -> void:
 		grid_position = Vector2i(0,0)
 	visible = map_data.get_tile(grid_position).is_in_view
 	
-
+## if a entity is knocked back by something it uses the knockvec to 
+##decided the direction and the knockbackforce to move one by one till it hits something
+##or runs out of knockbackforce if it does hit a wall if there is enough force it goes through taking 1d6 damage otherwise
+## it takes damage 1d6 times the leftover knockback force
+## if it hits another alive entity they both start getting knocked back
 func knockback(knockvec: Vector2i,knockbackforce) -> void:
 	var destination = grid_position+knockvec*-1
 	var destination_entity: Entity = map_data.get_actor_at_location(destination)
@@ -163,7 +188,7 @@ func knockback(knockvec: Vector2i,knockbackforce) -> void:
 		grid_position = Vector2i(1,1)
 	visible = map_data.get_tile(grid_position).is_in_view
 	fighter_component.quickness = orginal_quickness
-
+## is used to get the distance of two entities
 func distance(other_position: Vector2i) -> int:
 	var distance_x = other_position.x-grid_position.x
 	var distance_y = other_position.y-grid_position.y
@@ -179,21 +204,22 @@ func distance(other_position: Vector2i) -> int:
 	if distance_x == distance_y:
 		distance=distance_x
 	return distance
-
+##returns whether or not a entity is blocking movement
 func is_blocking_movement() -> bool:
 	return blocks_movement
 
-
+##returns a entity's name
 func get_entity_name() -> String:
 	return entity_name
 
-
+##returns a entity's type like if it is a corpse, item or actor
 func get_entity_type() -> int:
 	return _definition.type
 
-
+## returns if it is alive. might seem more obvious to use hp but not every entity has the fight component but the ones that do lose their ai on death and every entity has a ai component so this works best unless i want items to be destructible later
 func is_alive() -> bool:
 	return ai_component != null
+##runs everytime a turn is passed to trigger effects for status effects
 func passed_turn():
 	if fighter_component.turns_not_in_combat>=10 and fighter_component.hp >=1:
 		fighter_component.passively_heal()
@@ -219,11 +245,12 @@ func passed_turn():
 		if currentskill.tick_cooldown != currentskill.cooldown:
 			currentskill.tick_cooldown+=1
 	
+## decides what kind of consumable a entity is based on the attached consumable component. there is a id on each one that says it is that type which is what this function uses to filter them.
 func _handle_consumable(consumable_definition: ConsumableComponentDefinition) -> void:
 	consumable_component = consumable_definition.item_id.new(consumable_definition)
 	if consumable_component:
 		add_child(consumable_component)
-
+## if a entity isn't hostile if you move to the same tile you swap places
 func swap(swap_target:Entity , swapper:Vector2i = grid_position):
 	map_data.unregister_blocking_entity(self)
 	map_data.unregister_blocking_entity(swap_target)
@@ -232,6 +259,8 @@ func swap(swap_target:Entity , swapper:Vector2i = grid_position):
 	swap_target.grid_position = swapper
 	map_data.register_blocking_entity(self)
 	map_data.register_blocking_entity(swap_target)
+## adds a status effect. it takes the status id and uses that to give the right one. also they have chances to proc if it isn't high enough you don't get the status. if it is 100 you will always get it
+## also if a effect can stack you can get a unlimited amount but if not if you already have one you won't get another
 func add_status(starting_status:Array[StatusEffectDefinition]) ->void:
 	while !starting_status.is_empty():
 		var status =starting_status.pop_front()
@@ -244,3 +273,30 @@ func add_status(starting_status:Array[StatusEffectDefinition]) ->void:
 		if proc <= status.proc_chance:
 			status_tracker.add_child(current_status)
 		print(status)
+## uses a json file to read data to get the x,y, and key as well as all the components which runs their own get save func
+func get_save_data() -> Dictionary:
+	var save_data: Dictionary = {
+		"x": grid_position.x,
+		"y": grid_position.y,
+		"key": key,
+	}
+	if fighter_component:
+		save_data["fighter_component"] = fighter_component.get_save_data()
+	if ai_component:
+		save_data["ai_component"] = ai_component.get_save_data()
+	if inventory_component:
+		save_data["inventory_component"] = inventory_component.get_save_data()
+	return save_data
+## using save data restores to a previous save point
+func restore(save_data: Dictionary) -> void:
+	grid_position = Vector2i(save_data["x"], save_data["y"])
+	set_entity_type(save_data["key"])
+	if fighter_component and save_data.has("fighter_component"):
+		fighter_component.restore(save_data["fighter_component"])
+	if ai_component and save_data.has("ai_component"):
+		var ai_data: Dictionary = save_data["ai_component"]
+		if ai_data["type"] == "ConfusedEnemyAIComponent":
+			var confused_enemy_ai := ConfusedEnemyAIComponent.new(ai_data["turns_remaining"])
+			add_child(confused_enemy_ai)
+	if inventory_component and save_data.has("inventory_component"):
+		inventory_component.restore(save_data["inventory_component"])
