@@ -55,12 +55,17 @@ func get_tile(grid_position: Vector2i) -> Tile:
 
 
 func get_blocking_entity_at_location(grid_position: Vector2i) -> Entity:
+	var tile_index: int = grid_to_index(grid_position)
 	for entity in entities:
 		if entity.is_blocking_movement() and entity.grid_position == grid_position:
 			return entity
 	return null
 
-
+func get_entity_location(grid_position:Vector2i) ->Entity:
+	var entity_index: int = grid_to_index(grid_position)
+	if entity_index == -1:
+		return null
+	return entities[entity_index]
 func grid_to_index(grid_position: Vector2i) -> int:
 	if not is_in_bounds(grid_position):
 		return -1

@@ -13,6 +13,7 @@ const tile_size = 16
 @onready var prev_player: Entity
 @onready var mouse_checker_tile: Node2D = $Map/MouseoverChecker
 func new_game() -> void:
+	SignalBus.screeneffects = $Map/screeneffects
 	player = Entity.new(null, Vector2i.ZERO, "player")
 	player.flip_h = true
 	SignalBus.player = player
@@ -28,6 +29,7 @@ func new_game() -> void:
 	).call_deferred()
 	camera.make_current.call_deferred()
 func load_game() -> bool:
+	SignalBus.screeneffects = %"screeneffects"
 	player = Entity.new(null, Vector2i.ZERO, "")
 	player.flip_h = true
 	remove_child(camera)
@@ -36,6 +38,7 @@ func load_game() -> bool:
 	if not map.load_game(player):
 		return false
 	player_created.emit(player)
+	SignalBus.player = player
 	map.update_fov(player.grid_position)
 	MessageLog.send_message.bind(
 		"Welcome back, adventurer!",
@@ -44,7 +47,6 @@ func load_game() -> bool:
 	camera.make_current.call_deferred()
 	return true
 func _physics_process(_delta: float) -> void:
-	
 	if Input.is_action_just_pressed("debug_body_swap"):
 		body_swap()
 	if player.ai_component!=null:
@@ -91,7 +93,6 @@ func get_map_data() -> MapData:
 func body_swap():
 	var swap_target = get_map_data().get_actor_at_location(mouse_checker_tile._mouse_tile)
 	if swap_target != null:
-		
 		prev_player = player
 		player = swap_target
 		input_handler.transition_to(InputHandler.InputHandlers.MAIN_GAME)

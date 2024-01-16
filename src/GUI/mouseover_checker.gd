@@ -29,7 +29,6 @@ func get_names_at_location(grid_position: Vector2i) -> String:
 	
 	for entity in map_data.entities:
 		if entity.grid_position == grid_position:
-			
 			entities_at_location.append(entity)
 	entities_at_location.sort_custom(func(a, b): return a.z_index > b.z_index)
 	if not entities_at_location.is_empty():

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Body_Plan_Definition" load_steps=9 format=3 uid="uid://crf4nlseexqhp"]
 
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_4c0im"]
-[ext_resource type="Resource" uid="uid://bs5pcyi0l2m85" path="res://assets/definitions/entities/items/shotgun.tres" id="2_nlhib"]
+[ext_resource type="Resource" uid="uid://bs5pcyi0l2m85" path="res://assets/definitions/entities/items/sawed off shotgun.tres" id="2_nlhib"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/body_plan_definition.gd" id="2_v5cyp"]
 
 [sub_resource type="Resource" id="Resource_spky8"]

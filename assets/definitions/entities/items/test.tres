@@ -17,11 +17,12 @@ region = Rect2(16, 48, 16, 16)
 
 [resource]
 script = ExtResource("1_ab5lu")
-name = "actual pipebomb"
+name = "test"
 texture = SubResource("AtlasTexture_t8xxo")
 color = Color(0.866667, 0, 0.231373, 1)
 is_blocking_movment = false
 type = 1
+starting_movement = 0
 ai_type = 0
 consumable_definition = SubResource("Resource_xkgh3")
 inventory_capacity = 0

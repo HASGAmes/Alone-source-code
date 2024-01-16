@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://drofs87mdcrg0"]
+
+[ext_resource type="PackedScene" uid="uid://fk4lwk11y7bn" path="res://src/Level_Editor/editor_objects/item_texture.tscn" id="1_ww34u"]
+[ext_resource type="Resource" uid="uid://2eimj53yg7bf" path="res://assets/definitions/tiles/tile_definition_door.tres" id="2_cqo8o"]
+
+[node name="Item_Texture" instance=ExtResource("1_ww34u")]
+tile = ExtResource("2_cqo8o")

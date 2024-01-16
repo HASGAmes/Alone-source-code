@@ -18,7 +18,7 @@ extends Node
 @export var max_items_per_room: int = 2
 
 var _rng := RandomNumberGenerator.new()
-
+var rooms: Array[Rect2i] = []
 
 func _ready() -> void:
 	_rng.randomize()
@@ -29,7 +29,7 @@ func generate_dungeon(player:Entity) -> MapData:
 	print (dungeon,"dungeon")
 	dungeon.entities.append(player)
 	
-	var rooms: Array[Rect2i] = []
+	
 	
 	for _try_room in max_rooms:
 		var room_width: int = _rng.randi_range(room_min_size, room_max_size)
@@ -116,7 +116,7 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 		if can_place:
 			var new_entity: Entity
 			if _rng.randf() < 0.1:
-				new_entity = Entity.new(dungeon, new_entity_position, "warbot")
+				new_entity = Entity.new(dungeon, new_entity_position, "war-bot")
 			elif _rng.randf() < 0.2:
 				new_entity = Entity.new(dungeon, new_entity_position, "stealthbot")
 			elif _rng.randf() < 0.3:
@@ -146,11 +146,11 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 			var item_chance: float = _rng.randf()
 			var new_entity: Entity
 			if item_chance < 0.7:
-				new_entity = Entity.new(dungeon, new_entity_position,"health_potion")
+				new_entity = Entity.new(dungeon, new_entity_position,"injector")
 			elif item_chance < 0.8:
-				new_entity = Entity.new(dungeon, new_entity_position, "fireball_scroll")
+				new_entity = Entity.new(dungeon, new_entity_position, "firebomb")
 			elif item_chance < 0.9:
-				new_entity = Entity.new(dungeon, new_entity_position,"confusion_scroll")
+				new_entity = Entity.new(dungeon, new_entity_position,"flashbang")
 			else:
-				new_entity = Entity.new(dungeon, new_entity_position, "lightning_scroll")
+				new_entity = Entity.new(dungeon, new_entity_position, "taser")
 			dungeon.entities.append(new_entity)

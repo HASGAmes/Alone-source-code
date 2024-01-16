@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxyt6gp5r8e7o"]
+
+[ext_resource type="PackedScene" uid="uid://fk4lwk11y7bn" path="res://src/Level_Editor/editor_objects/item_texture.tscn" id="1_fofq8"]
+[ext_resource type="Resource" uid="uid://dp14tnq7fgb2b" path="res://assets/definitions/entities/items/fireball_scroll.tres" id="2_o4p1u"]
+
+[node name="Item_Texture" instance=ExtResource("1_fofq8")]
+entity = ExtResource("2_o4p1u")

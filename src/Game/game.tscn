@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://n87rw5cxnnn8"]
+[gd_scene load_steps=38 format=3 uid="uid://dxsknelgw5ain"]
 
 [ext_resource type="Script" path="res://src/Game/game_root.gd" id="1_bhywp"]
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_ne6pe"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://src/Map/field_of_view.gd" id="5_bvmgb"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/history_viewer_input_handler.gd" id="5_hrkyq"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/base_input_handler.gd" id="6_ay8ab"]
+[ext_resource type="Script" path="res://src/Game/LevelEditorInputHandler.gd" id="8_rch30"]
 [ext_resource type="Script" path="res://src/GUI/mouseover_checker.gd" id="9_eusf6"]
 [ext_resource type="Script" path="res://src/GUI/hp_display.gd" id="9_njvq4"]
 [ext_resource type="PackedScene" uid="uid://d36pgskfsvwj2" path="res://src/GUI/Reticle/reticle.tscn" id="11_n4t22"]
@@ -17,12 +18,33 @@
 [ext_resource type="Script" path="res://src/Level_Editor/editor_objects/Editor_Object.gd" id="13_d0jjk"]
 [ext_resource type="Script" path="res://src/Level_Editor/TabContainer.gd" id="14_h65dh"]
 [ext_resource type="Script" path="res://src/Game/scrollcontainer.gd" id="14_nslxa"]
-[ext_resource type="PackedScene" uid="uid://d0pqakxmyro7q" path="res://src/Level_Editor/editor_objects/item_texture_dog.tscn" id="15_c5kjn"]
 [ext_resource type="FontFile" uid="uid://dikrxfgf1i6e7" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Mini Square Mono.ttf" id="15_hqss3"]
-[ext_resource type="PackedScene" uid="uid://byh5efdkagfh4" path="res://src/Level_Editor/editor_objects/item_textureplayer.tscn" id="15_o1eeg"]
+[ext_resource type="Texture2D" uid="uid://dk437vy5njrmd" path="res://src/Level_Editor/draw_icon.png" id="18_fayve"]
+[ext_resource type="Texture2D" uid="uid://dul0icga255op" path="res://src/Level_Editor/erase_icon.png" id="19_4tiy4"]
+[ext_resource type="Texture2D" uid="uid://cgtitum265qn8" path="res://src/Level_Editor/modify_icon.png" id="20_38buo"]
+[ext_resource type="Script" path="res://src/Game/mouse_pos.gd" id="20_ta2qx"]
 [ext_resource type="Script" path="res://src/Game/playericon.gd" id="26_l0ljo"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="26_lc2fb"]
 [ext_resource type="PackedScene" uid="uid://dx7wsxpo1qfmc" path="res://src/Utils/Commandline.tscn" id="30_i2lvc"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_86yma"]
+device = -1
+keycode = 70
+unicode = 102
+
+[sub_resource type="Shortcut" id="Shortcut_vgtk3"]
+events = [SubResource("InputEventKey_86yma")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_xtf18"]
+device = -1
+keycode = 69
+unicode = 101
+
+[sub_resource type="Shortcut" id="Shortcut_5hc12"]
+events = [SubResource("InputEventKey_xtf18")]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sr2kr"]
+font = ExtResource("15_hqss3")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q7j4i"]
 atlas = ExtResource("26_lc2fb")
@@ -49,9 +71,6 @@ bg_color = Color(0, 0.498039, 0, 1)
 font = ExtResource("15_hqss3")
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_sr2kr"]
-font = ExtResource("15_hqss3")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cifx1"]
 bg_color = Color(0, 0, 0, 1)
@@ -99,7 +118,6 @@ script = ExtResource("1_ne6pe")
 
 [node name="InputHandler" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("2_4winb")
-start_input_handler = 3
 
 [node name="MainGameInputHandler" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler" node_paths=PackedStringArray("reticle")]
 script = ExtResource("3_08i3b")
@@ -121,18 +139,16 @@ message_log_path = NodePath("../../../../../HBoxContainer/MessagesPanel/MessageL
 [node name="DummyInputHandler" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler"]
 script = ExtResource("6_ay8ab")
 
+[node name="LevelEditorInputHandler" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler"]
+script = ExtResource("8_rch30")
+
 [node name="Map" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("3_xyl86")
 fov_radius = 8
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_15hgc")
-map_height = 80
-max_rooms = 1
-room_max_size = 50
-room_min_size = 50
-max_monsters_per_room = 0
-max_items_per_room = 0
+map_width = 40
 
 [node name="FieldOfView" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("5_bvmgb")
@@ -142,11 +158,13 @@ script = ExtResource("5_bvmgb")
 [node name="Entities" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 
 [node name="MouseoverChecker" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
+unique_name_in_owner = true
 script = ExtResource("9_eusf6")
 
 [node name="Reticle" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map" instance=ExtResource("11_n4t22")]
 
 [node name="screeneffects" type="CanvasModulate" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
+unique_name_in_owner = true
 
 [node name="Camera2D" type="Camera2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game"]
 unique_name_in_owner = true
@@ -159,9 +177,9 @@ drag_vertical_enabled = true
 
 [node name="Main" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main"]
+[node name="Editorgui" type="CanvasLayer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main"]
 
-[node name="CheckButton" type="CheckButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer"]
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
 unique_name_in_owner = true
 offset_left = 122.325
 offset_top = 608.5
@@ -169,7 +187,7 @@ offset_right = 295.105
 offset_bottom = 649.12
 text = "switch cameras"
 
-[node name="TabContainer" type="TabContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer"]
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
 top_level = true
 anchors_preset = -1
 anchor_left = -0.00138452
@@ -187,49 +205,116 @@ tab_alignment = 1
 script = ExtResource("14_h65dh")
 metadata/_edit_use_anchors_ = true
 
-[node name="Actors" type="ScrollContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer"]
+[node name="Actors" type="ScrollContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer"]
 layout_mode = 2
 script = ExtResource("14_nslxa")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Actors"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Actors"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Actors/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Actors/VBoxContainer"]
 layout_mode = 2
 
-[node name="Item_Texture" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Actors/VBoxContainer/HBoxContainer" instance=ExtResource("15_o1eeg")]
-layout_mode = 2
-
-[node name="Items" type="ScrollContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer"]
+[node name="Items" type="ScrollContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer"]
 visible = false
 layout_mode = 2
 script = ExtResource("14_nslxa")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Items"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Items"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Items/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Items/VBoxContainer"]
 layout_mode = 2
 
-[node name="Item_Texture" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Items/VBoxContainer/HBoxContainer" instance=ExtResource("15_c5kjn")]
-layout_mode = 2
-
-[node name="Tiles" type="ScrollContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer"]
+[node name="Tiles" type="ScrollContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer"]
 visible = false
 layout_mode = 2
 script = ExtResource("14_nslxa")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Tiles"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Tiles"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer/Tiles/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Tiles/VBoxContainer"]
 layout_mode = 2
+
+[node name="Drawmode" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+offset_left = 8.935
+offset_top = 251.8
+offset_right = 24.935
+offset_bottom = 267.8
+scale = Vector2(4, 4)
+tooltip_text = "Draws using the selected Actor, Item or Tile. F for hotkey
+
+"
+shortcut = SubResource("Shortcut_vgtk3")
+texture_normal = ExtResource("18_fayve")
+texture_pressed = ExtResource("18_fayve")
+texture_hover = ExtResource("18_fayve")
+texture_disabled = ExtResource("18_fayve")
+texture_focused = ExtResource("18_fayve")
+
+[node name="Erasemode" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+offset_left = 8.935
+offset_top = 309.14
+offset_right = 24.935
+offset_bottom = 325.14
+scale = Vector2(4, 4)
+tooltip_text = "Erases entities by deleting them but just turns tiles into black squares. The tiles then can be drawn over.
+E for hotkey"
+shortcut = SubResource("Shortcut_5hc12")
+texture_normal = ExtResource("19_4tiy4")
+texture_pressed = ExtResource("19_4tiy4")
+texture_hover = ExtResource("19_4tiy4")
+texture_disabled = ExtResource("19_4tiy4")
+texture_focused = ExtResource("19_4tiy4")
+
+[node name="Modifymode" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+offset_left = 8.935
+offset_top = 375.99
+offset_right = 24.935
+offset_bottom = 391.99
+scale = Vector2(4, 4)
+tooltip_text = "Change a Actor,Item or tiles' properties"
+texture_normal = ExtResource("20_38buo")
+texture_pressed = ExtResource("20_38buo")
+texture_hover = ExtResource("20_38buo")
+texture_disabled = ExtResource("20_38buo")
+texture_focused = ExtResource("20_38buo")
+
+[node name="MouseoverLabel" type="Label" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+unique_name_in_owner = true
+offset_left = 2.945
+offset_top = 221.605
+offset_right = 74.945
+offset_bottom = 244.605
+size_flags_vertical = 8
+label_settings = SubResource("LabelSettings_sr2kr")
+script = ExtResource("20_ta2qx")
+
+[node name="FileDialog" type="FileDialog" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+size = Vector2i(392, 162)
+
+[node name="mouse_pos" type="Label" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+unique_name_in_owner = true
+offset_left = 5.74
+offset_top = 104.14
+offset_right = 101.74
+offset_bottom = 130.14
+
+[node name="canplace" type="TextureRect" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+unique_name_in_owner = true
+offset_left = 226.82
+offset_top = 544.77
+offset_right = 290.82
+offset_bottom = 608.77
+texture = ExtResource("20_38buo")
 
 [node name="Editor_Object" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main"]
 unique_name_in_owner = true
 script = ExtResource("13_d0jjk")
 
 [node name="Sprite" type="Sprite2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object"]
+z_index = 7
 centered = false
 
 [node name="cameracontainer" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main"]
@@ -359,11 +444,22 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cifx1")
 
 [connection signal="player_created" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game" to="InfoBar/StatsPanel/VBoxContainer/HpDisplay" method="initialize"]
 [connection signal="timeout" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler/input_delay" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler" method="_on_input_delay_timeout"]
+[connection signal="entities_focussed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/MouseoverLabel" method="set_text"]
 [connection signal="entities_focussed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="InfoBar/StatsPanel/VBoxContainer/MouseoverLabel" method="set_text"]
-[connection signal="button_down" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_button_down"]
-[connection signal="button_up" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_button_up"]
-[connection signal="toggled" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_toggled"]
-[connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer" method="_on_mouse_entered" flags=18]
-[connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/CanvasLayer/TabContainer" method="_on_mouse_exited" flags=18]
+[connection signal="button_down" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_button_down"]
+[connection signal="button_up" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_button_up"]
+[connection signal="toggled" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_toggled"]
+[connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_mouse_entered" flags=18]
+[connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_mouse_exited" flags=18]
+[connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Actors" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Actors" method="mouse_enter"]
+[connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Drawmode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_drawmode_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Drawmode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_drawmode_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Drawmode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_drawmode_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Erasemode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_erasemode_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Erasemode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_erasemode_pressed"]
+[connection signal="tree_exiting" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Erasemode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_erasemode_tree_exiting"]
+[connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Modifymode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_modifymode_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Modifymode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_modifymode_mouse_exited"]
+[connection signal="mouse_coords" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/mouse_pos" method="set_text"]
 
 [editable path="Node"]

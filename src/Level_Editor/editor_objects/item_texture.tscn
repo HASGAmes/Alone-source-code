@@ -3,6 +3,6 @@
 [ext_resource type="Script" path="res://src/Level_Editor/editor_objects/item_texture.gd" id="1_ny58i"]
 
 [node name="Item_Texture" type="TextureRect"]
-offset_right = 40.0
-offset_bottom = 40.0
 script = ExtResource("1_ny58i")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

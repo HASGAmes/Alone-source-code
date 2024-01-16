@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2u5rk2mtyipu"]
+
+[ext_resource type="PackedScene" uid="uid://fk4lwk11y7bn" path="res://src/Level_Editor/editor_objects/item_texture.tscn" id="1_df8eo"]
+[ext_resource type="Resource" uid="uid://bhfg7nmsrxyk1" path="res://assets/definitions/entities/actors/shotgun_turret.tres" id="2_s6k3p"]
+
+[node name="Item_Texture" instance=ExtResource("1_df8eo")]
+entity = ExtResource("2_s6k3p")

@@ -1,21 +1,21 @@
 [gd_resource type="Resource" script_class="EntityDefinition" load_steps=7 format=3 uid="uid://slhqhjrgsvvn"]
 
-[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_7c6k3"]
-[ext_resource type="AudioStream" uid="uid://b4n3n24gwxfes" path="res://assets/audio/sfx/powered_device.wav" id="1_14wsm"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/consumable_definitions/confusion_consumable_component_definition.gd" id="1_pyxgx"]
-[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="4_r14q5"]
+[ext_resource type="AudioStream" uid="uid://b4n3n24gwxfes" path="res://assets/audio/sfx/powered_device.wav" id="1_k73la"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/consumable_definitions/confusion_consumable_component_definition.gd" id="2_ce375"]
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="3_y856h"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="4_0lmrm"]
 
 [sub_resource type="Resource" id="Resource_33vsa"]
-script = ExtResource("1_pyxgx")
+script = ExtResource("2_ce375")
 number_of_turns = 10
-consumable_sfx = ExtResource("1_14wsm")
+consumable_sfx = ExtResource("1_k73la")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vqqtp"]
-atlas = ExtResource("4_r14q5")
+atlas = ExtResource("4_0lmrm")
 region = Rect2(16, 64, 16, 16)
 
 [resource]
-script = ExtResource("1_7c6k3")
+script = ExtResource("3_y856h")
 name = "Flashbang"
 texture = SubResource("AtlasTexture_vqqtp")
 color = Color(0.0666667, 0.611765, 0.858824, 1)

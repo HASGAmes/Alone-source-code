@@ -5,7 +5,8 @@ const tile_types = {
 	"wall": preload("res://assets/definitions/tiles/tile_definition_wall.tres"),
 	"rocks": preload("res://assets/definitions/tiles/tile_definition_rocks.tres"),
 	"door": preload("res://assets/definitions/tiles/tile_definition_door.tres"),
-	"skulls":preload("res://assets/definitions/tiles/tile_definition_skulls.tres")
+	"bones":preload("res://assets/definitions/tiles/tile_definition_skulls.tres"),
+	"blank":preload("res://assets/definitions/tiles/blank.tres")
 }
 var key: String
 var _definition: TileDefinition
@@ -36,13 +37,22 @@ var grid_position:Vector2i
 var collision = preload("res://assets/resources/raycast_body.tscn")
 var is_explored: bool = false:
 	set(value):
-		is_explored = value
+		if SignalBus.iseeall == true:
+			#print("fsadfs")
+			#is_in_view = true
+			is_explored = true
+		else:
+			is_explored = value
 		if is_explored and not visible:
 			visible = true
-
 var is_in_view: bool = false:
 	set(value):
-		is_in_view = value
+		if SignalBus.iseeall == true:
+			#print("fsadfs")
+			is_in_view = true
+			#is_explored = true
+		else:
+			is_in_view = value
 		modulate = chosen_light_color if is_in_view else chosen_dark_color
 		if is_in_view and not is_explored:
 			is_explored = true

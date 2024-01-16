@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=2 format=3 uid="uid://d0q8m3mee56ql"]
+
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_bic6e"]
+
+[resource]
+script = ExtResource("1_bic6e")
+name = "actor"
+color = Color(1, 1, 1, 1)
+is_blocking_movment = true
+type = 0
+starting_movement = 0
+ai_type = 0
+inventory_capacity = 0
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

@@ -6,3 +6,5 @@ signal player_changed(player)
 var player:Entity
 signal escape_requested
 var editor_open = false
+var screeneffects:CanvasModulate
+var iseeall = false

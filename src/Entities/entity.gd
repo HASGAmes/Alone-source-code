@@ -5,22 +5,25 @@ extends Sprite2D
 enum AIType {NONE, HOSTILE,PREY,PREDATOR,TURRET}##controls the ai of a entity
 enum EntityType {CORPSE, ITEM, ACTOR}##decides if it is a corpse item or actor
 enum MOVEMENT_TYPE{WALK,CROUCH,PRONE,SPRINT}##affects the movement mode
-const entity_types = {
-	"player": "res://assets/definitions/entities/actors/player.tres",
-	"spider": "res://assets/definitions/entities/actors/spider.tres",
-	"troll":"res://assets/definitions/entities/actors/troll.tres",
-	"warbot":"res://assets/definitions/entities/actors/war_bot.tres",
-	"stealthbot":"res://assets/definitions/entities/actors/STEALTHBOT.tres",
-	"dog":"res://assets/definitions/entities/actors/dog.tres",
-	"cat":"res://assets/definitions/entities/actors/cat.tres",
-	"host":"res://assets/definitions/entities/actors/discardedhost.tres",
-	"health_potion": "res://assets/definitions/entities/items/health_potion.tres",
-	"lightning_scroll": "res://assets/definitions/entities/items/lightning_scroll.tres",
-	"confusion_scroll": "res://assets/definitions/entities/items/confusion_scroll.tres",
-	"fireball_scroll":"res://assets/definitions/entities/items/fireball_scroll.tres",
-	"limb":"res://assets/definitions/body_plans/limb.tres",
-	"ax":"res://assets/definitions/entities/items/ax.tres"
-}
+var entity_types:Dictionary #= {
+#	"player": "res://assets/definitions/entities/actors/player.tres",
+#	"spider": "res://assets/definitions/entities/actors/spider.tres",
+#	"troll":"res://assets/definitions/entities/actors/troll.tres",
+#	"warbot":"res://assets/definitions/entities/actors/war_bot.tres",
+#	"stealthbot":"res://assets/definitions/entities/actors/STEALTHBOT.tres",
+#	"shotgun turret":"res://assets/definitions/entities/actors/shotgun_turret.tres",
+#	"dog":"res://assets/definitions/entities/actors/dog.tres",
+#	"cat":"res://assets/definitions/entities/actors/cat.tres",
+#	"host":"res://assets/definitions/entities/actors/discardedhost.tres",
+#	"health_potion": "res://assets/definitions/entities/items/health_potion.tres",
+#	"lightning_scroll": "res://assets/definitions/entities/items/lightning_scroll.tres",
+#	"confusion_scroll": "res://assets/definitions/entities/items/confusion_scroll.tres",
+#	"fireball_scroll":"res://assets/definitions/entities/items/fireball_scroll.tres",
+#	"limb":"res://assets/definitions/body_plans/limb.tres",
+#	"ax":"res://assets/definitions/entities/items/ax.tres"
+#}
+var item_path:String = "res://assets/definitions/entities/items/"
+var actor_path:String = "res://assets/definitions/entities/actors/"
 ##the list of current defined entities
 var key: String##takes from entity types to load a entity
 var current_movement:MOVEMENT_TYPE##current movement mode
@@ -57,10 +60,26 @@ var hunger:HungryDefinition = preload("res://assets/definitions/status_effects/h
 ##sets up a entity. mapdata, start position and the key is needed to make one without problems
 func _init(map_data: MapData, start_position: Vector2i, key: String = "") -> void:
 	centered = false
+	update_keys(item_path)
+	update_keys(actor_path)
 	grid_position = start_position
 	self.map_data = map_data
 	if key != "":
 		set_entity_type(key)
+## originally i had to add them one at a time but this just does it for me. note that if you want to
+## spawn a entity it has to be as it is shown in the files.It isn't case sensitive
+func update_keys(path:String):
+	var dir = DirAccess
+	dir.open(path)
+	var current:String
+	var first:Array= dir.get_files_at(path)
+	while !first.is_empty():
+		current = first.pop_front()
+		#print(current)
+		
+		var dict:Dictionary ={current.left(current.length()-5).to_lower():path+current}
+		entity_types.merge(dict)
+		#print(entity_types)
 ##sets the entity type with a string which coresponds with the dict with the list of entities. will cause a error if it either doesn't have a string or has the wrong one 
 func set_entity_type(key: String) -> void:
 	self.key = key

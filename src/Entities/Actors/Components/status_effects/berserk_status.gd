@@ -16,8 +16,7 @@ func _init(definition: BerserkStatusDefinition):
 	self.forever = definition.is_indefinite
 	
 func activate_effect(entity:Entity) -> void:
-	var screen :CanvasModulate
-	screen = entity.get_parent().get_parent().screeneffects
+	var screen :CanvasModulate=SignalBus.screeneffects
 	if power == 0:
 		power = entity.fighter_component.power
 		xp = entity.fighter_component.xp

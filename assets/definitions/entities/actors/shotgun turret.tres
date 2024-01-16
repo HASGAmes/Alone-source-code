@@ -1,18 +1,18 @@
 [gd_resource type="Resource" script_class="EntityDefinition" load_steps=10 format=3 uid="uid://bhfg7nmsrxyk1"]
 
-[ext_resource type="AudioStream" uid="uid://i3la10x55mgh" path="res://assets/audio/sfx/ahhhh.wav" id="1_eo871"]
-[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_i32wn"]
-[ext_resource type="Resource" uid="uid://crf4nlseexqhp" path="res://assets/definitions/body_plans/robotic_bodies/turret_body_base.tres" id="1_jdsv3"]
-[ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_ymtt1"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="3_heusd"]
-[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="5_c5unc"]
+[ext_resource type="Resource" uid="uid://crf4nlseexqhp" path="res://assets/definitions/body_plans/robotic_bodies/turret_body_base.tres" id="1_decxa"]
+[ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_58w5m"]
+[ext_resource type="AudioStream" uid="uid://i3la10x55mgh" path="res://assets/audio/sfx/ahhhh.wav" id="3_hvdh4"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="4_dlmwm"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="5_ppyo6"]
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="6_ug88h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yhraa"]
-atlas = ExtResource("5_c5unc")
+atlas = ExtResource("4_dlmwm")
 region = Rect2(112, 112, 16, 16)
 
 [sub_resource type="Resource" id="Resource_mbfwf"]
-script = ExtResource("3_heusd")
+script = ExtResource("5_ppyo6")
 max_hp = 20
 str = 10
 dex = 15
@@ -34,20 +34,20 @@ max_hunger = 2615
 res = Array[int]([])
 weakness = Array[int]([])
 immunity = Array[int]([])
-items_on_death = Array[ExtResource("1_i32wn")]([])
+items_on_death = Array[ExtResource("6_ug88h")]([])
 death_texture = SubResource("AtlasTexture_yhraa")
 death_color = Color(0.545098, 0, 0, 1)
-corpse_food = ExtResource("2_ymtt1")
-death_noise = Array[AudioStreamWAV]([ExtResource("1_eo871")])
-body_plan_definition = ExtResource("1_jdsv3")
+corpse_food = ExtResource("2_58w5m")
+death_noise = Array[AudioStreamWAV]([ExtResource("3_hvdh4")])
+body_plan_definition = ExtResource("1_decxa")
 skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fv8rw"]
-atlas = ExtResource("5_c5unc")
+atlas = ExtResource("4_dlmwm")
 region = Rect2(112, 96, 16, 16)
 
 [resource]
-script = ExtResource("1_i32wn")
+script = ExtResource("6_ug88h")
 name = "shotgun turret"
 texture = SubResource("AtlasTexture_fv8rw")
 color = Color(0.658824, 0.247059, 1, 1)

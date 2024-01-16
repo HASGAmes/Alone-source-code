@@ -4,4 +4,4 @@
 [ext_resource type="Resource" uid="uid://b0oms0uqjbp66" path="res://assets/definitions/entities/actors/dog.tres" id="2_t1qwx"]
 
 [node name="Item_Texture" instance=ExtResource("1_cfgym")]
-this_scene = ExtResource("2_t1qwx")
+entity = ExtResource("2_t1qwx")

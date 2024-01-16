@@ -1,125 +1,125 @@
 [gd_resource type="Resource" script_class="EntityDefinition" load_steps=23 format=3 uid="uid://d1aa7fy0bujgb"]
 
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_13op2"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="1_x086p"]
-[ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="2_0djd7"]
-[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="2_ibkb2"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/body_plan_definition.gd" id="2_mpvi7"]
-[ext_resource type="AudioStream" uid="uid://i3la10x55mgh" path="res://assets/audio/sfx/ahhhh.wav" id="3_6tjuh"]
-[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="3_en4m0"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/bleed_definition.gd" id="3_xcaef"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/limb_definition.gd" id="1_mrtkp"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/body_plan_definition.gd" id="2_o2qvk"]
+[ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="3_6wh6v"]
+[ext_resource type="AudioStream" uid="uid://i3la10x55mgh" path="res://assets/audio/sfx/ahhhh.wav" id="4_yn2a4"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="5_ol831"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/bleed_definition.gd" id="6_sxy61"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="7_fv4b2"]
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="8_pwbsj"]
 
 [sub_resource type="Resource" id="Resource_3rd1x"]
-script = ExtResource("1_13op2")
+script = ExtResource("1_mrtkp")
 is_important = false
 name = "face"
 limb_type = 6
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_13op2")]([])
+attached_parts = Array[ExtResource("1_mrtkp")]([])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_law6f"]
-script = ExtResource("1_13op2")
+script = ExtResource("1_mrtkp")
 is_important = true
 name = "head"
 limb_type = 0
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_13op2")]([SubResource("Resource_3rd1x")])
+attached_parts = Array[ExtResource("1_mrtkp")]([SubResource("Resource_3rd1x")])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_elmpr"]
-script = ExtResource("1_13op2")
+script = ExtResource("1_mrtkp")
 is_important = false
 name = "back"
 limb_type = 7
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_13op2")]([])
+attached_parts = Array[ExtResource("1_mrtkp")]([])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_tyur4"]
-script = ExtResource("1_13op2")
+script = ExtResource("1_mrtkp")
 is_important = false
 name = "body"
 limb_type = 1
 can_be_dismembered = false
-attached_parts = Array[ExtResource("1_13op2")]([SubResource("Resource_elmpr")])
+attached_parts = Array[ExtResource("1_mrtkp")]([SubResource("Resource_elmpr")])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_6icd4"]
-script = ExtResource("1_13op2")
+script = ExtResource("1_mrtkp")
 is_important = false
 name = "saw  blade"
 limb_type = 5
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_13op2")]([])
+attached_parts = Array[ExtResource("1_mrtkp")]([])
 damage_type = Array[int]([1])
 damage_dice = Array[int]([1, 8])
 is_natural_weapon = true
 
 [sub_resource type="Resource" id="Resource_kuc26"]
-script = ExtResource("1_13op2")
+script = ExtResource("1_mrtkp")
 is_important = false
 name = "arm"
 limb_type = 2
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_13op2")]([SubResource("Resource_6icd4")])
+attached_parts = Array[ExtResource("1_mrtkp")]([SubResource("Resource_6icd4")])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_cgs83"]
-script = ExtResource("1_13op2")
+script = ExtResource("1_mrtkp")
 is_important = false
 name = "saw  blade"
 limb_type = 5
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_13op2")]([])
+attached_parts = Array[ExtResource("1_mrtkp")]([])
 damage_type = Array[int]([1])
 damage_dice = Array[int]([1, 8])
 is_natural_weapon = true
 
 [sub_resource type="Resource" id="Resource_behuf"]
-script = ExtResource("1_13op2")
+script = ExtResource("1_mrtkp")
 is_important = false
 name = "arm"
 limb_type = 2
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_13op2")]([SubResource("Resource_cgs83")])
+attached_parts = Array[ExtResource("1_mrtkp")]([SubResource("Resource_cgs83")])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_po41s"]
-script = ExtResource("1_13op2")
+script = ExtResource("1_mrtkp")
 is_important = false
 name = "treads"
 limb_type = 3
 can_be_dismembered = true
-attached_parts = Array[ExtResource("1_13op2")]([])
+attached_parts = Array[ExtResource("1_mrtkp")]([])
 damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
 [sub_resource type="Resource" id="Resource_kda8r"]
 resource_local_to_scene = true
-script = ExtResource("2_mpvi7")
+script = ExtResource("2_o2qvk")
 limbs_are_alive = false
-body_parts = Array[ExtResource("1_13op2")]([SubResource("Resource_law6f"), SubResource("Resource_tyur4"), SubResource("Resource_kuc26"), SubResource("Resource_behuf"), SubResource("Resource_po41s")])
+body_parts = Array[ExtResource("1_mrtkp")]([SubResource("Resource_law6f"), SubResource("Resource_tyur4"), SubResource("Resource_kuc26"), SubResource("Resource_behuf"), SubResource("Resource_po41s")])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_swvub"]
-atlas = ExtResource("3_en4m0")
+atlas = ExtResource("5_ol831")
 region = Rect2(112, 112, 16, 16)
 
 [sub_resource type="Resource" id="Resource_hdbkd"]
-script = ExtResource("3_xcaef")
+script = ExtResource("6_sxy61")
 damage = 8
 status_name = "unnamed status"
 turns = 1
@@ -128,7 +128,7 @@ proc_chance = 0
 can_stack = false
 
 [sub_resource type="Resource" id="Resource_sodnv"]
-script = ExtResource("1_x086p")
+script = ExtResource("7_fv4b2")
 max_hp = 20
 str = 15
 dex = 15
@@ -150,20 +150,20 @@ max_hunger = 100
 res = Array[int]([0])
 weakness = Array[int]([5])
 immunity = Array[int]([])
-items_on_death = Array[ExtResource("2_ibkb2")]([])
+items_on_death = Array[ExtResource("8_pwbsj")]([])
 death_texture = SubResource("AtlasTexture_swvub")
 death_color = Color(0.545098, 0, 0, 1)
-corpse_food = ExtResource("2_0djd7")
-death_noise = Array[AudioStreamWAV]([ExtResource("3_6tjuh")])
+corpse_food = ExtResource("3_6wh6v")
+death_noise = Array[AudioStreamWAV]([ExtResource("4_yn2a4")])
 body_plan_definition = SubResource("Resource_kda8r")
 skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ae40k"]
-atlas = ExtResource("3_en4m0")
+atlas = ExtResource("5_ol831")
 region = Rect2(48, 48, 16, 16)
 
 [resource]
-script = ExtResource("2_ibkb2")
+script = ExtResource("8_pwbsj")
 name = "WAR-BOT"
 texture = SubResource("AtlasTexture_ae40k")
 color = Color(0.101961, 1, 1, 1)

@@ -1,35 +1,80 @@
+##
+class_name EditorObject
 extends Node2D
 
 var can_place = true
 var is_panning = true
+enum EDITOR_MODE {DRAWING,ERASING,MODIFY}
+var current_state = EDITOR_MODE.DRAWING
 var cam_spd = 10
 @onready var level:Node2D =%"Game"/Map/Entities
+@onready var tiles:Node2D = %"Game"/Map/Tiles
 @onready var editor:Node2D = %"cameracontainer"
 @onready var editor_cam:Camera2D = %"editorcam"
+@onready var mouse_checker_tile:Node2D = %"MouseoverChecker"
+@onready var notexture:Texture = preload("res://src/Level_Editor/cannot.png")
+@onready var cantexture:Texture = preload("res://src/Level_Editor/can.png")
 var current_item:EntityDefinition
+var current_tile:TileDefinition
+var erase_tool = preload("res://src/Level_Editor/erasetool.tres")
 @onready var player_cam:Camera2D = %"Camera2D"
-
+signal mouse_coords(vector2i)
+signal canplace(texture)
 func _ready():
+	canplace.connect(canplacetexture)
 	pass
 
 
 func _process(delta):
-	global_position = get_global_mouse_position()
-	global_position.x = ((round(global_position.x / 16)) * 16)
-	global_position.y = ((round(global_position.y / 16)) * 16)
 	
-	if current_item!=null:
-		modulate = current_item.color
-	if (current_item !=null and can_place and Input.is_action_just_pressed("mb_click")):
-		var new_item = Entity
-		var map:Map = level.get_parent()
-		var mapdata:MapData = map.map_data
-		new_item = Entity.new(mapdata,Grid.world_to_grid(get_global_mouse_position()),current_item.name.to_lower())
-		mapdata.entities.append(new_item)
-		level.add_child(new_item)
-		new_item.global_position = get_global_mouse_position()
-		new_item.global_position.x = ((round(global_position.x / 16)) * 16)
-		new_item.global_position.y = ((round(global_position.y / 16)) * 16)
+	var map:Map = level.get_parent()
+	var mapdata:MapData = map.map_data
+	global_position = mouse_checker_tile._mouse_tile*16
+	var mx = str(mouse_checker_tile._mouse_tile.x)
+	var my = str(mouse_checker_tile._mouse_tile.y)
+	if can_place == false:
+		canplace.emit(notexture)
+	else:
+		canplace.emit(cantexture)
+	if !mapdata.is_in_bounds(Grid.world_to_grid(get_global_mouse_position())):
+		can_place = false
+		
+		#print("can't plcae")
+		mouse_coords.emit("ERROR OUT OF BOUNDS")
+	else:
+		mouse_coords.emit("grid_position(x:"+mx+" y:"+my+")")
+		if !hidden:
+			can_place = true
+	match current_state:
+		EDITOR_MODE.DRAWING:
+			if current_item!=null:
+				modulate = current_item.color
+			if current_tile!=null:
+				modulate = current_tile.color_lit.duplicate().pop_front()
+			if (current_tile !=null and can_place == true and Input.is_action_just_pressed("mb_click")):
+				print("MOUSE ROUNDED",global_position,"MOUSE TO GRID",Grid.world_to_grid(global_position))
+				var tile:Tile = mapdata.get_tile(Grid.world_to_grid(global_position))
+				if tile ==null:
+					tile = Tile.new(Grid.world_to_grid(global_position),current_tile.name.to_lower())
+				else:
+					tile.set_tile_type(current_tile.name)
+			if current_item !=null and can_place and Input.is_action_just_pressed("mb_click"):
+				var new_item = Entity
+				new_item = Entity.new(mapdata,mouse_checker_tile._mouse_tile,current_item.name.to_lower())
+				mapdata.entities.append(new_item)
+				level.add_child(new_item)
+				
+		EDITOR_MODE.ERASING:
+			if can_place and Input.is_action_just_pressed("mb_click"):
+				var tile:Tile = mapdata.get_tile(mouse_checker_tile._mouse_tile)
+				var entity:Entity = mapdata.get_actor_at_location(mouse_checker_tile._mouse_tile)
+				if entity!=null:
+					print("ENETIY",entity.grid_position,"TILE",tile.grid_position)
+					print(entity.name)
+					entity.map_data.entities.erase(entity)
+					entity.queue_free()
+				else:
+					tile.set_tile_type("blank")
 	if editor_cam.is_current():
 		move_editor()
 	is_panning = Input.is_action_pressed("mb_middle")
@@ -46,8 +91,10 @@ func move_editor():
 	if Input.is_action_pressed("D"):
 		editor.global_position.x +=cam_spd
 	pass
-
-
+func canplacetexture(texture:Texture):
+	if texture == null:
+		texture = notexture
+	%"canplace".texture = texture
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
@@ -66,3 +113,17 @@ func _on_check_button_toggled(button_pressed):
 		editor_cam.make_current()
 	pass # Replace with function body.
 	
+
+
+func _on_drawmode_pressed():
+	current_state = EDITOR_MODE.DRAWING
+	pass # Replace with function body.
+
+
+func _on_erasemode_pressed():
+	current_state = EDITOR_MODE.ERASING
+	current_item = null
+	current_tile = null
+	modulate = Color.RED
+	$Sprite.texture = erase_tool
+	pass # Replace with function body.

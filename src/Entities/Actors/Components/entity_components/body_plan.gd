@@ -13,7 +13,7 @@ var parent:Entity##var for the parent entity
 ##used to inflict bleed on lost limb
 var bleed:StatusEffectDefinition = load("res://assets/definitions/status_effects/severed_limb_bleeding.tres")
 ## used as the body plan if the limb is alive
-var limb:EntityDefinition = load("res://assets/definitions/body_plans/limb.tres")
+
 ## you must first have a body definition like in res://assets/definitions/body_plans/
 func _init(definition: Body_Plan_Definition,parent:Entity) -> void:
 	original_limbs = definition.body_parts
@@ -89,10 +89,8 @@ func dismember(can_decap: bool) -> void:
 			arry += [bleed]
 			pare.add_status(arry)
 			if limb_is_alive == false:
-				limb.ai_type = Entity.AIType.NONE
 				var spr = load("res://assets/resources/limb_sprite.tres")
 				new_entity.texture = spr
-				limb.fighter_definition = null
 				new_entity.type = Entity.EntityType.CORPSE
 				new_entity.fighter_component = null
 				new_entity.ai_component = null
@@ -120,18 +118,16 @@ func dismember(can_decap: bool) -> void:
 			arry += [bleed]
 			pare.add_status(arry)
 			new_entity = Entity.new(map_data,pare.grid_position + random_dir(),"limb")
-			map_data.entities.append(new_entity)
-			pare.get_parent().add_child(new_entity)
+			
 			if limb_is_alive == false:
 				var spr = load("res://assets/resources/limb_sprite.tres")
 				new_entity.texture = spr
-				limb.ai_type = Entity.AIType.NONE
-				limb.fighter_definition = null
-				limb.type = Entity.EntityType.CORPSE
+				new_entity.type = Entity.EntityType.CORPSE
 				new_entity.fighter_component = null
 				new_entity.ai_component = null
 				new_entity.blocks_movement = false
-				new_entity.type = Entity.EntityType.CORPSE
+			map_data.entities.append(new_entity)
+			pare.get_parent().add_child(new_entity)
 			new_entity.entity_name = pare.entity_name +"'s "+ chosen_limb.name_limb
 			while !chosen_limb.connected.is_empty():
 				var li = chosen_limb.connected.pop_front()
