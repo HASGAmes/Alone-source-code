@@ -1,22 +1,22 @@
 [gd_resource type="Resource" script_class="TileDefinition" load_steps=6 format=3 uid="uid://b78s0r6fi8jna"]
 
-[ext_resource type="Script" path="res://src/Map/tile_definition.gd" id="1_2ub2n"]
-[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="4_nowkg"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="1_cujnq"]
+[ext_resource type="Script" path="res://src/Map/tile_definition.gd" id="2_usb00"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pgtfe"]
-atlas = ExtResource("4_nowkg")
+atlas = ExtResource("1_cujnq")
 region = Rect2(128, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l8n45"]
-atlas = ExtResource("4_nowkg")
+atlas = ExtResource("1_cujnq")
 region = Rect2(112, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pimyi"]
-atlas = ExtResource("4_nowkg")
+atlas = ExtResource("1_cujnq")
 region = Rect2(144, 64, 16, 16)
 
 [resource]
-script = ExtResource("1_2ub2n")
+script = ExtResource("2_usb00")
 name = "wall"
 texture = Array[AtlasTexture]([SubResource("AtlasTexture_l8n45"), SubResource("AtlasTexture_l8n45"), SubResource("AtlasTexture_pimyi")])
 color_lit = Array[Color]([Color(0.560784, 0.231373, 0.0196078, 1), Color(0.560784, 0.231373, 0.0196078, 1), Color(0.560784, 0.231373, 0.0196078, 1)])

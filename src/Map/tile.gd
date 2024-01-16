@@ -1,18 +1,14 @@
+## the class of all the tiles in my roguelike
 class_name Tile
 extends Sprite2D
-const tile_types = {
-	"floor": preload("res://assets/definitions/tiles/tile_definition_floor.tres"),
-	"wall": preload("res://assets/definitions/tiles/tile_definition_wall.tres"),
-	"rocks": preload("res://assets/definitions/tiles/tile_definition_rocks.tres"),
-	"door": preload("res://assets/definitions/tiles/tile_definition_door.tres"),
-	"bones":preload("res://assets/definitions/tiles/tile_definition_skulls.tres"),
-	"blank":preload("res://assets/definitions/tiles/blank.tres")
-}
-var key: String
+##these are loaded on launch from the tile definition folder
+## if more is added then they are automatically added to this dictionary without any other requirements
+var tile_types:Dictionary
+var key: String## the key to a part of the tile type dict.created from the name of the tile definition
 var _definition: TileDefinition
-var walkable
-var transparent
-var openable
+var walkable##if walkable
+var transparent##if you can see through
+var openable##if you can open it
 signal hp_changed(hp, max_hp)
 var tile_name
 var max_hp: int
@@ -22,20 +18,21 @@ var hp: int:
 		hp_changed.emit(hp, max_hp)
 		if hp <= 0:
 			destroy()
-var defense: int
-var DV
-var opened = false
-var open_texture: AtlasTexture
-var closed_texture: AtlasTexture
-var chosen_light_color
-var chosen_dark_color
-var rubble_texture: AtlasTexture
-var rubble_color:Color
-var destructible:bool
-var terrain_effect
-var grid_position:Vector2i
+var defense: int##defense of a tile. 
+var DV##only here for the melee action
+var opened = false##if true you can go through this door
+var open_texture: AtlasTexture##opened texture
+var closed_texture: AtlasTexture##closed texture
+var chosen_light_color## the color of a tile you can see
+var chosen_dark_color## the color of a tile you can't see
+var rubble_texture: AtlasTexture## texture of a destroyed tile
+var rubble_color:Color##destroyed tile color
+var destructible:bool## if true you can destroy this
+var terrain_effect##if something is here entities that walk on it can get the status
+var grid_position:Vector2i##where the tile is
 var collision = preload("res://assets/resources/raycast_body.tscn")
-var is_explored: bool = false:
+var tile_path:String = "res://assets/definitions/tiles/"
+var is_explored: bool = false:## if true you have been here
 	set(value):
 		if SignalBus.iseeall == true:
 			#print("fsadfs")
@@ -45,7 +42,7 @@ var is_explored: bool = false:
 			is_explored = value
 		if is_explored and not visible:
 			visible = true
-var is_in_view: bool = false:
+var is_in_view: bool = false:##if true you can see it
 	set(value):
 		if SignalBus.iseeall == true:
 			#print("fsadfs")
@@ -57,19 +54,29 @@ var is_in_view: bool = false:
 		if is_in_view and not is_explored:
 			is_explored = true
 
-
 func _init(grid_position: Vector2i, key: String) -> void:
 	visible = false
 	centered = false
+	update_keys(tile_path)
 	position = Grid.grid_to_world(grid_position)
-	set_tile_type(key)
+	
 	self.grid_position = grid_position
 	global_position = Grid.grid_to_world(grid_position)
 	collision = collision.instantiate()
 	add_child(collision)
 	collision.position = Vector2i(8,8)
-	
-	
+	set_tile_type(key)
+##gets the tile path and creates the tile types from that so you don't have to
+## add them each time you create a new tile
+func update_keys(path:String):
+	var dir = DirAccess
+	dir.open(path)
+	var current:String
+	var first:Array= dir.get_files_at(path)
+	while !first.is_empty():
+		current = first.pop_front()
+		var dict:Dictionary ={current.left(current.length()-5).to_lower():path+current}
+		tile_types.merge(dict)
 func distance(other_position: Vector2i) -> int:
 	var distance_x = other_position.x-grid_position.x
 	
@@ -89,7 +96,8 @@ func distance(other_position: Vector2i) -> int:
 
 func set_tile_type(key: String) -> void:
 	self.key = key
-	_definition = tile_types[key]
+	var tile_definition:TileDefinition = load(tile_types[key])
+	_definition = tile_definition
 	_definition = _definition.duplicate()
 	randomize()
 	var size = _definition.texture.size()

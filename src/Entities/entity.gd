@@ -5,23 +5,7 @@ extends Sprite2D
 enum AIType {NONE, HOSTILE,PREY,PREDATOR,TURRET}##controls the ai of a entity
 enum EntityType {CORPSE, ITEM, ACTOR}##decides if it is a corpse item or actor
 enum MOVEMENT_TYPE{WALK,CROUCH,PRONE,SPRINT}##affects the movement mode
-var entity_types:Dictionary #= {
-#	"player": "res://assets/definitions/entities/actors/player.tres",
-#	"spider": "res://assets/definitions/entities/actors/spider.tres",
-#	"troll":"res://assets/definitions/entities/actors/troll.tres",
-#	"warbot":"res://assets/definitions/entities/actors/war_bot.tres",
-#	"stealthbot":"res://assets/definitions/entities/actors/STEALTHBOT.tres",
-#	"shotgun turret":"res://assets/definitions/entities/actors/shotgun_turret.tres",
-#	"dog":"res://assets/definitions/entities/actors/dog.tres",
-#	"cat":"res://assets/definitions/entities/actors/cat.tres",
-#	"host":"res://assets/definitions/entities/actors/discardedhost.tres",
-#	"health_potion": "res://assets/definitions/entities/items/health_potion.tres",
-#	"lightning_scroll": "res://assets/definitions/entities/items/lightning_scroll.tres",
-#	"confusion_scroll": "res://assets/definitions/entities/items/confusion_scroll.tres",
-#	"fireball_scroll":"res://assets/definitions/entities/items/fireball_scroll.tres",
-#	"limb":"res://assets/definitions/body_plans/limb.tres",
-#	"ax":"res://assets/definitions/entities/items/ax.tres"
-#}
+var entity_types:Dictionary## all of the entity types are loaded on launch
 var item_path:String = "res://assets/definitions/entities/items/"
 var actor_path:String = "res://assets/definitions/entities/actors/"
 ##the list of current defined entities
@@ -68,6 +52,7 @@ func _init(map_data: MapData, start_position: Vector2i, key: String = "") -> voi
 		set_entity_type(key)
 ## originally i had to add them one at a time but this just does it for me. note that if you want to
 ## spawn a entity it has to be as it is shown in the files.It isn't case sensitive
+## in the case of the level editor however it needs to match the entity name 
 func update_keys(path:String):
 	var dir = DirAccess
 	dir.open(path)
@@ -76,7 +61,6 @@ func update_keys(path:String):
 	while !first.is_empty():
 		current = first.pop_front()
 		#print(current)
-		
 		var dict:Dictionary ={current.left(current.length()-5).to_lower():path+current}
 		entity_types.merge(dict)
 		#print(entity_types)

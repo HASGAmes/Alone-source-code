@@ -9,3 +9,6 @@ press \ to force attack
 most enemies don't attack right away
 press a to pull up you ability list
 press enter on any menu to use it and backspace to cancel it
+
+if you want to use the level editor you can press f1 to use it and press it 
+again to play as normal

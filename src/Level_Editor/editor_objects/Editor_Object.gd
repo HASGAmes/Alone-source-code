@@ -1,12 +1,12 @@
-##
+##This is the main node running the level editor
 class_name EditorObject
 extends Node2D
 
-var can_place = true
-var is_panning = true
-enum EDITOR_MODE {DRAWING,ERASING,MODIFY}
-var current_state = EDITOR_MODE.DRAWING
-var cam_spd = 10
+var can_place = true##if true can interact using current mode
+var is_panning = true## if true can use middle mouse to pan
+enum EDITOR_MODE {DRAWING,ERASING,MODIFY}##all the modes of the editor
+var current_state = EDITOR_MODE.DRAWING##default mode is drawing
+var cam_spd = 10##speed of camera
 @onready var level:Node2D =%"Game"/Map/Entities
 @onready var tiles:Node2D = %"Game"/Map/Tiles
 @onready var editor:Node2D = %"cameracontainer"
@@ -18,8 +18,8 @@ var current_item:EntityDefinition
 var current_tile:TileDefinition
 var erase_tool = preload("res://src/Level_Editor/erasetool.tres")
 @onready var player_cam:Camera2D = %"Camera2D"
-signal mouse_coords(vector2i)
-signal canplace(texture)
+signal mouse_coords(vector2i)##updates the gridposition of the mouse for convience
+signal canplace(texture)##a texture that shows if you can interact or not
 func _ready():
 	canplace.connect(canplacetexture)
 	pass
@@ -38,7 +38,6 @@ func _process(delta):
 		canplace.emit(cantexture)
 	if !mapdata.is_in_bounds(Grid.world_to_grid(get_global_mouse_position())):
 		can_place = false
-		
 		#print("can't plcae")
 		mouse_coords.emit("ERROR OUT OF BOUNDS")
 	else:
@@ -91,6 +90,7 @@ func move_editor():
 	if Input.is_action_pressed("D"):
 		editor.global_position.x +=cam_spd
 	pass
+##this function is in charge of showing off if you can interact or not
 func canplacetexture(texture:Texture):
 	if texture == null:
 		texture = notexture

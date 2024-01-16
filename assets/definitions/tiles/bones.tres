@@ -1,22 +1,22 @@
 [gd_resource type="Resource" script_class="TileDefinition" load_steps=6 format=3 uid="uid://glc04sn2538k"]
 
-[ext_resource type="Script" path="res://src/Map/tile_definition.gd" id="1_fkyi2"]
-[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="2_lrekk"]
+[ext_resource type="Script" path="res://src/Map/tile_definition.gd" id="1_22707"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="2_5qun6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n5kks"]
-atlas = ExtResource("2_lrekk")
+atlas = ExtResource("2_5qun6")
 region = Rect2(128, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uq6do"]
-atlas = ExtResource("2_lrekk")
+atlas = ExtResource("2_5qun6")
 region = Rect2(128, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2c4hb"]
-atlas = ExtResource("2_lrekk")
+atlas = ExtResource("2_5qun6")
 region = Rect2(144, 16, 16, 16)
 
 [resource]
-script = ExtResource("1_fkyi2")
+script = ExtResource("1_22707")
 name = "bones"
 texture = Array[AtlasTexture]([SubResource("AtlasTexture_n5kks"), SubResource("AtlasTexture_uq6do"), SubResource("AtlasTexture_2c4hb")])
 color_lit = Array[Color]([Color(1, 1, 0.823529, 1), Color(1, 0.862745, 1, 1), Color(0.776471, 1, 1, 1)])
