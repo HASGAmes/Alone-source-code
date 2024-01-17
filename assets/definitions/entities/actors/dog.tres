@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cxqlsyurt7g4r" path="res://assets/resources/default_death_texture.tres" id="2_i02g7"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/fighter_component_definition.gd" id="3_73ybl"]
 [ext_resource type="Resource" uid="uid://bhbxao61orxe8" path="res://assets/definitions/entities/items/corpse_food.tres" id="4_hv1j5"]
-[ext_resource type="Resource" uid="uid://cobefg5dint4k" path="res://assets/definitions/entities/actors/discardedhost.tres" id="5_cduuy"]
+[ext_resource type="Resource" uid="uid://cobefg5dint4k" path="res://assets/definitions/entities/actors/discarded host.tres" id="5_cduuy"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="5_m7t1g"]
 [ext_resource type="AudioStream" uid="uid://i3la10x55mgh" path="res://assets/audio/sfx/ahhhh.wav" id="6_2alic"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/host_definition.gd" id="6_a7ijn"]

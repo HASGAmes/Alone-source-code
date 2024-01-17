@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk437vy5njrmd"
-path="res://.godot/imported/draw_icon.png-b1b5d49881101506b128ba7e67eea0c2.ctex"
+uid="uid://cgtitum265qn8"
+path="res://.godot/imported/modify_icon.png-324e9d4ded6c6255246bff2dd494fa7c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Level_Editor/draw_icon.png"
-dest_files=["res://.godot/imported/draw_icon.png-b1b5d49881101506b128ba7e67eea0c2.ctex"]
+source_file="res://src/Level_Editor/button_textures/modify_icon.png"
+dest_files=["res://.godot/imported/modify_icon.png-324e9d4ded6c6255246bff2dd494fa7c.ctex"]
 
 [params]
 

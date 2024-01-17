@@ -4,7 +4,9 @@ extends Node2D
 
 var can_place = true##if true can interact using current mode
 var is_panning = true## if true can use middle mouse to pan
-enum EDITOR_MODE {DRAWING,ERASING,MODIFY}##all the modes of the editor
+var entity_held = false
+var current_entity_held:Entity
+enum EDITOR_MODE {DRAWING,ERASING,MODIFY,SWAPPING,MOVING}##all the modes of the editor
 var current_state = EDITOR_MODE.DRAWING##default mode is drawing
 var cam_spd = 10##speed of camera
 @onready var level:Node2D =%"Game"/Map/Entities
@@ -38,7 +40,6 @@ func _process(delta):
 		canplace.emit(cantexture)
 	if !mapdata.is_in_bounds(Grid.world_to_grid(get_global_mouse_position())):
 		can_place = false
-		#print("can't plcae")
 		mouse_coords.emit("ERROR OUT OF BOUNDS")
 	else:
 		mouse_coords.emit("grid_position(x:"+mx+" y:"+my+")")
@@ -46,39 +47,94 @@ func _process(delta):
 			can_place = true
 	match current_state:
 		EDITOR_MODE.DRAWING:
-			if current_item!=null:
-				modulate = current_item.color
-			if current_tile!=null:
-				modulate = current_tile.color_lit.duplicate().pop_front()
-			if (current_tile !=null and can_place == true and Input.is_action_just_pressed("mb_click")):
-				print("MOUSE ROUNDED",global_position,"MOUSE TO GRID",Grid.world_to_grid(global_position))
-				var tile:Tile = mapdata.get_tile(Grid.world_to_grid(global_position))
-				if tile ==null:
-					tile = Tile.new(Grid.world_to_grid(global_position),current_tile.name.to_lower())
-				else:
-					tile.set_tile_type(current_tile.name)
-			if current_item !=null and can_place and Input.is_action_just_pressed("mb_click"):
-				var new_item = Entity
-				new_item = Entity.new(mapdata,mouse_checker_tile._mouse_tile,current_item.name.to_lower())
-				mapdata.entities.append(new_item)
-				level.add_child(new_item)
-				
+			draw(mapdata)
 		EDITOR_MODE.ERASING:
-			if can_place and Input.is_action_just_pressed("mb_click"):
-				var tile:Tile = mapdata.get_tile(mouse_checker_tile._mouse_tile)
-				var entity:Entity = mapdata.get_actor_at_location(mouse_checker_tile._mouse_tile)
-				if entity!=null:
-					print("ENETIY",entity.grid_position,"TILE",tile.grid_position)
-					print(entity.name)
-					entity.map_data.entities.erase(entity)
-					entity.queue_free()
-				else:
-					tile.set_tile_type("blank")
+			erase(mapdata)
+		EDITOR_MODE.MOVING:
+			if current_entity_held!=null:
+				current_entity_held.grid_position = mouse_checker_tile._mouse_tile
+			move(mapdata)
+		EDITOR_MODE.SWAPPING:
+			swapping(mapdata)
 	if editor_cam.is_current():
 		move_editor()
 	is_panning = Input.is_action_pressed("mb_middle")
 	pass
+##all code with drawing is in here
+func draw(mapdata:MapData)->void:
+	if current_item!=null:
+		modulate = current_item.color
+	if current_tile!=null:
+		modulate = current_tile.color_lit.duplicate().pop_front()
+	if Input.is_action_pressed("hold_draw"):
+		if current_tile !=null and can_place == true and Input.is_action_pressed("mb_click"):
+			var tile:Tile = mapdata.get_tile(Grid.world_to_grid(global_position))
+			if tile ==null:
+				tile = Tile.new(Grid.world_to_grid(global_position),current_tile.name.to_lower())
+			else:
+				tile.set_tile_type(current_tile.name)
+		if current_item !=null and can_place and Input.is_action_pressed("mb_click")and mapdata.get_actor_at_location(mouse_checker_tile._mouse_tile) ==null:
+			var new_item = Entity
+			new_item = Entity.new(mapdata,mouse_checker_tile._mouse_tile,current_item.name.to_lower())
+			mapdata.entities.append(new_item)
+			level.add_child(new_item)
+	else:
+		if current_tile !=null and can_place == true and Input.is_action_just_pressed("mb_click"):
+			var tile:Tile = mapdata.get_tile(Grid.world_to_grid(global_position))
+			if tile ==null:
+				tile = Tile.new(Grid.world_to_grid(global_position),current_tile.name.to_lower())
+			else:
+				tile.set_tile_type(current_tile.name)
+		if current_item !=null and can_place and Input.is_action_just_pressed("mb_click") and mapdata.get_actor_at_location(mouse_checker_tile._mouse_tile):
+			var new_item = Entity
+			new_item = Entity.new(mapdata,mouse_checker_tile._mouse_tile,current_item.name.to_lower())
+			mapdata.entities.append(new_item)
+			level.add_child(new_item)
 
+##all code for erasing is in here
+func erase(mapdata:MapData)->void:
+	if Input.is_action_pressed("hold_draw"):
+		if can_place and Input.is_action_pressed("mb_click"):
+			var tile:Tile = mapdata.get_tile(mouse_checker_tile._mouse_tile)
+			var entity:Entity = mapdata.get_actor_at_location(mouse_checker_tile._mouse_tile)
+			if entity!=null:
+				entity.map_data.entities.erase(entity)
+				entity.queue_free()
+			else:
+				tile.set_tile_type("blank")
+	else:
+		if can_place and Input.is_action_just_pressed("mb_click"):
+			var tile:Tile = mapdata.get_tile(mouse_checker_tile._mouse_tile)
+			var entity:Entity = mapdata.get_actor_at_location(mouse_checker_tile._mouse_tile)
+			if entity!=null:
+				entity.map_data.entities.erase(entity)
+				entity.queue_free()
+			else:
+				tile.set_tile_type("blank")
+##all the code for moving entities in move mode
+func move(mapdata:MapData)->void:
+	if canplace and Input.is_action_just_pressed("mb_click")and entity_held == false and current_entity_held==null:
+		if mapdata.get_actor_at_location(mouse_checker_tile._mouse_tile) !=null:
+			current_entity_held = mapdata.get_actor_at_location(mouse_checker_tile._mouse_tile)
+		elif mapdata.get_item_at_location(mouse_checker_tile._mouse_tile)!=null:
+			current_entity_held =mapdata.get_item_at_location(mouse_checker_tile._mouse_tile)
+		if current_entity_held!=null:
+			entity_held = true
+	if entity_held == true:
+		if canplace and Input.is_action_just_released("mb_click"):
+			print("FDSF")
+			current_entity_held.grid_position = current_entity_held.grid_position
+			current_entity_held = null
+			print(current_entity_held)
+			entity_held = false
+	
+	pass
+##all the code for swapping the player with a different entity
+func swapping(mapdata:MapData)->void:
+	if canplace and Input.is_action_just_pressed("mb_click"):
+		%"CheckButton".toggled
+		%"Game".body_swap()
+	pass
 func move_editor():
 	if Input.is_action_pressed("W"):
 		print("move")
@@ -126,4 +182,18 @@ func _on_erasemode_pressed():
 	current_tile = null
 	modulate = Color.RED
 	$Sprite.texture = erase_tool
+	pass # Replace with function body.
+
+
+func _on_movemode_pressed():
+	current_state = EDITOR_MODE.MOVING
+	current_item = null
+	current_tile = null
+	pass # Replace with function body.
+
+
+func _on_swapbody_pressed():
+	current_state = EDITOR_MODE.SWAPPING
+	current_item = null
+	current_tile = null
 	pass # Replace with function body.

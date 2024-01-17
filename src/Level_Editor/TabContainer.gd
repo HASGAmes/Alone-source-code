@@ -14,7 +14,7 @@ func _ready():
 	add_buttons(tileDir,tile_block,true)
 	add_buttons(enemyDir,actor_block,false)
 	add_buttons(itemDir,item_block,false)
-	SignalBus.editor_open = !SignalBus.editor_open
+	SignalBus.editor_open = true
 	get_parent().visible = !SignalBus.editor_open
 	%"CheckButton".visible = visible
 	get_node("/root/GameManager/InterfaceRoot/InfoBar").visible = SignalBus.editor_open

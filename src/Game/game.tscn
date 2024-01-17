@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dxsknelgw5ain"]
+[gd_scene load_steps=44 format=3 uid="uid://dxsknelgw5ain"]
 
 [ext_resource type="Script" path="res://src/Game/game_root.gd" id="1_bhywp"]
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_ne6pe"]
@@ -19,9 +19,11 @@
 [ext_resource type="Script" path="res://src/Level_Editor/TabContainer.gd" id="14_h65dh"]
 [ext_resource type="Script" path="res://src/Game/scrollcontainer.gd" id="14_nslxa"]
 [ext_resource type="FontFile" uid="uid://dikrxfgf1i6e7" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Mini Square Mono.ttf" id="15_hqss3"]
-[ext_resource type="Texture2D" uid="uid://dk437vy5njrmd" path="res://src/Level_Editor/draw_icon.png" id="18_fayve"]
-[ext_resource type="Texture2D" uid="uid://dul0icga255op" path="res://src/Level_Editor/erase_icon.png" id="19_4tiy4"]
-[ext_resource type="Texture2D" uid="uid://cgtitum265qn8" path="res://src/Level_Editor/modify_icon.png" id="20_38buo"]
+[ext_resource type="Texture2D" uid="uid://dk437vy5njrmd" path="res://src/Level_Editor/button_textures/draw_icon.png" id="16_1rbpw"]
+[ext_resource type="Texture2D" uid="uid://dul0icga255op" path="res://src/Level_Editor/button_textures/erase_icon.png" id="17_ymg0n"]
+[ext_resource type="Texture2D" uid="uid://cgtitum265qn8" path="res://src/Level_Editor/button_textures/modify_icon.png" id="18_qqjf4"]
+[ext_resource type="Texture2D" uid="uid://mrpb6d05optu" path="res://src/Level_Editor/button_textures/swap.png" id="19_j4bht"]
+[ext_resource type="Texture2D" uid="uid://o2cciis4d0l5" path="res://src/Level_Editor/button_textures/move.png" id="20_nwcrr"]
 [ext_resource type="Script" path="res://src/Game/mouse_pos.gd" id="20_ta2qx"]
 [ext_resource type="Script" path="res://src/Game/playericon.gd" id="26_l0ljo"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="26_lc2fb"]
@@ -42,6 +44,22 @@ unicode = 101
 
 [sub_resource type="Shortcut" id="Shortcut_5hc12"]
 events = [SubResource("InputEventKey_xtf18")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_hwsuc"]
+device = -1
+keycode = 71
+unicode = 103
+
+[sub_resource type="Shortcut" id="Shortcut_jwcjb"]
+events = [SubResource("InputEventKey_hwsuc")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_mk3e4"]
+device = -1
+keycode = 86
+unicode = 118
+
+[sub_resource type="Shortcut" id="Shortcut_k0lsl"]
+events = [SubResource("InputEventKey_mk3e4")]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sr2kr"]
 font = ExtResource("15_hqss3")
@@ -239,48 +257,81 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Drawmode" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+modulate = Color(0.337255, 1, 0.109804, 1)
 offset_left = 8.935
 offset_top = 238.385
 offset_right = 24.935
 offset_bottom = 254.385
 scale = Vector2(4, 4)
-tooltip_text = "Draws using the selected Actor, Item or Tile. F for hotkey
+tooltip_text = "Draws using the selected Actor, Item or Tile. F for hotkey. Hold shift to keep drawing
 
 "
 shortcut = SubResource("Shortcut_vgtk3")
-texture_normal = ExtResource("18_fayve")
-texture_pressed = ExtResource("18_fayve")
-texture_hover = ExtResource("18_fayve")
-texture_disabled = ExtResource("18_fayve")
-texture_focused = ExtResource("18_fayve")
+texture_normal = ExtResource("16_1rbpw")
+texture_pressed = ExtResource("16_1rbpw")
+texture_hover = ExtResource("16_1rbpw")
+texture_disabled = ExtResource("16_1rbpw")
+texture_focused = ExtResource("16_1rbpw")
 
 [node name="Erasemode" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+modulate = Color(1, 0.0823529, 0.211765, 1)
 offset_left = 8.935
 offset_top = 309.14
 offset_right = 24.935
 offset_bottom = 325.14
 scale = Vector2(4, 4)
 tooltip_text = "Erases entities by deleting them but just turns tiles into black squares. The tiles then can be drawn over.
-E for hotkey"
+E for hotkey. Hold shift to keep erasing"
 shortcut = SubResource("Shortcut_5hc12")
-texture_normal = ExtResource("19_4tiy4")
-texture_pressed = ExtResource("19_4tiy4")
-texture_hover = ExtResource("19_4tiy4")
-texture_disabled = ExtResource("19_4tiy4")
-texture_focused = ExtResource("19_4tiy4")
+texture_normal = ExtResource("17_ymg0n")
+texture_pressed = ExtResource("17_ymg0n")
+texture_hover = ExtResource("17_ymg0n")
+texture_disabled = ExtResource("17_ymg0n")
+texture_focused = ExtResource("17_ymg0n")
 
 [node name="Modifymode" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+modulate = Color(0.976471, 0.603922, 0.141176, 1)
 offset_left = 8.935
 offset_top = 375.99
 offset_right = 24.935
 offset_bottom = 391.99
 scale = Vector2(4, 4)
-tooltip_text = "Change a Actor,Item or tiles' properties"
-texture_normal = ExtResource("20_38buo")
-texture_pressed = ExtResource("20_38buo")
-texture_hover = ExtResource("20_38buo")
-texture_disabled = ExtResource("20_38buo")
-texture_focused = ExtResource("20_38buo")
+tooltip_text = "Change a Actor,Item or tiles' properties. at least it would if it could do something"
+texture_normal = ExtResource("18_qqjf4")
+texture_pressed = ExtResource("18_qqjf4")
+texture_hover = ExtResource("18_qqjf4")
+texture_disabled = ExtResource("18_qqjf4")
+texture_focused = ExtResource("18_qqjf4")
+
+[node name="Swapbody" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+modulate = Color(1, 0.0941176, 0.929412, 1)
+offset_left = 8.935
+offset_top = 434.54
+offset_right = 24.935
+offset_bottom = 450.54
+scale = Vector2(4, 4)
+tooltip_text = "swap the player with another actor with a click."
+shortcut = SubResource("Shortcut_jwcjb")
+texture_normal = ExtResource("19_j4bht")
+texture_pressed = ExtResource("19_j4bht")
+texture_hover = ExtResource("19_j4bht")
+texture_disabled = ExtResource("19_j4bht")
+texture_focused = ExtResource("19_j4bht")
+
+[node name="Movemode" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
+modulate = Color(0.0784314, 0.882353, 1, 1)
+offset_left = 8.935
+offset_top = 494.875
+offset_right = 24.935
+offset_bottom = 510.875
+scale = Vector2(4, 4)
+tooltip_text = "Move a entity by holding left mouse button on it and releasing when you want to drop it. Hotkey is V"
+shortcut = SubResource("Shortcut_k0lsl")
+texture_normal = ExtResource("20_nwcrr")
+texture_pressed = ExtResource("20_nwcrr")
+texture_hover = ExtResource("20_nwcrr")
+texture_disabled = ExtResource("20_nwcrr")
+texture_focused = ExtResource("20_nwcrr")
 
 [node name="MouseoverLabel" type="Label" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
 unique_name_in_owner = true
@@ -308,7 +359,7 @@ offset_left = 226.82
 offset_top = 544.77
 offset_right = 290.82
 offset_bottom = 608.77
-texture = ExtResource("20_38buo")
+texture = ExtResource("18_qqjf4")
 
 [node name="Editor_Object" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main"]
 unique_name_in_owner = true
@@ -461,6 +512,12 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cifx1")
 [connection signal="tree_exiting" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Erasemode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_erasemode_tree_exiting"]
 [connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Modifymode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_modifymode_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Modifymode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_modifymode_mouse_exited"]
+[connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Swapbody" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_modifymode_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Swapbody" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_modifymode_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Swapbody" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_swapbody_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Movemode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_modifymode_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Movemode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_modifymode_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Movemode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_movemode_pressed"]
 [connection signal="mouse_coords" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/mouse_pos" method="set_text"]
 
 [editable path="Node"]

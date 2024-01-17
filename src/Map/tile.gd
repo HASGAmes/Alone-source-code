@@ -77,9 +77,10 @@ func update_keys(path:String):
 		current = first.pop_front()
 		var dict:Dictionary ={current.left(current.length()-5).to_lower():path+current}
 		tile_types.merge(dict)
+##gets the distance from another vector2i. I know about vector.length() but it wasn't
+##consistantly and did weird results so i made this and it actually works pretty well
 func distance(other_position: Vector2i) -> int:
 	var distance_x = other_position.x-grid_position.x
-	
 	var distance_y = other_position.y-grid_position.y
 	if distance_x<0:
 		distance_x*=-1

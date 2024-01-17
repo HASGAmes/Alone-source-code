@@ -47,8 +47,6 @@ func load_game() -> bool:
 	camera.make_current.call_deferred()
 	return true
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("debug_body_swap"):
-		body_swap()
 	if player.ai_component!=null:
 		var action: Action = await input_handler.get_action(player)
 		var enemies_acted:bool = false
@@ -91,6 +89,9 @@ func get_map_data() -> MapData:
 	return map.map_data
 
 func body_swap():
+	var change:bool = false
+	if camera.is_current():
+		change = true
 	var swap_target = get_map_data().get_actor_at_location(mouse_checker_tile._mouse_tile)
 	if swap_target != null:
 		prev_player = player
@@ -98,9 +99,9 @@ func body_swap():
 		input_handler.transition_to(InputHandler.InputHandlers.MAIN_GAME)
 		SignalBus.player = player
 		SignalBus.player_changed.emit(player) 
-		print("hm")
 		player_definition = player._definition
 		get_map_data().player = player
 		prev_player.remove_child(camera)
 		player.add_child(camera)
-		camera.make_current.call_deferred()
+		if change == true:
+			camera.make_current.call_deferred()

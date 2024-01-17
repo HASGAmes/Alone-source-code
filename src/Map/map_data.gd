@@ -120,7 +120,11 @@ func get_actor_at_location(location: Vector2i) -> Entity:
 		if actor.grid_position == location:
 			return actor
 	return null
-
+func get_item_at_location(location:Vector2i)->Entity:
+	for item in get_items():
+		if item.grid_position == location:
+			return item
+	return null
 func diagonal_distance(p0, p1):
 	var dvector = Vector2i(p1.x - p0.x, p1.y - p0.y)
 	return max(abs(dvector.x), abs(dvector.y))

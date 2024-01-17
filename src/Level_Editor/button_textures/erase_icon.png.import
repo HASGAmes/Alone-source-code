@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgtitum265qn8"
-path="res://.godot/imported/modify_icon.png-6b406a935e3527bd7d7bd78aa26019d0.ctex"
+uid="uid://dul0icga255op"
+path="res://.godot/imported/erase_icon.png-e8d9f3aef6339907ccf226b3d35c4250.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Level_Editor/modify_icon.png"
-dest_files=["res://.godot/imported/modify_icon.png-6b406a935e3527bd7d7bd78aa26019d0.ctex"]
+source_file="res://src/Level_Editor/button_textures/erase_icon.png"
+dest_files=["res://.godot/imported/erase_icon.png-e8d9f3aef6339907ccf226b3d35c4250.ctex"]
 
 [params]
 
