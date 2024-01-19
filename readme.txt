@@ -1,0 +1,4 @@
+This is what i use to version control my roguelike in development but feel free to use it for what ever you like as long as you 1 give credit to me and everyone in the people to credit txt file and 2 don't just take it and asset flip to make a quick buck.
+As long as you don't do that im ok with it and i'll do my best to add as much docmentation to help people actually understand what all this code does cuz there is alooot. I also recommend getting your own sound effects and sprites if you try to use my game as
+a base. Not that i really mine per say just feel like it wouldn't really be great if everyone who used this project had it look the same. 
+https://hasgams.itch.io/alone is where you can download the regular game if you like or https://gotm.io/hasgames/alone if you rather play in browser.
