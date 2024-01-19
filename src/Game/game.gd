@@ -59,7 +59,6 @@ func _physics_process(_delta: float) -> void:
 				_handle_enemy_turns()
 				player.fighter_component.turn+=player.fighter_component.quickness
 				enemies_acted=true
-			#print(action)
 			if action.perform():
 				map.update_fov(player.grid_position)
 				player.fighter_component.turns_not_in_combat +=1
@@ -76,11 +75,11 @@ func _handle_enemy_turns() -> void:
 	for entity in get_map_data().entities:
 		if entity.ai_component != null and entity != player:
 			entity.fighter_component.turn += entity.fighter_component.quickness
+			print(entity.fighter_component.turn,entity)
 			while entity.fighter_component.turn>=100:
 				if entity.is_alive():
 					entity.ai_component.perform()
 				entity.fighter_component.turn -= 100
-				
 				entity.fighter_component.turns_not_in_combat +=1
 				map.update_fov(player.grid_position)
 			
@@ -90,18 +89,14 @@ func get_map_data() -> MapData:
 
 func body_swap():
 	var change:bool = false
-	if camera.is_current():
-		change = true
+	
 	var swap_target = get_map_data().get_actor_at_location(mouse_checker_tile._mouse_tile)
 	if swap_target != null:
 		prev_player = player
 		player = swap_target
-		input_handler.transition_to(InputHandler.InputHandlers.MAIN_GAME)
 		SignalBus.player = player
 		SignalBus.player_changed.emit(player) 
 		player_definition = player._definition
 		get_map_data().player = player
 		prev_player.remove_child(camera)
 		player.add_child(camera)
-		if change == true:
-			camera.make_current.call_deferred()

@@ -8,7 +8,7 @@ func enter() -> void:
 
 
 func exit() -> void:
-	player_cam.make_current()
+	player_cam.make_current.call_deferred()
 	pass
 
 
