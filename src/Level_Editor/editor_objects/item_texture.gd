@@ -5,7 +5,7 @@ extends TextureRect
 @onready var cursor_sprite
 signal showname(name)
 func _ready():
-	
+	connect("mouse_entered",_on_mouse_entered)
 	connect("gui_input",item_clicked)
 	if tile!=null:
 		var text = tile.texture.duplicate()

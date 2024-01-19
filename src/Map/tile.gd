@@ -59,7 +59,6 @@ func _init(grid_position: Vector2i, key: String) -> void:
 	centered = false
 	update_keys(tile_path)
 	position = Grid.grid_to_world(grid_position)
-	
 	self.grid_position = grid_position
 	global_position = Grid.grid_to_world(grid_position)
 	collision = collision.instantiate()
@@ -75,6 +74,8 @@ func update_keys(path:String):
 	var first:Array= dir.get_files_at(path)
 	while !first.is_empty():
 		current = first.pop_front()
+		if current.ends_with(".remap"):
+			current= current.trim_suffix(".remap")
 		var dict:Dictionary ={current.left(current.length()-5).to_lower():path+current}
 		tile_types.merge(dict)
 ##gets the distance from another vector2i. I know about vector.length() but it wasn't
@@ -96,8 +97,8 @@ func distance(other_position: Vector2i) -> int:
 	return distance
 
 func set_tile_type(key: String) -> void:
-	self.key = key
-	var tile_definition:TileDefinition = load(tile_types[key])
+	self.key = key.trim_suffix(".remap")
+	var tile_definition:TileDefinition = load(tile_types[self.key])
 	_definition = tile_definition
 	_definition = _definition.duplicate()
 	randomize()

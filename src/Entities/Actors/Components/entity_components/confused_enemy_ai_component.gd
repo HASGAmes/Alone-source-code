@@ -3,7 +3,7 @@ extends BaseAIComponent
 
 var previous_ai: BaseAIComponent
 var turns_remaining: int
-
+var attacking_actor:Entity
 
 func _ready() -> void:
 	previous_ai = entity.ai_component

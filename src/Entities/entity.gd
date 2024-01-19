@@ -60,14 +60,16 @@ func update_keys(path:String):
 	var first:Array= dir.get_files_at(path)
 	while !first.is_empty():
 		current = first.pop_front()
-		#print(current)
+		if current.ends_with(".remap"):
+			current= current.trim_suffix(".remap")
+			print(current)
 		var dict:Dictionary ={current.left(current.length()-5).to_lower():path+current}
 		entity_types.merge(dict)
 		#print(entity_types)
 ##sets the entity type with a string which coresponds with the dict with the list of entities. will cause a error if it either doesn't have a string or has the wrong one 
 func set_entity_type(key: String) -> void:
-	self.key = key
-	var entity_definition: EntityDefinition = load(entity_types[key])
+	self.key = key.trim_suffix(".remap")
+	var entity_definition: EntityDefinition = load(entity_types[self.key])
 	_definition = entity_definition
 	collision = collision.instantiate()
 	add_child(collision)

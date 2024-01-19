@@ -166,7 +166,11 @@ fov_radius = 8
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_15hgc")
-map_width = 40
+map_height = 80
+max_rooms = 45
+room_max_size = 13
+room_min_size = 2
+max_monsters_per_room = 3
 
 [node name="FieldOfView" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("5_bvmgb")
@@ -196,14 +200,6 @@ drag_vertical_enabled = true
 [node name="Main" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport"]
 
 [node name="Editorgui" type="CanvasLayer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main"]
-
-[node name="CheckButton" type="CheckButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
-unique_name_in_owner = true
-offset_left = 122.325
-offset_top = 608.5
-offset_right = 295.105
-offset_bottom = 649.12
-text = "switch cameras"
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
 top_level = true
@@ -355,10 +351,10 @@ offset_bottom = 130.14
 
 [node name="canplace" type="TextureRect" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
 unique_name_in_owner = true
-offset_left = 226.82
-offset_top = 544.77
-offset_right = 290.82
-offset_bottom = 608.77
+offset_left = 10.995
+offset_top = 571.195
+offset_right = 74.9948
+offset_bottom = 635.195
 texture = ExtResource("18_qqjf4")
 
 [node name="Editor_Object" type="Node2D" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main"]
@@ -498,9 +494,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cifx1")
 [connection signal="timeout" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler/input_delay" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler" method="_on_input_delay_timeout"]
 [connection signal="entities_focussed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/MouseoverLabel" method="set_text"]
 [connection signal="entities_focussed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="InfoBar/StatsPanel/VBoxContainer/MouseoverLabel" method="set_text"]
-[connection signal="button_down" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_button_down"]
-[connection signal="button_up" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_button_up"]
-[connection signal="toggled" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/CheckButton" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_check_button_toggled"]
 [connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_mouse_entered" flags=18]
 [connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_mouse_exited" flags=18]
 [connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Actors" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Actors" method="mouse_enter"]

@@ -16,10 +16,12 @@ var cam_spd = 10##speed of camera
 @onready var mouse_checker_tile:Node2D = %"MouseoverChecker"
 @onready var notexture:Texture = preload("res://src/Level_Editor/cannot.png")
 @onready var cantexture:Texture = preload("res://src/Level_Editor/can.png")
+#@onready var blurb:Panel = %"entityblurb"
 var current_item:EntityDefinition
+
 var current_tile:TileDefinition
 var erase_tool = preload("res://src/Level_Editor/erasetool.tres")
-@onready var player_cam:Camera2D = %"Camera2D"
+var map:Map
 signal mouse_coords(vector2i)##updates the gridposition of the mouse for convience
 signal canplace(texture)##a texture that shows if you can interact or not
 func _ready():
@@ -29,7 +31,7 @@ func _ready():
 
 func _process(delta):
 	
-	var map:Map = level.get_parent()
+	map= level.get_parent()
 	var mapdata:MapData = map.map_data
 	global_position = mouse_checker_tile._mouse_tile*16
 	var mx = str(mouse_checker_tile._mouse_tile.x)
@@ -47,6 +49,7 @@ func _process(delta):
 			can_place = true
 	match current_state:
 		EDITOR_MODE.DRAWING:
+			
 			draw(mapdata)
 		EDITOR_MODE.ERASING:
 			erase(mapdata)
@@ -85,12 +88,12 @@ func draw(mapdata:MapData)->void:
 				tile = Tile.new(Grid.world_to_grid(global_position),current_tile.name.to_lower())
 			else:
 				tile.set_tile_type(current_tile.name)
-		if current_item !=null and can_place and Input.is_action_just_pressed("mb_click") and mapdata.get_actor_at_location(mouse_checker_tile._mouse_tile):
+		if current_item !=null and can_place and Input.is_action_just_pressed("mb_click"):
 			var new_item = Entity
 			new_item = Entity.new(mapdata,mouse_checker_tile._mouse_tile,current_item.name.to_lower())
 			mapdata.entities.append(new_item)
 			level.add_child(new_item)
-
+	map.update_fov(SignalBus.player.grid_position)
 ##all code for erasing is in here
 func erase(mapdata:MapData)->void:
 	if Input.is_action_pressed("hold_draw"):
@@ -132,7 +135,6 @@ func move(mapdata:MapData)->void:
 ##all the code for swapping the player with a different entity
 func swapping(mapdata:MapData)->void:
 	if canplace and Input.is_action_just_pressed("mb_click"):
-		%"CheckButton".toggled
 		%"Game".body_swap()
 	pass
 func move_editor():
@@ -159,16 +161,9 @@ func _unhandled_input(event):
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				editor_cam.zoom -= Vector2(-0.1,-0.1)
 	if event is InputEventMouseMotion:
+		#blurb.global_position = mouse_checker_tile._mouse_tile*16
 		if is_panning:
 			editor.global_position -= event.relative *editor_cam.zoom
-func _on_check_button_toggled(button_pressed):
-	if editor_cam.is_current():
-		player_cam.make_current()
-	elif player_cam.is_current():
-		editor_cam.global_position = player_cam.global_position
-		editor_cam.make_current()
-	pass # Replace with function body.
-	
 
 
 func _on_drawmode_pressed():
@@ -189,6 +184,7 @@ func _on_movemode_pressed():
 	current_state = EDITOR_MODE.MOVING
 	current_item = null
 	current_tile = null
+	$Sprite.texture = null
 	pass # Replace with function body.
 
 
@@ -196,4 +192,5 @@ func _on_swapbody_pressed():
 	current_state = EDITOR_MODE.SWAPPING
 	current_item = null
 	current_tile = null
+	$Sprite.texture = null
 	pass # Replace with function body.

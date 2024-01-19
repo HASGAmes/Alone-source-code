@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://src/Level_Editor/editor_objects/item_texture.gd" id="1_ny58i"]
 
 [node name="Item_Texture" type="TextureRect"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
 script = ExtResource("1_ny58i")
-
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
