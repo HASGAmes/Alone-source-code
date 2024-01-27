@@ -4,12 +4,13 @@
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_yt55l"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="3_0ptpl"]
 
-[sub_resource type="Resource" id="Resource_rncav"]
+[sub_resource type="Resource" id="Resource_m855j"]
 script = ExtResource("1_2sq4t")
 equipment_slot = 5
 equipment_type = 0
 weapon_type = 2
-damage_dice = Array[int]([2, 10])
+damage_dice = Array[int]([2, 3])
+damage_types = 1
 defense = 0
 bullets = 1
 spread = 0.0
@@ -23,10 +24,11 @@ script = ExtResource("1_yt55l")
 name = "ax"
 texture = SubResource("AtlasTexture_j858k")
 color = Color(0.752625, 0.0106484, 0.253096, 1)
+entity_blurb = "A hideous specimen"
 is_blocking_movment = false
 type = 1
 starting_movement = 0
 ai_type = 0
+item_definition = SubResource("Resource_m855j")
 inventory_capacity = 0
 starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
-equipment_item_component = SubResource("Resource_rncav")

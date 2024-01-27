@@ -8,7 +8,7 @@ enum MOVEMENT_TYPE{WALK,CROUCH,PRONE,SPRINT}##affects the movement mode
 var entity_types:Dictionary## all of the entity types are loaded on launch
 var item_path:String = "res://assets/definitions/entities/items/"
 var actor_path:String = "res://assets/definitions/entities/actors/"
-##the list of current defined entities
+var blurb:String## used to make this entities description
 var key: String##takes from entity types to load a entity
 var current_movement:MOVEMENT_TYPE##current movement mode
 @onready var dicebag = Dicebag.new()## is used for rolling for stuff
@@ -70,6 +70,7 @@ func update_keys(path:String):
 func set_entity_type(key: String) -> void:
 	self.key = key.trim_suffix(".remap")
 	var entity_definition: EntityDefinition = load(entity_types[self.key])
+	
 	_definition = entity_definition
 	collision = collision.instantiate()
 	add_child(collision)
@@ -78,6 +79,7 @@ func set_entity_type(key: String) -> void:
 	if entity_definition!= null:
 		_definition = entity_definition
 	type = _definition.type
+	blurb = entity_definition.entity_blurb
 	current_movement = entity_definition.starting_movement
 	blocks_movement = _definition.is_blocking_movment
 	entity_name = _definition.name
@@ -89,10 +91,12 @@ func set_entity_type(key: String) -> void:
 	add_child(part_effect)
 	add_child(status_tracker)
 	part_effect.position += Vector2(8,-8)
-	if entity_definition.equipment_item_component:
-		print("yes5")
-		equipment_item_component = EquipmentItemComponent.new(entity_definition.equipment_item_component)
+	
+	if entity_definition.item_definition is EquipmentDefinition:
+		equipment_item_component = EquipmentItemComponent.new(entity_definition.item_definition)
 		add_child(equipment_item_component)
+	if entity_definition.item_definition is ConsumableComponentDefinition:
+		_handle_consumable(entity_definition.item_definition)
 	match entity_definition.ai_type:
 		AIType.NONE:
 			ai_component = null
@@ -111,8 +115,6 @@ func set_entity_type(key: String) -> void:
 	if entity_definition.fighter_definition:
 		fighter_component = FighterComponent.new(entity_definition.fighter_definition)
 		add_child(fighter_component)
-	if entity_definition.consumable_definition:
-		_handle_consumable(entity_definition.consumable_definition)
 	if entity_definition.inventory_capacity > 0:
 		inventory_component = InventoryComponent.new(entity_definition.inventory_capacity)
 		add_child(inventory_component)
@@ -252,7 +254,8 @@ func passed_turn():
 	
 ## decides what kind of consumable a entity is based on the attached consumable component. there is a id on each one that says it is that type which is what this function uses to filter them.
 func _handle_consumable(consumable_definition: ConsumableComponentDefinition) -> void:
-	consumable_component = consumable_definition.item_id.new(consumable_definition)
+	if consumable_definition!=null:
+		consumable_component = consumable_definition.item_id.new(consumable_definition)
 	if consumable_component:
 		add_child(consumable_component)
 ## if a entity isn't hostile if you move to the same tile you swap places

@@ -51,6 +51,7 @@ script = ExtResource("6_ug88h")
 name = "shotgun turret"
 texture = SubResource("AtlasTexture_fv8rw")
 color = Color(0.658824, 0.247059, 1, 1)
+entity_blurb = "a miltary automatic turret. Blows holes in those unwise enough to walk into one"
 is_blocking_movment = true
 type = 2
 starting_movement = 2

@@ -15,7 +15,7 @@ func _ready() -> void:
 func build(title_text: String, skil: FighterComponent) -> void:
 	if skil.skill_tracker.get_child_count() == 0:
 		button_pressed.call_deferred()
-		MessageLog.send_message("Skills to skill.", GameColors.IMPOSSIBLE)
+		MessageLog.send_message(" no skills to skill.", GameColors.IMPOSSIBLE)
 		skill_selected.emit(null)
 		return
 	title_label.text = title_text

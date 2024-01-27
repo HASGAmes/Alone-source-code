@@ -4,15 +4,15 @@
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/equipment_definition.gd" id="1_ukrmh"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="3_7g4vv"]
 
-[sub_resource type="Resource" id="Resource_lf2ty"]
+[sub_resource type="Resource" id="Resource_g32nr"]
 script = ExtResource("1_ukrmh")
 equipment_slot = 5
 equipment_type = 0
 weapon_type = 4
 damage_dice = Array[int]([3, 2])
 defense = 0
-bullets = 6
-spread = 0.861
+bullets = 4
+spread = 1.012
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7g4na"]
 atlas = ExtResource("3_7g4vv")
@@ -23,10 +23,11 @@ script = ExtResource("1_8bxjw")
 name = "sawed off shotgun"
 texture = SubResource("AtlasTexture_7g4na")
 color = Color(0.858824, 0.34902, 0, 1)
+entity_blurb = "A hideous specimen"
 is_blocking_movment = false
 type = 1
 starting_movement = 0
 ai_type = 0
+item_definition = SubResource("Resource_g32nr")
 inventory_capacity = 0
 starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])
-equipment_item_component = SubResource("Resource_lf2ty")

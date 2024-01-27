@@ -6,20 +6,20 @@
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="4_biqu3"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="5_i5uqy"]
 
-[sub_resource type="Resource" id="Resource_tkmmx"]
+[sub_resource type="Resource" id="Resource_2gdva"]
 script = ExtResource("2_40cdl")
-heal_amount = 3
-status_name = "unnamed status"
-turns = 4
+heal_amount = 4
+status_name = "injector healing"
+turns = 3
 is_indefinite = false
-proc_chance = 0
+proc_chance = 100
 can_stack = true
 
-[sub_resource type="Resource" id="Resource_v0dkx"]
+[sub_resource type="Resource" id="Resource_ysxun"]
 script = ExtResource("3_3bj5g")
-healing_amount = 4
+healing_amount = 0
 over_time = true
-regen = SubResource("Resource_tkmmx")
+regen = SubResource("Resource_2gdva")
 consumable_sfx = ExtResource("1_yuk4x")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_temfj"]
@@ -31,10 +31,11 @@ script = ExtResource("4_biqu3")
 name = "Injector"
 texture = SubResource("AtlasTexture_temfj")
 color = Color(0.498039, 0, 1, 1)
+entity_blurb = "A hideous specimen"
 is_blocking_movment = false
 type = 1
 starting_movement = 0
 ai_type = 0
-consumable_definition = SubResource("Resource_v0dkx")
+item_definition = SubResource("Resource_ysxun")
 inventory_capacity = 0
 starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

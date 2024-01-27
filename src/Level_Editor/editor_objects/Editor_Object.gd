@@ -18,7 +18,7 @@ var cam_spd = 10##speed of camera
 @onready var cantexture:Texture = preload("res://src/Level_Editor/can.png")
 #@onready var blurb:Panel = %"entityblurb"
 var current_item:EntityDefinition
-
+var out_of_bounds:bool = false
 var current_tile:TileDefinition
 var erase_tool = preload("res://src/Level_Editor/erasetool.tres")
 var map:Map
@@ -42,11 +42,13 @@ func _process(delta):
 		canplace.emit(cantexture)
 	if !mapdata.is_in_bounds(Grid.world_to_grid(get_global_mouse_position())):
 		can_place = false
+		out_of_bounds = true
 		mouse_coords.emit("ERROR OUT OF BOUNDS")
 	else:
 		mouse_coords.emit("grid_position(x:"+mx+" y:"+my+")")
-		if !hidden:
+		if out_of_bounds == true:
 			can_place = true
+			out_of_bounds = false
 	match current_state:
 		EDITOR_MODE.DRAWING:
 			
@@ -168,6 +170,7 @@ func _unhandled_input(event):
 
 func _on_drawmode_pressed():
 	current_state = EDITOR_MODE.DRAWING
+	can_place = true
 	pass # Replace with function body.
 
 
@@ -176,6 +179,7 @@ func _on_erasemode_pressed():
 	current_item = null
 	current_tile = null
 	modulate = Color.RED
+	can_place = true
 	$Sprite.texture = erase_tool
 	pass # Replace with function body.
 

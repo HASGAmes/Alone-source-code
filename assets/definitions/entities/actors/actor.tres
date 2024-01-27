@@ -6,6 +6,7 @@
 script = ExtResource("1_bic6e")
 name = "actor"
 color = Color(1, 1, 1, 1)
+entity_blurb = "A hideous specimen"
 is_blocking_movment = true
 type = 0
 starting_movement = 0

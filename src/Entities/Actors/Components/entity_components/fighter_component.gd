@@ -1,9 +1,13 @@
 ## this is used to control a entity for combat ranging from stats to skills
 class_name FighterComponent
 extends Component
-
-signal hp_changed(hp, max_hp)## used for ui
-signal hunger_changed(hunger,max_hunger)## used for ui
+signal damageweak(damage,entity)##used for special conditions
+signal damagestrong(damage,entity)##used for special conditions
+signal damageimmune(damage,entity)##used for special conditions
+signal hp_changed(hp, max_hp)## used for ui and conditions
+signal hp_lowered(hp,max_hp)##used for conditions with effects on damage taken
+signal hp_raised(hp,max_hp)##used for conditions with effects on heal
+signal hunger_changed(hunger,max_hunger)## used for ui and conditions
 var skill_tracker:Node
 var turns_not_in_combat:int = 5##tracks turns not hit. if above 4 you heal everyturn
 var max_hp: int##is max hp. hp can't go over max hp
@@ -16,7 +20,6 @@ var hp: int:
 			die()
 			var die_silently := false## if you can see a enemy it will make a death noise if it can but if otherwise it won't
 			if not is_inside_tree():
-				
 				die_silently = true
 				print(entity,"go one")
 				await ready
@@ -172,7 +175,6 @@ func add_skills(listskills:Array[Skills_Definition])->void:
 	while !listskills.is_empty():
 		var current_skill =listskills.pop_front()
 		var skill:Skills
-		print(skill,"hmm")
 		skill = current_skill.skill_id.new(current_skill)
 		skill_tracker.add_child(skill)
 		
@@ -201,6 +203,7 @@ func heal(amount: int) -> int:
 		
 	var amount_recovered: int = new_hp_value - hp
 	hp = new_hp_value
+	hp_raised.emit(hp,max_hp)
 	return amount_recovered
 
 ##
@@ -213,12 +216,14 @@ func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES,damage_messag
 		var damage = weak.pop_front()
 		if damage_type == damage:
 			amount *= 2
+			damageweak.emit(damage_type,entity)
 			if weak.is_empty():
 				resistances_message += " FOR %d HITPOINTS!!!!" % amount
 	while !resistance.is_empty():
 		var damage = resistance.pop_front()
 		if damage_type == damage:
 			amount /= 2
+			damagestrong.emit(damage_type,entity)
 			if resistance.is_empty():
 				resistances_message += ",for a pityful %d hit points." % amount
 	
@@ -226,6 +231,7 @@ func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES,damage_messag
 		var damage = imm.pop_front()
 		if damage_type == damage:
 			amount = 0
+			damageimmune.emit(damage_type,entity)
 			resistances_message += " but they weren't fazed." 
 	if resistances_message== "":
 		resistances_message = "  for a  %d hit points." % amount
@@ -236,7 +242,8 @@ func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES,damage_messag
 	MessageLog.send_message(damage_message,GameColors.ENEMY_ATTACK)
 	hp -= amount
 	turns_not_in_combat = 0
-	
+	if amount!= 0:
+		hp_lowered.emit(hp,max_hp)
 func gain_random_stat(amount:int)-> void:
 	randomize()
 	var stats = {

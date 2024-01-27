@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=12 format=3 uid="uid://brmakwlga2asx"]
+
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/equipment_definition.gd" id="1_lin7f"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/effect_definitions/add_status_effect_definition.gd" id="1_q3c0m"]
+[ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_ruht5"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/condition_definitions/damage_dealt_conditions_definition.gd" id="2_7u6ki"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/regen_definition.gd" id="2_mush6"]
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="3_j7bok"]
+
+[sub_resource type="Resource" id="Resource_6p26w"]
+script = ExtResource("2_mush6")
+heal_amount = 3
+status_name = "regen"
+turns = 3
+is_indefinite = false
+proc_chance = 100
+can_stack = true
+
+[sub_resource type="Resource" id="Resource_bujd4"]
+script = ExtResource("1_q3c0m")
+status = SubResource("Resource_6p26w")
+effect_message = "effect done"
+
+[sub_resource type="Resource" id="Resource_xa62a"]
+script = ExtResource("2_7u6ki")
+condition_parameters = 0
+condition_effect = SubResource("Resource_bujd4")
+
+[sub_resource type="Resource" id="Resource_a7f2h"]
+script = ExtResource("1_lin7f")
+equipment_slot = 5
+equipment_type = 0
+weapon_type = 6
+damage_dice = Array[int]([4, 2])
+damage_types = 2
+defense = 0
+bullets = 1
+spread = 0.0
+conditioneffects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/condition_definitions/base_condition_definition.gd")]([SubResource("Resource_xa62a")])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdfbm"]
+atlas = ExtResource("3_j7bok")
+region = Rect2(16, 96, 16, 16)
+
+[resource]
+script = ExtResource("1_ruht5")
+name = "dagger"
+texture = SubResource("AtlasTexture_bdfbm")
+color = Color(1, 1, 0.54902, 1)
+entity_blurb = "a rather sharp blade"
+is_blocking_movment = false
+type = 1
+starting_movement = 0
+ai_type = 0
+item_definition = SubResource("Resource_a7f2h")
+inventory_capacity = 0
+starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

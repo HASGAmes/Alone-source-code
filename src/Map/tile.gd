@@ -123,10 +123,10 @@ func set_tile_type(key: String) -> void:
 	DV = _definition.DV
 	rubble_color = _definition.rubble_color
 	terrain_effect = _definition.terrain_effect
-#	if !is_walkable():
-#		collision.collision_layer = 8
-#	else:
-#		collision.collision_layer = 0
+	if !is_walkable():
+		collision.collision_layer = 8
+	else:
+		collision.collision_layer = 0
 		
 func open_or_close():
 	if opened == false:

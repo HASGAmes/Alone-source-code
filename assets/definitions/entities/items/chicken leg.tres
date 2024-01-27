@@ -1,14 +1,12 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=7 format=3 uid="uid://dr6q4v2puuvcw"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=6 format=3 uid="uid://dr6q4v2puuvcw"]
 
-[ext_resource type="AudioStream" uid="uid://dk35sscfdh7vv" path="res://assets/audio/sfx/drink.wav" id="1_8owoc"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/consumable_definitions/food_consumable_component_definition.gd" id="2_r4bgo"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="3_knd42"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="4_x7t1u"]
 
-[sub_resource type="Resource" id="Resource_02y5p"]
+[sub_resource type="Resource" id="Resource_uds34"]
 script = ExtResource("2_r4bgo")
 food_amount = 10
-consumable_sfx = ExtResource("1_8owoc")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_217ub"]
 atlas = ExtResource("4_x7t1u")
@@ -19,10 +17,11 @@ script = ExtResource("3_knd42")
 name = "chicken leg"
 texture = SubResource("AtlasTexture_217ub")
 color = Color(0.745098, 0.247059, 0.141176, 1)
+entity_blurb = "A hideous specimen"
 is_blocking_movment = false
 type = 1
 starting_movement = 0
 ai_type = 0
-consumable_definition = SubResource("Resource_02y5p")
+item_definition = SubResource("Resource_uds34")
 inventory_capacity = 0
 starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

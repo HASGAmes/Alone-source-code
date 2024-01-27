@@ -5,9 +5,9 @@
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="3_f7dya"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="4_5qec8"]
 
-[sub_resource type="Resource" id="Resource_fhrhl"]
+[sub_resource type="Resource" id="Resource_1vfmu"]
 script = ExtResource("2_gf6py")
-damage = 10
+damage = 20
 radius = 3
 consumable_sfx = ExtResource("1_10hb8")
 
@@ -20,10 +20,11 @@ script = ExtResource("3_f7dya")
 name = "Firebomb"
 texture = SubResource("AtlasTexture_g7y0o")
 color = Color(0.513726, 0, 0, 1)
+entity_blurb = "A hideous specimen"
 is_blocking_movment = false
 type = 1
 starting_movement = 0
 ai_type = 0
-consumable_definition = SubResource("Resource_fhrhl")
+item_definition = SubResource("Resource_1vfmu")
 inventory_capacity = 0
 starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

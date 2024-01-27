@@ -60,6 +60,7 @@ script = ExtResource("1_qrlyn")
 name = "dog"
 texture = SubResource("AtlasTexture_5bi1t")
 color = Color(0.682353, 0.27451, 0.105882, 1)
+entity_blurb = "The best boy. Except when hunger"
 is_blocking_movment = true
 type = 2
 starting_movement = 0

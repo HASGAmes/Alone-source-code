@@ -5,9 +5,9 @@
 [ext_resource type="AudioStream" uid="uid://4nyfbgpvlbv7" path="res://assets/audio/sfx/gunshot.wav" id="1_tu7w0"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="4_ei1re"]
 
-[sub_resource type="Resource" id="Resource_w2ejf"]
+[sub_resource type="Resource" id="Resource_0l3bq"]
 script = ExtResource("1_gcadg")
-damage = 20
+damage = 15
 maximum_range = 5
 consumable_sfx = ExtResource("1_tu7w0")
 
@@ -20,10 +20,11 @@ script = ExtResource("1_pvojs")
 name = "Taser"
 texture = SubResource("AtlasTexture_nw3ql")
 color = Color(1, 1, 0, 1)
+entity_blurb = "A hideous specimen"
 is_blocking_movment = false
 type = 1
 starting_movement = 0
 ai_type = 0
-consumable_definition = SubResource("Resource_w2ejf")
+item_definition = SubResource("Resource_0l3bq")
 inventory_capacity = 0
 starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

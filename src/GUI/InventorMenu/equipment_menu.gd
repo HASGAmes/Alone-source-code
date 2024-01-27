@@ -34,7 +34,7 @@ func _register_item(index: int, slot: Limb_Component, item:Entity = null) -> voi
 	item_button.current_limb = slot
 	if item!=null:
 		item_button.icon = item.texture
-		var weapon_dice = slot.equiped_item_definition.equipment_item_component.damage_dice.duplicate()
+		var weapon_dice = slot.equiped_item.equipment_item_component.damage_dice.duplicate()
 		var weapon_text= " %sd%s"%[weapon_dice.pop_front(),weapon_dice.pop_front()]
 		item_button.add_theme_color_override("icon_normal_color",item.modulate)
 		item_button.add_theme_color_override("icon_focus_color",item.modulate)
@@ -47,7 +47,7 @@ func _register_item(index: int, slot: Limb_Component, item:Entity = null) -> voi
 		item_button.text = "( %s ) %s" % [char, slot.name_limb]
 		if slot.natural_weapon == true:
 			item_button.text+=weapon_text
-	var fight:FighterComponent = get_parent().get_parent().get_parent().player.fighter_component
+	var fight:FighterComponent = SignalBus.player.fighter_component
 	if item_button.current_limb == fight.current_primary_limb: 
 		item_button.text +="/"
 	if item_button.text.ends_with("/") and item_button.current_limb!= fight.current_primary_limb:
@@ -63,7 +63,7 @@ func update_button(index:int,item_button:BaseButton, slot: Limb_Component, item:
 	item_button.current_limb = slot
 	if item!=null:
 		item_button.icon = item.texture
-		var weapon_dice = slot.equiped_item_definition.equipment_item_component.damage_dice.duplicate()
+		var weapon_dice = slot.equiped_item.equipment_item_component.damage_dice.duplicate()
 		var weapon_text= " %sd%s"%[weapon_dice.pop_front(),weapon_dice.pop_front()]
 		item_button.add_theme_color_override("icon_normal_color",item.modulate)
 		item_button.add_theme_color_override("icon_focus_color",item.modulate)
@@ -76,24 +76,25 @@ func update_button(index:int,item_button:BaseButton, slot: Limb_Component, item:
 		item_button.text = "( %s ) %s" % [char, slot.name_limb]
 		if slot.natural_weapon == true:
 			item_button.text+=weapon_text
-	var fight:FighterComponent = get_parent().get_parent().get_parent().player.fighter_component
+	var fight:FighterComponent = SignalBus.player.fighter_component
 	if item_button.current_limb == fight.current_primary_limb: 
 		item_button.text +="/"
 	if item_button.text.ends_with("/") and item_button.current_limb!= fight.current_primary_limb:
 		item_button.text.erase(item_button.text.length()-1,1)
 
 func _physics_process(_delta: float) -> void:
-	var fight:FighterComponent = get_parent().get_parent().get_parent().player.fighter_component
-	
+	var fight:FighterComponent = SignalBus.player.fighter_component
 	if Input.is_action_just_pressed("select_attacking_limb"):
 		var button = inventory_list.get_children()
 		var limb:Limb_Component
 		var slots:Array[Node] =fight.body_plan.get_children()
 		var slot = -1
+		
 		while button.size() >1:
 			var current_button:Button = button.pop_front()
 			if current_button.has_focus():
 				limb = current_button.current_limb
+				print(current_button.current_limb.equiped_item,limb.name_limb)
 				if !current_button.text.ends_with("/"):
 					current_button.text +="/"
 			elif current_button.text.ends_with("/"):
@@ -104,7 +105,7 @@ func _physics_process(_delta: float) -> void:
 			slot+=1
 			var current_slot = slots.pop_front()
 			update_button(slot,current_button,current_slot,current_slot.equiped_item)
-		get_parent().get_parent().get_parent().player.fighter_component.set_attacking_limbs(null,limb)
+		SignalBus.player.fighter_component.set_attacking_limbs(null,limb)
 
 	if Input.is_action_just_pressed("ui_back"):
 		equipment_selected.emit(null)

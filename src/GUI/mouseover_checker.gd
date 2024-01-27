@@ -4,7 +4,7 @@ signal entities_focussed(entity_list)
 
 
 var _mouse_tile := Vector2i(-1, -1)
-
+@onready var blurb =%"baseblurb"
 @onready var map: Map = get_parent()
 
 
@@ -12,6 +12,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		var mouse_position: Vector2 = get_local_mouse_position()
 		var tile_position: Vector2i = Grid.world_to_grid(mouse_position)
+
+		var actor= map.map_data.get_actor_at_location(tile_position)
+		var item = map.map_data.get_item_at_location(tile_position)
+		if actor !=null:
+			blurb.set_blurb(actor)
+		if item != null:
+			blurb.set_blurb(item)
 		if _mouse_tile != tile_position:
 			_mouse_tile = tile_position
 			
@@ -24,6 +31,7 @@ func get_names_at_location(grid_position: Vector2i) -> String:
 	var map_data: MapData = map.map_data
 	var tile: Tile = map_data.get_tile(grid_position)
 	if not tile or not tile.is_in_view:
+		blurb.visible = false
 		return entity_names
 	var entities_at_location: Array[Entity] = []
 	
@@ -32,9 +40,12 @@ func get_names_at_location(grid_position: Vector2i) -> String:
 			entities_at_location.append(entity)
 	entities_at_location.sort_custom(func(a, b): return a.z_index > b.z_index)
 	if not entities_at_location.is_empty():
-		
+		blurb.visible = true
 		entity_names = entities_at_location[0].get_entity_name()
 		for i in range(1, entities_at_location.size()):
 			entity_names += ", %s" % entities_at_location[i].get_entity_name()
+	else:
+		blurb.visible = false
+
 	return entity_names
 

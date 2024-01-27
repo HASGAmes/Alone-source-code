@@ -75,7 +75,7 @@ func _handle_enemy_turns() -> void:
 	for entity in get_map_data().entities:
 		if entity.ai_component != null and entity != player:
 			entity.fighter_component.turn += entity.fighter_component.quickness
-			print(entity.fighter_component.turn,entity)
+			#print(entity.fighter_component.turn,entity)
 			while entity.fighter_component.turn>=100:
 				if entity.is_alive():
 					entity.ai_component.perform()

@@ -167,6 +167,7 @@ script = ExtResource("8_pwbsj")
 name = "WAR-BOT"
 texture = SubResource("AtlasTexture_ae40k")
 color = Color(0.101961, 1, 1, 1)
+entity_blurb = "WAR-BOT IS EQUIPPED WITH SAWS AND TREADS TO MAKE DISMEMBERING FOES LIKE A HOT KNIFE THROUGH BUTTER"
 is_blocking_movment = true
 type = 2
 starting_movement = 0

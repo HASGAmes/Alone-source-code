@@ -156,6 +156,7 @@ script = ExtResource("1_f1son")
 name = "discarded host"
 texture = SubResource("AtlasTexture_relsf")
 color = Color(0.741176, 0.176471, 0.176471, 1)
+entity_blurb = "This host infects creature either throught direct contact or by consuming a previous host. Be careful your aren't next"
 is_blocking_movment = true
 type = 2
 starting_movement = 0

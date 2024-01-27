@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://j200tusgb60c"]
+
+[ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="1_h5hd3"]
+[ext_resource type="Script" path="res://src/Game/mouse_pos.gd" id="2_6rlxn"]
+[ext_resource type="Script" path="res://src/GUI/set_blurb.gd" id="2_w6ais"]
+[ext_resource type="FontFile" uid="uid://d10ie3uus5eky" path="res://assets/fonts/kenney_kenney-fonts/Fonts/Kenney Mini Square.ttf" id="3_gffma"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7j4i"]
+atlas = ExtResource("1_h5hd3")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eg8af"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = SubResource("AtlasTexture_q7j4i")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fycua"]
+atlas = ExtResource("1_h5hd3")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_o4xm1"]
+font = ExtResource("3_gffma")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_o27ae"]
+font = ExtResource("3_gffma")
+font_size = 32
+
+[node name="baseblurb" type="PanelContainer"]
+anchors_preset = -1
+anchor_right = 0.118
+anchor_bottom = 0.263
+offset_right = 137.064
+offset_bottom = 170.576
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_eg8af")
+script = ExtResource("2_w6ais")
+
+[node name="contain" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="entitypic" type="TextureRect" parent="contain"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("AtlasTexture_fycua")
+stretch_mode = 5
+
+[node name="HSeparator" type="HSeparator" parent="contain"]
+layout_mode = 2
+
+[node name="entityname" type="Label" parent="contain"]
+layout_mode = 2
+text = "insert name here"
+label_settings = SubResource("LabelSettings_o4xm1")
+horizontal_alignment = 1
+script = ExtResource("2_6rlxn")
+
+[node name="contain" type="HBoxContainer" parent="contain"]
+layout_mode = 2
+
+[node name="entityblurb" type="Label" parent="contain/contain"]
+layout_mode = 2
+text = "enter blurb here"
+label_settings = SubResource("LabelSettings_o27ae")
+vertical_alignment = 1
+text_direction = 1
+script = ExtResource("2_6rlxn")

@@ -27,6 +27,8 @@ func perform() -> bool:
 		entity.add_child(trace)
 		entity.add_child(user_ray)
 		user_ray.target_position = target*320
+		
+		print(target,user_ray.target_position)
 		user_ray.position = Vector2i(8,8)
 		user_ray.rotation += randf_range(-spread,spread)
 		trace.rotation = user_ray.rotation
@@ -35,12 +37,13 @@ func perform() -> bool:
 		var trace_end:Vector2  = target*user_ray.get_collision_point().normalized()
 		print(user_ray.get_collision_point(),"clooosiion",trace_end)
 		trace.points = [Vector2i.ZERO,trace_end]
-		print(trace.points)
+		print(trace.points,"tracepoints")
 		trace.position = user_ray.position
 		
 		var struck 
 		if collider!=null:
 			struck = collider.get_parent()
+			print(struck,"stuck")
 			if struck is Tile:
 				print(struck.tile_name)
 			if struck is Entity:

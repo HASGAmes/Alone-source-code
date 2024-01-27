@@ -5,9 +5,9 @@
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="3_y856h"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="4_0lmrm"]
 
-[sub_resource type="Resource" id="Resource_33vsa"]
+[sub_resource type="Resource" id="Resource_2u7fb"]
 script = ExtResource("2_ce375")
-number_of_turns = 10
+number_of_turns = 0
 consumable_sfx = ExtResource("1_k73la")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vqqtp"]
@@ -19,10 +19,11 @@ script = ExtResource("3_y856h")
 name = "Flashbang"
 texture = SubResource("AtlasTexture_vqqtp")
 color = Color(0.0666667, 0.611765, 0.858824, 1)
+entity_blurb = "A hideous specimen"
 is_blocking_movment = false
 type = 1
 starting_movement = 0
 ai_type = 0
-consumable_definition = SubResource("Resource_33vsa")
+item_definition = SubResource("Resource_2u7fb")
 inventory_capacity = 0
 starting_status = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/status_effect_definition.gd")]([])

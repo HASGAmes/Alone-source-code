@@ -58,6 +58,7 @@ script = ExtResource("1_hh8go")
 name = "cat"
 texture = SubResource("AtlasTexture_muekp")
 color = Color(0.682353, 0, 0.686275, 1)
+entity_blurb = "not very nice"
 is_blocking_movment = true
 type = 2
 starting_movement = 0

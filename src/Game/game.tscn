@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dxsknelgw5ain"]
+[gd_scene load_steps=45 format=3 uid="uid://dxsknelgw5ain"]
 
 [ext_resource type="Script" path="res://src/Game/game_root.gd" id="1_bhywp"]
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_ne6pe"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" path="res://src/Game/mouse_pos.gd" id="20_ta2qx"]
 [ext_resource type="Script" path="res://src/Game/playericon.gd" id="26_l0ljo"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="26_lc2fb"]
+[ext_resource type="PackedScene" uid="uid://j200tusgb60c" path="res://src/GUI/baseblurb.tscn" id="29_asiui"]
 [ext_resource type="PackedScene" uid="uid://dx7wsxpo1qfmc" path="res://src/Utils/Commandline.tscn" id="30_i2lvc"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_86yma"]
@@ -166,8 +167,11 @@ fov_radius = 8
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_15hgc")
-map_height = 20
+map_width = 30
+map_height = 30
 max_rooms = 1
+max_monsters_per_room = 0
+max_items_per_room = 0
 
 [node name="FieldOfView" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("5_bvmgb")
@@ -252,9 +256,9 @@ layout_mode = 2
 [node name="Drawmode" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
 modulate = Color(0.337255, 1, 0.109804, 1)
 offset_left = 8.935
-offset_top = 238.385
+offset_top = 204.775
 offset_right = 24.935
-offset_bottom = 254.385
+offset_bottom = 220.775
 scale = Vector2(4, 4)
 tooltip_text = "Draws using the selected Actor, Item or Tile. F for hotkey. Hold shift to keep drawing
 
@@ -269,9 +273,9 @@ texture_focused = ExtResource("16_1rbpw")
 [node name="Erasemode" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
 modulate = Color(1, 0.0823529, 0.211765, 1)
 offset_left = 8.935
-offset_top = 309.14
+offset_top = 275.18
 offset_right = 24.935
-offset_bottom = 325.14
+offset_bottom = 291.18
 scale = Vector2(4, 4)
 tooltip_text = "Erases entities by deleting them but just turns tiles into black squares. The tiles then can be drawn over.
 E for hotkey. Hold shift to keep erasing"
@@ -285,9 +289,9 @@ texture_focused = ExtResource("17_ymg0n")
 [node name="Modifymode" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
 modulate = Color(0.976471, 0.603922, 0.141176, 1)
 offset_left = 8.935
-offset_top = 375.99
+offset_top = 350.1
 offset_right = 24.935
-offset_bottom = 391.99
+offset_bottom = 366.1
 scale = Vector2(4, 4)
 tooltip_text = "Change a Actor,Item or tiles' properties. at least it would if it could do something"
 texture_normal = ExtResource("18_qqjf4")
@@ -299,9 +303,9 @@ texture_focused = ExtResource("18_qqjf4")
 [node name="Swapbody" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
 modulate = Color(1, 0.0941176, 0.929412, 1)
 offset_left = 8.935
-offset_top = 434.54
+offset_top = 422.615
 offset_right = 24.935
-offset_bottom = 450.54
+offset_bottom = 438.615
 scale = Vector2(4, 4)
 tooltip_text = "swap the player with another actor with a click."
 shortcut = SubResource("Shortcut_jwcjb")
@@ -314,9 +318,9 @@ texture_focused = ExtResource("19_j4bht")
 [node name="Movemode" type="TextureButton" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
 modulate = Color(0.0784314, 0.882353, 1, 1)
 offset_left = 8.935
-offset_top = 494.875
+offset_top = 488.805
 offset_right = 24.935
-offset_bottom = 510.875
+offset_bottom = 504.805
 scale = Vector2(4, 4)
 tooltip_text = "Move a entity by holding left mouse button on it and releasing when you want to drop it. Hotkey is V"
 shortcut = SubResource("Shortcut_k0lsl")
@@ -329,9 +333,9 @@ texture_focused = ExtResource("20_nwcrr")
 [node name="MouseoverLabel" type="Label" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui"]
 unique_name_in_owner = true
 offset_left = 2.945
-offset_top = 200.0
+offset_top = 183.22
 offset_right = 74.945
-offset_bottom = 223.0
+offset_bottom = 206.22
 size_flags_vertical = 8
 label_settings = SubResource("LabelSettings_sr2kr")
 script = ExtResource("20_ta2qx")
@@ -486,6 +490,16 @@ offset_bottom = -286.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_cifx1")
+
+[node name="baseblurb" parent="." instance=ExtResource("29_asiui")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 102.0
+offset_top = 489.0
+offset_right = 172.064
+offset_bottom = 625.576
+grow_horizontal = 1
+grow_vertical = 1
 
 [connection signal="player_created" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game" to="InfoBar/StatsPanel/VBoxContainer/HpDisplay" method="initialize"]
 [connection signal="timeout" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler/input_delay" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler" method="_on_input_delay_timeout"]
