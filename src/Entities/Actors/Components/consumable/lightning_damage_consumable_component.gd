@@ -27,7 +27,7 @@ func activate(action: ItemAction) -> bool:
 	if target:
 		play_sound(defintion)
 		var message = "The taser zaps %s " % target.get_entity_name()
-		target.fighter_component.take_damage(damage,DamageTypes.DAMAGE_TYPES.ELECTRIC,message)
+		target.fighter_component.take_damage(damage,[DamageTypes.DAMAGE_TYPES.ELECTRIC],message)
 		consume(consumer)
 		return true
 	

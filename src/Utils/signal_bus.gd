@@ -8,6 +8,9 @@ signal escape_requested
 var editor_open = false
 var screeneffects:CanvasModulate
 var iseeall = false
-signal attacked(entity)
-signal critted(entity)
-signal missed(entity)
+signal attacked(entity,target)
+signal critted(entity,target)
+signal missed(entity,target)
+var actor_types:Dictionary
+var item_types:Dictionary
+var tile_types:Dictionary

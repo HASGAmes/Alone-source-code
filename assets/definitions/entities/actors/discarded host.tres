@@ -17,7 +17,7 @@ name = "Head"
 limb_type = 0
 can_be_dismembered = false
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = Array[int]([])
+damage_type = 0
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
@@ -28,7 +28,7 @@ name = "Torse"
 limb_type = 1
 can_be_dismembered = false
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = Array[int]([])
+damage_type = 0
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
@@ -39,7 +39,7 @@ name = "right frontleg"
 limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = Array[int]([])
+damage_type = 0
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
@@ -50,7 +50,7 @@ name = "left frontleg"
 limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = Array[int]([])
+damage_type = 0
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
@@ -61,7 +61,7 @@ name = "left hindleg"
 limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = Array[int]([])
+damage_type = 0
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
@@ -72,7 +72,7 @@ name = "right hindleg"
 limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = Array[int]([])
+damage_type = 0
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 

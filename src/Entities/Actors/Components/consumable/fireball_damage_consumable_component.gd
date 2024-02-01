@@ -4,6 +4,7 @@ extends ConsumableComponent
 var damage: int
 var radius: int
 var audio
+var damagetype:Array[DamageTypes.DAMAGE_TYPES] = [DamageTypes.DAMAGE_TYPES.EXPLOSIVE]
 func _init(definition: FireballDamageConsumableComponentDefinition):
 	damage = definition.damage
 	radius = definition.radius
@@ -45,7 +46,7 @@ func activate(action: ItemAction) -> bool:
 					var knockbackvec = target_position - target.grid_position
 					target.knockback(knockbackvec,damage)
 				target.fighter_component.body_plan.dismember(true)
-				target.fighter_component.take_damage(target.fighter_component.max_hp,DamageTypes.DAMAGE_TYPES.EXPLOSIVE,message)
+				target.fighter_component.take_damage(target.fighter_component.max_hp,damagetype,message)
 	var tile_targets := []
 	for tile in map_data.get_tiles():
 		var distance = tile.distance(target_position)

@@ -167,11 +167,6 @@ fov_radius = 8
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_15hgc")
-map_width = 30
-map_height = 30
-max_rooms = 1
-max_monsters_per_room = 0
-max_items_per_room = 0
 
 [node name="FieldOfView" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("5_bvmgb")
@@ -501,10 +496,7 @@ offset_bottom = 625.576
 grow_horizontal = 1
 grow_vertical = 1
 
-[connection signal="player_created" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game" to="InfoBar/StatsPanel/VBoxContainer/HpDisplay" method="initialize"]
 [connection signal="timeout" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler/input_delay" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler" method="_on_input_delay_timeout"]
-[connection signal="entities_focussed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/MouseoverLabel" method="set_text"]
-[connection signal="entities_focussed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="InfoBar/StatsPanel/VBoxContainer/MouseoverLabel" method="set_text"]
 [connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_mouse_entered" flags=18]
 [connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_mouse_exited" flags=18]
 [connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Actors" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Actors" method="mouse_enter"]
@@ -522,6 +514,5 @@ grow_vertical = 1
 [connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Movemode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_modifymode_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Movemode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_modifymode_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Movemode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" method="_on_movemode_pressed"]
-[connection signal="mouse_coords" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editor_Object" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/mouse_pos" method="set_text"]
 
 [editable path="Node"]

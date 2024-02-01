@@ -1,3 +1,5 @@
+
+@icon("res://assets/resources/resource_icons/entity_icon.svg")
 ## This is the base for all interactive parts of my roguelike.
 class_name Entity
 extends Sprite2D
@@ -44,8 +46,15 @@ var hunger:HungryDefinition = preload("res://assets/definitions/status_effects/h
 ##sets up a entity. mapdata, start position and the key is needed to make one without problems
 func _init(map_data: MapData, start_position: Vector2i, key: String = "") -> void:
 	centered = false
-	update_keys(item_path)
-	update_keys(actor_path)
+	if SignalBus.actor_types.is_empty():
+		update_keys(actor_path)
+	else:
+		entity_types.merge(SignalBus.actor_types)
+	if SignalBus.item_types.is_empty():
+		update_keys(item_path)
+	else:
+		entity_types.merge(SignalBus.item_types)
+	
 	grid_position = start_position
 	self.map_data = map_data
 	if key != "":
@@ -58,6 +67,12 @@ func update_keys(path:String):
 	dir.open(path)
 	var current:String
 	var first:Array= dir.get_files_at(path)
+	var merge_actor:bool = false
+	var merge_item:bool = false
+	if SignalBus.actor_types.is_empty():
+		merge_actor = true
+	elif SignalBus.item_types.is_empty():
+		merge_item = true
 	while !first.is_empty():
 		current = first.pop_front()
 		if current.ends_with(".remap"):
@@ -65,6 +80,10 @@ func update_keys(path:String):
 			print(current)
 		var dict:Dictionary ={current.left(current.length()-5).to_lower():path+current}
 		entity_types.merge(dict)
+		if merge_actor == true:
+			SignalBus.actor_types.merge(entity_types)
+		elif merge_item == true:
+			SignalBus.item_types.merge(entity_types)
 		#print(entity_types)
 ##sets the entity type with a string which coresponds with the dict with the list of entities. will cause a error if it either doesn't have a string or has the wrong one 
 func set_entity_type(key: String) -> void:
@@ -167,14 +186,14 @@ func knockback(knockvec: Vector2i,knockbackforce) -> void:
 							var crashingdam= dicebag.roll_dice(knockbackforce,6,0)
 							var crit:Color
 							crit = GameColors.CRIT
-							destination_entity.fighter_component.take_damage(crashingdam,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
+							destination_entity.fighter_component.take_damage(crashingdam,[DamageTypes.DAMAGE_TYPES.BLUDGEONING],attack_description)
 							knockbackforce-=1
 					if is_alive():
 						var  attack_description: String = "%s crashes into the %s!!!" % [get_entity_name(),destination_entity.get_entity_name()]
 						var crashingdam= randi_range(1,6)*knockbackforce
 						var crit:Color
 						crit = GameColors.CRIT
-						destination_entity.fighter_component.take_damage(crashingdam,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
+						destination_entity.fighter_component.take_damage(crashingdam,[DamageTypes.DAMAGE_TYPES.BLUDGEONING],attack_description)
 						knockbackforce-=1
 						continue
 		else:
@@ -185,7 +204,7 @@ func knockback(knockvec: Vector2i,knockbackforce) -> void:
 						var crashingdam= randi_range(1,6)
 						var crit:Color
 						crit = GameColors.CRIT
-						fighter_component.take_damage(crashingdam,DamageTypes.DAMAGE_TYPES.BLUDGEONING,attack_description)
+						fighter_component.take_damage(crashingdam,[DamageTypes.DAMAGE_TYPES.BLUDGEONING],attack_description)
 						knockbackforce -= 1
 						destination_tile.hp = 0
 						continue

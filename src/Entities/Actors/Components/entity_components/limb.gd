@@ -8,7 +8,7 @@ var damage_dice:Array[int]
 var natural_weapon:bool
 var connected:Array[Limb_Component]
 var equiped_item:Entity
-var current_damagetypes:DamageTypes.DAMAGE_TYPES
+var current_damagetypes:Array[DamageTypes.DAMAGE_TYPES]
 var equiped_item_definition:EntityDefinition
 var attached_parts: Array[Limb_Definition]
 var definition_limb:Limb_Definition

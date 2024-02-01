@@ -13,19 +13,24 @@ func perform() -> bool:
 		entity.inventory_component.items.append(limb.equiped_item)
 		limb.equiped_item.equipment_item_component.currently_equipped = false
 		var conditions= limb.equiped_item.equipment_item_component.get_children()
-		if !conditions.is_empty():
-			print("is connecting12")
+		while !conditions.is_empty():
+			print("is connecting")
 			var current = conditions.pop_front()
 			current.connect_condition(entity)
 		limb.equiped_item = null
 	Item.equipment_item_component.currently_equipped = true
 	limb.equiped_item = Item
-	var conditions= Item.equipment_item_component.get_children()
-	if !conditions.is_empty():
-		print("is connecting1")
+	var conditions= Item.equipment_item_component.get_children().duplicate()
+	var timesrun:int = 0
+	
+	while !conditions.is_empty():
+		timesrun+=1
+		print("is connecting",timesrun,conditions)
 		var current = conditions.pop_front()
 		current.connect_condition(entity)
-	entity.inventory_component.items.erase(Item)
-	MessageLog.send_message("The %s equips the %s to their %s"%[entity.get_entity_name(),Item.get_entity_name(),limb.name_limb],GameColors.HEALTH_RECOVERED)
+		print(conditions)
+	if entity!=null:
+		entity.inventory_component.items.erase(Item)
+		MessageLog.send_message("The %s equips the %s to their %s"%[entity.get_entity_name(),Item.get_entity_name(),limb.name_limb],GameColors.HEALTH_RECOVERED)
 	return true
 

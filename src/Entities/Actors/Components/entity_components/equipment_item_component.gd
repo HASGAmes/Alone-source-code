@@ -5,7 +5,7 @@ enum EQUIPMENT_TYPES{WEAPON,ARMOR,UTILITY}
 enum WEAPON_TYPES{NOT_WEAPON,LONG_BLADE,AXE,HANDGUN,LONGGUN,BOW,SHORT_BLADE,CUDGEL,UNIQUE}
 var equipment_type:EQUIPMENT_TYPES
 var equipment_slot:Body_Plan_Definition.TYPE_OF_PARTS
-var current_damagetypes:DamageTypes.DAMAGE_TYPES
+var current_damagetypes:Array[DamageTypes.DAMAGE_TYPES]
 var weapon_type:WEAPON_TYPES
 var spread:float
 var bullets:int

@@ -43,7 +43,9 @@ func get_action(player: Entity) -> Action:
 		action =  await melee_direction(player)
 	if Input.is_action_just_pressed("view_history"):
 		get_parent().transition_to(InputHandler.InputHandlers.HISTORY_VIEWER)
-	
+	if Input.is_action_just_pressed("pet"):
+		var input= await get_grid_position(player, 0,false)
+		action = PetAction.new(player,input.x,input.y)
 	if Input.is_action_just_pressed("pickup"):
 		action = PickupAction.new(player)
 	

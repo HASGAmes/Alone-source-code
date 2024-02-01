@@ -9,7 +9,7 @@ var damage: int
 var attack_color: Color
 var crit:Color = GameColors.CRIT
 var attack_description:String
-var current_damagetypes:DamageTypes.DAMAGE_TYPES
+var current_damagetypes:Array[DamageTypes.DAMAGE_TYPES]
 
 func perform() -> bool:
 	randomize()
@@ -118,7 +118,7 @@ func handle_hit_chance_and_damage(attacker:FighterComponent,currentlimb:Limb_Com
 			attack_description = "%s attacks %s with their %s" %[attacker.entity.get_entity_name(),tile.tile_name,attacker.current_primary_limb.name_limb]
 		if hit_roll>=20:
 			damage*=2
-			SignalBus.critted.emit(entity)
+			SignalBus.critted.emit(entity,get_target_actor())
 		if tile.defense>=damage:
 			attack_description += " but does no damage..."
 			MessageLog.send_message(attack_description, attack_color,entity)
@@ -131,10 +131,10 @@ func handle_hit_chance_and_damage(attacker:FighterComponent,currentlimb:Limb_Com
 	if defender!=null:
 		if hit <defender.DV:
 			attack_description+= " but misses!!"
-			SignalBus.missed.emit(entity)
+			SignalBus.missed.emit(entity,get_target_actor())
 			MessageLog.send_message(attack_description, attack_color)
 			return false
 		damage -= defender.defense
 		defender.take_damage(damage,current_damagetypes,attack_description)
-	SignalBus.attacked.emit(entity)
+	SignalBus.attacked.emit(entity,get_target_actor())
 	return true

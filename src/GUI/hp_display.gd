@@ -4,17 +4,17 @@ extends MarginContainer
 @onready var hp_label: Label = $"%HpLabel"
 @onready var hunger_label:Label = $"HungerLabel"
 var prev_player:Entity
-func initialize(player: Entity) -> void:
+func _ready() -> void:
+	print("does this ork")
 	#await ready
-	
-	if player==null:
-		player = SignalBus.player
 	SignalBus.player_changed.connect(connect_player)
-	connect_player(player)
+	#connect_player(player)
 
 func connect_player(player:Entity) ->void:
+	print(player,"ofhadsfhj;")
 	if prev_player!=null:
 		prev_player.fighter_component.hp_changed.disconnect(player_hp_changed)
+		prev_player.fighter_component.hunger_changed.disconnect(player_hunger_changed)
 	player.fighter_component.hp_changed.connect(player_hp_changed)
 	player.fighter_component.hunger_changed.connect(player_hunger_changed)
 	var player_hp: int = player.fighter_component.hp

@@ -40,14 +40,14 @@ func load_effect(effect:BaseEffectDefinition):
 		current_effect = effect.effect_id.new(effect)
 	add_child(current_effect)
 func less_than(hp:int,maxhp:int):
-	if hp<hp_parameter:
+	if hp<roundi(maxhp*hp_parameter/100):
 		#print("hmmmmmmmmmmm")
 		current_effect.effect_trigger.emit(effect_target)
 func greater_than(hp:int,maxhp:int):
-	if hp>hp_parameter:
+	if hp>roundi(maxhp*hp_parameter/100):
 		current_effect.effect_trigger.emit(effect_target)
 func equal(hp:int,maxhp:int):
-	if hp==hp_parameter:
+	if hp==roundi(maxhp*hp_parameter/100):
 		current_effect.effect_trigger.emit(effect_target)
 func changed(hp:int,maxhp:int):
 	current_effect.effect_trigger.emit(effect_target)

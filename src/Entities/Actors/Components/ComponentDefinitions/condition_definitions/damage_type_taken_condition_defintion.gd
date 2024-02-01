@@ -1,0 +1,3 @@
+class_name DamageTypeTakenConditionDefinition
+extends BaseConditionDefinition
+var condition_id

@@ -1,4 +1,5 @@
 ##Blue prints of entities. you can fill these out to easily make a actor, item or anything inbetween
+#@icon("res://assets/resources/resource_icons/entity_icon.svg")
 class_name EntityDefinition
 extends Resource
 

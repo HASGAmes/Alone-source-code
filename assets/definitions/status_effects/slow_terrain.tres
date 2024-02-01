@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/slow_definition.gd" id="1_qflv0"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_qflv0")
 slow_amount = 25
 status_name = "unnamed status"

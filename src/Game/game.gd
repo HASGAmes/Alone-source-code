@@ -34,11 +34,12 @@ func load_game() -> bool:
 	player.flip_h = true
 	remove_child(camera)
 	player.add_child(camera)
+	SignalBus.player = player
 	SignalBus.player_changed.emit(player)
 	if not map.load_game(player):
 		return false
 	player_created.emit(player)
-	SignalBus.player = player
+	
 	map.update_fov(player.grid_position)
 	MessageLog.send_message.bind(
 		"Welcome back, adventurer!",
@@ -89,7 +90,6 @@ func get_map_data() -> MapData:
 
 func body_swap():
 	var change:bool = false
-	
 	var swap_target = get_map_data().get_actor_at_location(mouse_checker_tile._mouse_tile)
 	if swap_target != null:
 		prev_player = player

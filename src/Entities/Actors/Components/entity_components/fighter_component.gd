@@ -1,6 +1,7 @@
 ## this is used to control a entity for combat ranging from stats to skills
 class_name FighterComponent
 extends Component
+signal damagetypetaken(damagetype,entity)
 signal damageweak(damage,entity)##used for special conditions
 signal damagestrong(damage,entity)##used for special conditions
 signal damageimmune(damage,entity)##used for special conditions
@@ -37,6 +38,11 @@ var dex_mod
 var toughness_mod
 var wisdom_mod
 ######################
+var bonus_defense:int ## adds a bonus to defense
+var bonus_hitchance:int## adds a bonus to hitchance
+var bonus_critdam:int## adds a bonus to crit chance
+var bonus_quickness:int## adds a bonus to quickness
+var bonus_dismember_chance:int## adds a bonus to dismember chance
 var defense: int## gives a entity a flat damage reduction
 var hit_chance:int## gives a entity a modifier to attack rolls
 var power: int## currently not in use
@@ -207,34 +213,42 @@ func heal(amount: int) -> int:
 	return amount_recovered
 
 ##
-func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES,damage_message:String) -> void:
+func take_damage(amount: int, damage_type:Array[DamageTypes.DAMAGE_TYPES],damage_message:String) -> void:
 	var imm = immune.duplicate()
 	var resistance = res.duplicate()
 	var weak = weakness.duplicate()
 	var resistances_message:String = ""
 	while !weak.is_empty():
 		var damage = weak.pop_front()
-		if damage_type == damage:
-			amount *= 2
-			damageweak.emit(damage_type,entity)
-			if weak.is_empty():
-				resistances_message += " FOR %d HITPOINTS!!!!" % amount
+		var damage_dupe = damage_type.duplicate()
+		while !damage_dupe.is_empty():
+			var buffer = damage_dupe.pop_front()
+			if buffer == damage:
+				amount *= 2
+				damageweak.emit(damage_type,entity)
+				if weak.is_empty():
+					resistances_message += " FOR %d HITPOINTS!!!!" % amount
 	while !resistance.is_empty():
 		var damage = resistance.pop_front()
-		if damage_type == damage:
-			amount /= 2
-			damagestrong.emit(damage_type,entity)
-			if resistance.is_empty():
-				resistances_message += ",for a pityful %d hit points." % amount
-	
+		var damage_dupe = damage_type.duplicate()
+		while !damage_dupe.is_empty():
+			var buffer = damage_dupe.pop_front()
+			if buffer == damage:
+				amount /= 2
+				damagestrong.emit(damage_type,entity)
+				if resistance.is_empty():
+					resistances_message += ",for a pityful %d hit points." % amount
 	while !imm.is_empty():
 		var damage = imm.pop_front()
-		if damage_type == damage:
-			amount = 0
-			damageimmune.emit(damage_type,entity)
-			resistances_message += " but they weren't fazed." 
+		var damage_dupe = damage_type.duplicate()
+		while !damage_dupe.is_empty():
+			var buffer = damage_dupe.pop_front()
+			if buffer == damage:
+				amount = 0
+				damageimmune.emit(damage_type,entity)
+				resistances_message += " but they weren't fazed." 
 	if resistances_message== "":
-		resistances_message = "  for a  %d hit points." % amount
+		resistances_message = "  for %d hit points." % amount
 	if amount<=defense:
 		resistances_message = " but it didn't inflict damage"
 		amount = 0
@@ -242,6 +256,7 @@ func take_damage(amount: int, damage_type:DamageTypes.DAMAGE_TYPES,damage_messag
 	MessageLog.send_message(damage_message,GameColors.ENEMY_ATTACK)
 	hp -= amount
 	turns_not_in_combat = 0
+	damagetypetaken.emit(damage_type,entity)
 	if amount!= 0:
 		hp_lowered.emit(hp,max_hp)
 func gain_random_stat(amount:int)-> void:

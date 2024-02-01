@@ -54,7 +54,7 @@ name = "hand"
 limb_type = 5
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_aret8")]([])
-damage_type = Array[int]([1])
+damage_type = Array[int]([0])
 damage_dice = Array[int]([1, 8])
 is_natural_weapon = true
 
@@ -76,7 +76,7 @@ name = "hand"
 limb_type = 5
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_aret8")]([])
-damage_type = Array[int]([1])
+damage_type = Array[int]([0])
 damage_dice = Array[int]([1, 8])
 is_natural_weapon = true
 

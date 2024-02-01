@@ -1,9 +1,9 @@
-class_name DamageDealtConditions
+class_name DamageTypeCondition
 extends BaseCondition
 var conditiontype:int
 var current_effect
 var effect_target:Entity
-func _init(definition:DamageDealtConditionsDefinition):
+func _init(definition:DamageTypeConditionDefinition):
 	conditiontype = definition.condition_parameters
 	load_effect(definition.condition_effect)
 func connect_condition(entity:Entity):
@@ -13,41 +13,40 @@ func connect_condition(entity:Entity):
 	effect_target = entity
 	if parent.currently_equipped == true:
 		if conditiontype== 0:
-			SignalBus.attacked.connect(hit)
+			entity.fighter_component.damagestrong.connect(resistance)
 			print("connected")
 		if conditiontype== 1:
-			SignalBus.critted.connect(critted)
+			entity.fighter_component.damageweak.connect(weak)
 			print("connected")
 		if conditiontype== 2:
-			SignalBus.missed.connect(miss)
+			entity.fighter_component.damageimmune.connect(immune)
 			print("connected")
 	if parent.currently_equipped == false:
 		if conditiontype== 0:
-			SignalBus.attacked.disconnect(hit)
+			entity.fighter_component.damagestrong.disconnect(resistance)
 			print("disconnected")
 		if conditiontype== 1:
-			SignalBus.critted.disconnect(critted)
+			entity.fighter_component.damageweak.disconnect(weak)
 			print("disconnected")
 		if conditiontype== 2:
-			SignalBus.missed.disconnect(miss)
+			entity.fighter_component.damageimmune.disconnect(immune)
 			print("disconnected")
 func load_effect(effect:BaseEffectDefinition):
 	var baseeffect:BaseEffect
 	if effect!=null:
 		current_effect = effect.effect_id.new(effect)
 	add_child(current_effect)
-func hit(entity:Entity,target:Entity):
+func resistance(damagetype:DamageTypes.DAMAGE_TYPES,entity:Entity):
 	print("works?",entity.get_entity_name(),effect_target.get_entity_name())
 	if entity == effect_target:
 		print("works!!")
-		current_effect.effect_trigger.emit(effect_target,target)
+		current_effect.effect_trigger.emit(effect_target)
 	pass
-func miss(entity:Entity,target:Entity):
-	print("emited")
+func weak(damagetype:DamageTypes.DAMAGE_TYPES,entity:Entity):
 	if entity == effect_target:
-		current_effect.effect_trigger.emit(effect_target,target)
+		current_effect.effect_trigger.emit(effect_target)
 	pass
-func critted(entity:Entity,target:Entity):
+func immune(damagetype:DamageTypes.DAMAGE_TYPES,entity:Entity):
 	if entity == effect_target:
-		current_effect.effect_trigger.emit(effect_target,target)
+		current_effect.effect_trigger.emit(effect_target)
 	pass

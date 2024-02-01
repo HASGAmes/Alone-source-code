@@ -57,7 +57,10 @@ var is_in_view: bool = false:##if true you can see it
 func _init(grid_position: Vector2i, key: String) -> void:
 	visible = false
 	centered = false
-	update_keys(tile_path)
+	if SignalBus.tile_types.is_empty():
+		update_keys(tile_path)
+	else:
+		tile_types = SignalBus.tile_types
 	position = Grid.grid_to_world(grid_position)
 	self.grid_position = grid_position
 	global_position = Grid.grid_to_world(grid_position)
@@ -78,6 +81,7 @@ func update_keys(path:String):
 			current= current.trim_suffix(".remap")
 		var dict:Dictionary ={current.left(current.length()-5).to_lower():path+current}
 		tile_types.merge(dict)
+		SignalBus.tile_types.merge(tile_types)
 ##gets the distance from another vector2i. I know about vector.length() but it wasn't
 ##consistantly and did weird results so i made this and it actually works pretty well
 func distance(other_position: Vector2i) -> int:

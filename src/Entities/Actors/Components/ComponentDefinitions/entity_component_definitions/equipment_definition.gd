@@ -7,7 +7,7 @@ extends  ItemComponentDefinition
 @export_category("Equipment bonuses")
 ## for all weapons
 @export var damage_dice:Array[int]
-@export var damage_types:DamageTypes.DAMAGE_TYPES= DamageTypes.DAMAGE_TYPES.BLUDGEONING
+@export var damage_types:Array[DamageTypes.DAMAGE_TYPES]= [DamageTypes.DAMAGE_TYPES.BLUDGEONING]
 ## for armor
 @export var defense:int
 ## for guns

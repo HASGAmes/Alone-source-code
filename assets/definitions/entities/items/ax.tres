@@ -14,6 +14,7 @@ damage_types = 1
 defense = 0
 bullets = 1
 spread = 0.0
+conditioneffects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/condition_definitions/base_condition_definition.gd")]([])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j858k"]
 atlas = ExtResource("3_0ptpl")

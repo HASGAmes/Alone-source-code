@@ -1,0 +1,4 @@
+class_name AddEnemyAttackedStatusDefinition
+extends BaseEffectDefinition
+var effect_id = AddEnemyAttackedStatus
+@export var status:StatusEffectDefinition

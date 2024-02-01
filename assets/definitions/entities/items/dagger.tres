@@ -1,42 +1,70 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=12 format=3 uid="uid://brmakwlga2asx"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=16 format=3 uid="uid://brmakwlga2asx"]
 
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/effect_definitions/add_last_enemy_status_definition.gd" id="1_35wor"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/entity_component_definitions/equipment_definition.gd" id="1_lin7f"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/effect_definitions/add_status_effect_definition.gd" id="1_q3c0m"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_ruht5"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/condition_definitions/damage_dealt_conditions_definition.gd" id="2_7u6ki"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/regen_definition.gd" id="2_mush6"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/bleed_definition.gd" id="2_r6217"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/condition_definitions/damage_dealt_conditions_definition.gd" id="3_gox3j"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="3_j7bok"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/effect_definitions/add_status_effect_definition.gd" id="4_t2l0c"]
 
-[sub_resource type="Resource" id="Resource_6p26w"]
-script = ExtResource("2_mush6")
-heal_amount = 3
-status_name = "regen"
-turns = 3
+[sub_resource type="Resource" id="Resource_w4fep"]
+resource_local_to_scene = true
+script = ExtResource("2_r6217")
+damage = 2
+status_name = "bleed"
+turns = 2
 is_indefinite = false
 proc_chance = 100
 can_stack = true
 
-[sub_resource type="Resource" id="Resource_bujd4"]
-script = ExtResource("1_q3c0m")
-status = SubResource("Resource_6p26w")
-effect_message = "effect done"
+[sub_resource type="Resource" id="Resource_aj0p4"]
+resource_local_to_scene = true
+script = ExtResource("4_t2l0c")
+status = SubResource("Resource_w4fep")
+effect_message = "The %s accidentally cuts themselves"
+message_color = Color(0, 1, 0, 1)
 
-[sub_resource type="Resource" id="Resource_xa62a"]
-script = ExtResource("2_7u6ki")
+[sub_resource type="Resource" id="Resource_sv1x4"]
+resource_local_to_scene = true
+script = ExtResource("3_gox3j")
+condition_parameters = 2
+condition_effect = SubResource("Resource_aj0p4")
+
+[sub_resource type="Resource" id="Resource_ydlrn"]
+resource_local_to_scene = true
+script = ExtResource("2_r6217")
+damage = 2
+status_name = "bleed"
+turns = 2
+is_indefinite = false
+proc_chance = 100
+can_stack = true
+
+[sub_resource type="Resource" id="Resource_e0xnv"]
+script = ExtResource("1_35wor")
+status = SubResource("Resource_ydlrn")
+effect_message = "The %s pierces the %s"
+message_color = Color(0, 1, 0, 1)
+
+[sub_resource type="Resource" id="Resource_qihle"]
+resource_local_to_scene = true
+script = ExtResource("3_gox3j")
 condition_parameters = 0
-condition_effect = SubResource("Resource_bujd4")
+condition_effect = SubResource("Resource_e0xnv")
 
 [sub_resource type="Resource" id="Resource_a7f2h"]
+resource_local_to_scene = true
 script = ExtResource("1_lin7f")
 equipment_slot = 5
 equipment_type = 0
 weapon_type = 6
-damage_dice = Array[int]([4, 2])
-damage_types = 2
+damage_dice = Array[int]([3, 2])
+damage_types = Array[int]([2, 5])
 defense = 0
 bullets = 1
 spread = 0.0
-conditioneffects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/condition_definitions/base_condition_definition.gd")]([SubResource("Resource_xa62a")])
+conditioneffects = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/condition_definitions/base_condition_definition.gd")]([SubResource("Resource_sv1x4"), SubResource("Resource_qihle")])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bdfbm"]
 atlas = ExtResource("3_j7bok")
