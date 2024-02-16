@@ -6,12 +6,15 @@ extends Resource
 @export var name:String="unnamed tile"
 #list of textures for tiles to randomly be
 @export var texture: Array[AtlasTexture]
-@export var color_lit: Array[Color]
-@export var color_dark:Array[Color]
+@export var color_lit_prim: Array[Color]
+@export var color_dark_prim:Array[Color]
+@export var color_lit_sec: Array[Color]
+@export var color_dark_sec:Array[Color]
 @export var rubble :AtlasTexture
 @export var rubble_color:Color
 @export var open_texture:AtlasTexture
 @export var closed_texture:AtlasTexture
+var material = preload("res://src/Utils/palettematerial.tres")
 @export_category("Stats")
 @export var max_hp: int
 @export var def: int

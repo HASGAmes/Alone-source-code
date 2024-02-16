@@ -1,13 +1,13 @@
 shader_type canvas_item;
 
-uniform vec4 find_color : source_color;
-uniform usampler2D index_as_r;
-uniform vec4 target_color: source_color;
+uniform vec4 old_color:hint_color;
+uniform vec4 new_color:hint_color;
+
 void fragment() {
-	// Place fragment code here.
-	vec2 uv = UV;
-	vec4 pixel_color = texture(TEXTURE,UV);
-	if (length(pixel_color.rgb - find_color.rgb) < 0.01){
-		COLOR = find_color;
-	}
+    vec4 current_pixel = texture(TEXTURE, UV);
+
+    if (current_pixel == old_color)
+        COLOR = new_color;
+    else
+        COLOR = current_pixel;
 }

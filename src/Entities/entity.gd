@@ -3,7 +3,7 @@
 ## This is the base for all interactive parts of my roguelike.
 class_name Entity
 extends Sprite2D
-
+@onready var shader = preload("res://src/Utils/paleteswap.gdshader")
 enum AIType {NONE, HOSTILE,PREY,PREDATOR,TURRET}##controls the ai of a entity
 enum EntityType {CORPSE, ITEM, ACTOR}##decides if it is a corpse item or actor
 enum MOVEMENT_TYPE{WALK,CROUCH,PRONE,SPRINT}##affects the movement mode
@@ -19,6 +19,7 @@ var grid_position: Vector2i:
 	set(value):
 		grid_position = value
 		global_position = Grid.grid_to_world(grid_position)
+var entity_size
 var _definition: EntityDefinition##loads a entity definition to get stuff like sprites,stats,etc
 var entity_name: String## is the name of a entity
 var blocks_movement: bool##if true you or other entities cannot walk or normally be on the same tile as this entity
@@ -43,6 +44,13 @@ var part_effect:GPUParticles2D##used for particles
 var collision = preload("res://assets/resources/raycast_body.tscn")
 var turns_hunger:int = 0
 var hunger:HungryDefinition = preload("res://assets/definitions/status_effects/hungerstage1.tres")
+var shader_og_sec = Color("e9b0e6")
+var shader_og_prim = Color("fffcce")
+var permant_prim_color:Color
+var permant_sec_color:Color
+var temp_prim_color:Color
+var temp_sec_color:Color
+var size_points:Array[Vector2i]
 ##sets up a entity. mapdata, start position and the key is needed to make one without problems
 func _init(map_data: MapData, start_position: Vector2i, key: String = "") -> void:
 	centered = false
@@ -104,13 +112,24 @@ func set_entity_type(key: String) -> void:
 	entity_name = _definition.name
 	texture = entity_definition.texture
 	texture_size = texture.get_size()
-	modulate = entity_definition.color
+	if texture_size.x>16:
+		size_points.append(grid_position)
+		size_points.append(grid_position++Vector2i(1,1))
+		size_points.append(grid_position+Vector2i(1,0))
+		size_points.append(grid_position+Vector2i(0,1))
+	permant_prim_color = entity_definition.primary_color
+	permant_sec_color = entity_definition.secondary_color
 	status_tracker = Node.new()
 	part_effect = GPUParticles2D.new()
 	add_child(part_effect)
 	add_child(status_tracker)
 	part_effect.position += Vector2(8,-8)
-	
+	material = load("res://src/Utils/palettematerial.tres").duplicate()
+	material.set_shader_parameter("og_primary_color",shader_og_prim)
+	material.set_shader_parameter("og_secondary_color",shader_og_sec)
+	material.set_shader_parameter("primary_color",permant_prim_color)
+	material.set_shader_parameter("secondary_color",permant_sec_color)
+	print(material,material.shader)
 	if entity_definition.item_definition is EquipmentDefinition:
 		equipment_item_component = EquipmentItemComponent.new(entity_definition.item_definition)
 		add_child(equipment_item_component)

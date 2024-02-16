@@ -22,6 +22,9 @@ func perform() -> bool:
 			return true
 	if not destination_tile or not destination_tile.is_walkable() or get_blocking_entity_at_destination():
 		if entity == get_map_data().player:
+			if map_data.get_actor_at_location(destination) == entity:
+				entity.move(offset)
+				return true
 			MessageLog.send_message("That way is blocked.", GameColors.IMPOSSIBLE)
 		return false
 	if destination_tile.terrain_effect != null:

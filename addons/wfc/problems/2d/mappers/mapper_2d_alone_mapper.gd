@@ -1,0 +1,2 @@
+extends WFCMapper2D
+class_name Mapper2dAloneMapper

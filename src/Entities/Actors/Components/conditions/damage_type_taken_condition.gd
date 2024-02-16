@@ -1,2 +1,2 @@
-class_name DamageTypeTakenConditionDefinition
+class_name DamageTypeTakenCondition
 extends  BaseCondition

@@ -17,7 +17,7 @@ name = "Head"
 limb_type = 0
 can_be_dismembered = false
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = 0
+damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
@@ -28,7 +28,7 @@ name = "Torse"
 limb_type = 1
 can_be_dismembered = false
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = 0
+damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
@@ -39,7 +39,7 @@ name = "right frontleg"
 limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = 0
+damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
@@ -50,7 +50,7 @@ name = "left frontleg"
 limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = 0
+damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
@@ -61,7 +61,7 @@ name = "left hindleg"
 limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = 0
+damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
@@ -72,7 +72,7 @@ name = "right hindleg"
 limb_type = 3
 can_be_dismembered = true
 attached_parts = Array[ExtResource("1_lwofb")]([])
-damage_type = 0
+damage_type = Array[int]([0])
 damage_dice = Array[int]([2, 1])
 is_natural_weapon = false
 
@@ -155,7 +155,8 @@ region = Rect2(48, 32, 16, 16)
 script = ExtResource("1_f1son")
 name = "discarded host"
 texture = SubResource("AtlasTexture_relsf")
-color = Color(0.741176, 0.176471, 0.176471, 1)
+primary_color = Color(1, 1, 1, 1)
+secondary_color = Color(0, 0, 0, 1)
 entity_blurb = "This host infects creature either throught direct contact or by consuming a previous host. Be careful your aren't next"
 is_blocking_movment = true
 type = 2

@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/jump_definition.gd" id="7_vo6dd"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/add_status_self_definition.gd" id="8_dkd5v"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/status_effects_definition/berserk_definition.gd" id="9_tlnya"]
+[ext_resource type="Texture2D" uid="uid://dbjebexvh0r5j" path="res://assets/resources/entitydefault.tres" id="15_rj3lo"]
 
 [sub_resource type="Resource" id="Resource_3rd1x"]
 script = ExtResource("1_bt7jo")
@@ -241,15 +242,12 @@ death_noise = Array[AudioStreamWAV]([ExtResource("2_toeov")])
 body_plan_definition = SubResource("Resource_a7usb")
 skills = Array[Resource("res://src/Entities/Actors/Components/ComponentDefinitions/skill_definitions/skill_definition.gd")]([SubResource("Resource_wx7es"), SubResource("Resource_wvxuf"), SubResource("Resource_gvgkq")])
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ubwe"]
-atlas = ExtResource("7_nfbru")
-region = Rect2(96, 80, 16, 16)
-
 [resource]
 script = ExtResource("6_2vpf6")
 name = "Player"
-texture = SubResource("AtlasTexture_4ubwe")
-color = Color(0.94902, 0.0823529, 0.054902, 1)
+texture = ExtResource("15_rj3lo")
+primary_color = Color(0, 0.113725, 1, 1)
+secondary_color = Color(0.478431, 0.0117647, 0.513726, 1)
 entity_blurb = "It's you"
 is_blocking_movment = true
 type = 2

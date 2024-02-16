@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c04nopw4sja6m"]
+
+[ext_resource type="Shader" path="res://src/Utils/paleteswap.gdshader" id="1_b4ont"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_b4ont")
+shader_parameter/primary_color = null
+shader_parameter/secondary_color = null
+shader_parameter/og_primary_color = null
+shader_parameter/og_secondary_color = null

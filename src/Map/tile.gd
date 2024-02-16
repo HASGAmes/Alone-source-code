@@ -23,13 +23,17 @@ var DV##only here for the melee action
 var opened = false##if true you can go through this door
 var open_texture: AtlasTexture##opened texture
 var closed_texture: AtlasTexture##closed texture
-var chosen_light_color## the color of a tile you can see
-var chosen_dark_color## the color of a tile you can't see
+var chosen_light_colo_primr=Color("fffcce")## the color of a tile you can see
+var chosen_dark_color_prim=Color("fffcce")## the color of a tile you can't see
+var chosen_light_color_sec= Color("e9b0e6")## the color of a tile you can see
+var chosen_dark_color_sec= Color("e9b0e6")## the color of a tile you can't see
 var rubble_texture: AtlasTexture## texture of a destroyed tile
 var rubble_color:Color##destroyed tile color
 var destructible:bool## if true you can destroy this
 var terrain_effect##if something is here entities that walk on it can get the status
 var grid_position:Vector2i##where the tile is
+var shader_og_sec = Color("e9b0e6")
+var shader_og_prim = Color("fffcce")
 var collision = preload("res://assets/resources/raycast_body.tscn")
 var tile_path:String = "res://assets/definitions/tiles/"
 var is_explored: bool = false:## if true you have been here
@@ -50,7 +54,12 @@ var is_in_view: bool = false:##if true you can see it
 			#is_explored = true
 		else:
 			is_in_view = value
-		modulate = chosen_light_color if is_in_view else chosen_dark_color
+		if is_in_view:
+			material.set_shader_parameter("primary_color",chosen_light_colo_primr)
+			material.set_shader_parameter("secondary_color",chosen_light_color_sec)
+		else:
+			material.set_shader_parameter("primary_color",chosen_dark_color_prim)  
+			material.set_shader_parameter("secondary_color",chosen_dark_color_sec)
 		if is_in_view and not is_explored:
 			is_explored = true
 
@@ -114,11 +123,18 @@ func set_tile_type(key: String) -> void:
 	openable = _definition.is_openable
 	open_texture = _definition.open_texture
 	closed_texture = _definition.closed_texture
-	chosen_dark_color =_definition.color_dark.pop_at(random_num)
-	chosen_light_color = _definition.color_lit.pop_at(random_num)
+	
+	chosen_dark_color_prim =_definition.color_dark_prim.pop_at(random_num)
+	chosen_light_color_sec = _definition.color_lit_sec.pop_at(random_num)
+	chosen_dark_color_sec =_definition.color_dark_sec.pop_at(random_num)
+	chosen_light_colo_primr = _definition.color_lit_prim.pop_at(random_num)
+	material = load("res://src/Utils/palettematerial.tres").duplicate()
+	material.set_shader_parameter("og_primary_color",shader_og_prim)
+	material.set_shader_parameter("og_secondary_color",shader_og_sec)
+	material.set_shader_parameter("primary_color",chosen_dark_color_prim)
+	material.set_shader_parameter("secondary_color",chosen_dark_color_sec)
 	walkable = _definition.is_walkable
 	transparent = _definition.is_transparent
-	modulate = chosen_dark_color
 	destructible = _definition.is_destructible
 	tile_name = _definition.name
 	max_hp = _definition.max_hp
@@ -176,8 +192,8 @@ func destroy() -> void:
 	death_message+="wall destroyed"
 	texture = rubble_texture
 	_definition.is_transparent = true
-	chosen_dark_color = rubble_color
-	chosen_light_color = rubble_color
+	chosen_dark_color_prim = rubble_color
+	chosen_light_color_sec = rubble_color
 	walkable = true
 	_definition.is_walkable = true
 	destructible = false

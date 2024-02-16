@@ -467,9 +467,9 @@ size_flags_stretch_ratio = 2.65
 [node name="Node" parent="." instance=ExtResource("30_i2lvc")]
 
 [node name="Control" parent="Node" index="0" node_paths=PackedStringArray("entites", "game", "map")]
-entites = NodePath("../../VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map/Entities")
-game = NodePath("../../VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game")
-map = NodePath("../../VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map")
+entites = NodePath("")
+game = NodePath("")
+map = NodePath("")
 
 [node name="CenterContainer" parent="Node/Control" index="0"]
 anchors_preset = -1
@@ -488,6 +488,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cifx1")
 
 [node name="baseblurb" parent="." instance=ExtResource("29_asiui")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 offset_left = 102.0
 offset_top = 489.0
@@ -497,8 +498,8 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [connection signal="timeout" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler/input_delay" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler" method="_on_input_delay_timeout"]
-[connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_mouse_entered" flags=18]
-[connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_mouse_exited" flags=18]
+[connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_mouse_exited"]
 [connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Actors" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer/Actors" method="mouse_enter"]
 [connection signal="mouse_entered" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Drawmode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_drawmode_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/Drawmode" to="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Main/Editorgui/TabContainer" method="_on_drawmode_mouse_exited"]

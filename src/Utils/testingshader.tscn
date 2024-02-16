@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cv0grqeo4lg5c"]
+
+[ext_resource type="Shader" path="res://src/Utils/paleteswap.gdshader" id="1_2o07m"]
+[ext_resource type="Texture2D" uid="uid://p1v35kjrnb1s" path="res://assets/images/Sprite-0001.png" id="2_yjtnj"]
+[ext_resource type="Script" path="res://test_shader.gd" id="3_l356c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rjyf4"]
+shader = ExtResource("1_2o07m")
+shader_parameter/primary_color = Color(0.615686, 0.733333, 0.764706, 1)
+shader_parameter/secondary_color = Color(0.501961, 0.0980392, 0.0156863, 1)
+shader_parameter/og_primary_color = null
+shader_parameter/og_secondary_color = null
+
+[node name="Entity" type="Sprite2D"]
+material = SubResource("ShaderMaterial_rjyf4")
+position = Vector2(142, 100)
+scale = Vector2(4.875, 4.875)
+texture = ExtResource("2_yjtnj")
+script = ExtResource("3_l356c")

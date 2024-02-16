@@ -23,7 +23,7 @@ resource_local_to_scene = true
 script = ExtResource("4_t2l0c")
 status = SubResource("Resource_w4fep")
 effect_message = "The %s accidentally cuts themselves"
-message_color = Color(0, 1, 0, 1)
+message_color = Color(1, 0.380392, 0.384314, 1)
 
 [sub_resource type="Resource" id="Resource_sv1x4"]
 resource_local_to_scene = true
@@ -45,7 +45,7 @@ can_stack = true
 script = ExtResource("1_35wor")
 status = SubResource("Resource_ydlrn")
 effect_message = "The %s pierces the %s"
-message_color = Color(0, 1, 0, 1)
+message_color = Color(0.894118, 0.317647, 0.301961, 1)
 
 [sub_resource type="Resource" id="Resource_qihle"]
 resource_local_to_scene = true
@@ -74,7 +74,8 @@ region = Rect2(16, 96, 16, 16)
 script = ExtResource("1_ruht5")
 name = "dagger"
 texture = SubResource("AtlasTexture_bdfbm")
-color = Color(1, 1, 0.54902, 1)
+primary_color = Color(1, 1, 1, 1)
+secondary_color = Color(0, 0, 0, 1)
 entity_blurb = "a rather sharp blade"
 is_blocking_movment = false
 type = 1

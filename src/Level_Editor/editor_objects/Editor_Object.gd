@@ -68,9 +68,9 @@ func _process(delta):
 ##all code with drawing is in here
 func draw(mapdata:MapData)->void:
 	if current_item!=null:
-		modulate = current_item.color
+		material = current_item.material
 	if current_tile!=null:
-		modulate = current_tile.color_lit.duplicate().pop_front()
+		material = current_tile.material
 	if Input.is_action_pressed("hold_draw"):
 		if current_tile !=null and can_place == true and Input.is_action_pressed("mb_click"):
 			var tile:Tile = mapdata.get_tile(Grid.world_to_grid(global_position))

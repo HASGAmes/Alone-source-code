@@ -4,9 +4,11 @@ class_name EntityDefinition
 extends Resource
 
 @export_category("Visuals")
+var material = preload("res://src/Utils/palettematerial.tres")
 @export var name: String = "Unnamed Entity"## the name of a entity, left blank is a Unnamed Entity
 @export var texture: AtlasTexture = preload("res://assets/resources/entitydefault.tres")## for this you need a atlas texture which like a sprite sheet then you set the size to 16 and you got the texture
-@export_color_no_alpha var color: Color = Color.WHITE## This changes the color which is white by default
+@export_color_no_alpha var primary_color: Color = Color.WHITE## This changes the color which is white by default
+@export_color_no_alpha var secondary_color: Color = Color.BLACK## This changes the color which is white by default
 ##this is for the description of a blurb for entities. The default is a reference to caves of qud may be changed later
 @export_placeholder("A hideous specimen") var entity_blurb:String ="A hideous specimen"
 @export_category("Mechanics")
