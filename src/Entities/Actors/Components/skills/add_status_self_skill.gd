@@ -9,8 +9,10 @@ var free_move
 var skill_buff
 var skill_message:String
 var status
-var message_color
+var message_color:Color
 var skill_icon:AtlasTexture
+var skill_sound:AudioStreamWAV
+
 func _init(definition:AddStatusSelfDefinition):
 	self.skill_message = definition.skill_message
 	cooldown = definition.skill_cooldown

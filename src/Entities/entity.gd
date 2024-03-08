@@ -19,7 +19,8 @@ var grid_position: Vector2i:
 	set(value):
 		grid_position = value
 		global_position = Grid.grid_to_world(grid_position)
-var entity_size
+var entity_size:Vector2i
+var size_points:Array[Vector2i]
 var _definition: EntityDefinition##loads a entity definition to get stuff like sprites,stats,etc
 var entity_name: String## is the name of a entity
 var blocks_movement: bool##if true you or other entities cannot walk or normally be on the same tile as this entity
@@ -30,6 +31,7 @@ var type: EntityType:
 		z_index = type
 var map_data: MapData##lets a entity access mapdata functions
 var texture_size:Vector2i##the size of a current texture. unused for now
+
 #components
 var current_statuses:Array[StatusBase]##these are the current status effects on a entity
 var fighter_component: FighterComponent##the component for effecting fighting stats
@@ -50,7 +52,7 @@ var permant_prim_color:Color
 var permant_sec_color:Color
 var temp_prim_color:Color
 var temp_sec_color:Color
-var size_points:Array[Vector2i]
+
 ##sets up a entity. mapdata, start position and the key is needed to make one without problems
 func _init(map_data: MapData, start_position: Vector2i, key: String = "") -> void:
 	centered = false
@@ -112,11 +114,7 @@ func set_entity_type(key: String) -> void:
 	entity_name = _definition.name
 	texture = entity_definition.texture
 	texture_size = texture.get_size()
-	if texture_size.x>16:
-		size_points.append(grid_position)
-		size_points.append(grid_position++Vector2i(1,1))
-		size_points.append(grid_position+Vector2i(1,0))
-		size_points.append(grid_position+Vector2i(0,1))
+	set_size(texture_size)
 	permant_prim_color = entity_definition.primary_color
 	permant_sec_color = entity_definition.secondary_color
 	status_tracker = Node.new()
@@ -165,7 +163,21 @@ func set_entity_type(key: String) -> void:
 		var status = entity_definition.starting_status.duplicate()
 		add_status(status)
 
-
+func set_size(size:Vector2):
+	if size>Vector2(16,16):
+		entity_size = size/16
+		
+	if entity_size>Vector2i(1,1):
+		var i:Vector2i
+		var temp:Array[Vector2i]
+		temp.append(grid_position)
+		while i < entity_size:
+			i+=Vector2i(1,1)
+			temp.append(grid_position + Vector2i(0,1))
+			temp.append(grid_position + Vector2i(1,0))
+			temp.append(grid_position + Vector2i(1,1))
+		size_points = temp
+		
 ## moves a entity using the offset
 func move(move_offset: Vector2i) -> void:
 	map_data.unregister_blocking_entity(self)
@@ -266,6 +278,7 @@ func is_alive() -> bool:
 	return ai_component != null
 ##runs everytime a turn is passed to trigger effects for status effects
 func passed_turn():
+	set_size(texture_size)
 	if fighter_component.turns_not_in_combat>=10 and fighter_component.hp >=1:
 		fighter_component.passively_heal()
 	var status =status_tracker.get_children()

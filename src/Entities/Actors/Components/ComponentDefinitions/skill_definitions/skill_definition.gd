@@ -9,4 +9,5 @@ extends Resource
 @export var skill_buff:bool = false
 @export var skill_message="%s uses %s"
 @export var message_color:Color =Color.WHITE
+@export var skill_sound:AudioStreamWAV = preload("res://assets/audio/sfx/drink.wav")
 @export var skill_icon:AtlasTexture = preload("res://assets/resources/place_holder_skill.tres")

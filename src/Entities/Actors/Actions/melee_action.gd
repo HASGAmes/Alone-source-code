@@ -65,11 +65,12 @@ func perform() -> bool:
 		if check_hit == false:
 			return true
 		attacker_stat.turns_not_in_combat = 0
-		defender_stat.credit_exp = entity
-		if target_entity.ai_component is PredatorAi and !target_entity == self:
-			target_entity.ai_component.attacking_actor = entity
-		if target_entity.ai_component is PreyAi and !target_entity == self:
-			target_entity.ai_component.attacking_actor = entity
+		if target_entity != entity:
+			defender_stat.credit_exp = entity
+			if target_entity.ai_component is PredatorAi and !target_entity == self:
+				target_entity.ai_component.attacking_actor = entity
+			if target_entity.ai_component is PreyAi and !target_entity == self:
+				target_entity.ai_component.attacking_actor = entity
 		var dismember_chance = target_entity.dicebag.roll_dice(1,20,attacker_stat.dismember_chance)
 		if !attacker_stat.onhit_effects.is_empty():
 			for StatusEffectDefinition in attacker_stat.onhit_effects:

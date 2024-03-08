@@ -73,7 +73,7 @@ func perform() -> void:
 					return  BumpAction.new(entity, move_offset.x, move_offset.y).perform()
 		elif attacking_actor != null:
 			return MeleeAction.new(entity,wander().x,wander().y)
-		walk_rando()
+		
 	elif attacking_actor != null:
 		return MeleeAction.new(entity,wander().x,wander().y)
 	walk_rando()
@@ -112,6 +112,7 @@ func aggro(challenge:int) -> bool:
 	else: 
 		return false
 func walk_rando():
+	print(user.get_entity_name())
 	if target_food == null and user.fighter_component.hunger!= user.fighter_component.max_hunger:
 		for item in map_data.get_items():
 			if item.consumable_component == FoodConsumable and map_data.get_tile(item.grid_position).is_in_view:

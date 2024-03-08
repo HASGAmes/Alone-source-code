@@ -83,6 +83,7 @@ var turn_end:bool## if true turn is over
 ##loads a definition to give stats
 func _init(definition: FighterComponentDefinition) -> void:
 	randomize()
+	turn = 0
 	print(definition.skills)
 	corpse_food = definition.corpse_food
 	res = definition.res
@@ -109,10 +110,8 @@ func _init(definition: FighterComponentDefinition) -> void:
 	quickness = definition.quickness
 	death_texture = definition.death_texture
 	death_color = definition.death_color
-	
 	if definition.skills:
 		add_skills(definition.skills.duplicate())
-	
 	max_hp = definition.max_hp+toughness_mod
 	decap = definition.decap
 	hp = max_hp

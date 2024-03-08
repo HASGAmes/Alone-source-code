@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="TileDefinition" load_steps=10 format=3 uid="uid://smscudi5o3ly"]
+[gd_resource type="Resource" script_class="TileDefinition" load_steps=9 format=3 uid="uid://smscudi5o3ly"]
 
 [ext_resource type="Script" path="res://src/Map/tile_definition.gd" id="1_78gdy"]
 [ext_resource type="Texture2D" uid="uid://bf1fsf81ajku6" path="res://assets/images/custom_sprites.png" id="2_2llq1"]
@@ -26,14 +26,10 @@ region = Rect2(128, 48, 16, 16)
 atlas = ExtResource("2_2llq1")
 region = Rect2(144, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hmr2o"]
-atlas = ExtResource("2_2llq1")
-region = Rect2(144, 32, 16, 16)
-
 [resource]
 script = ExtResource("1_78gdy")
 name = "floor"
-texture = Array[AtlasTexture]([SubResource("AtlasTexture_8eqnc"), SubResource("AtlasTexture_a3p4e"), SubResource("AtlasTexture_op7kq"), SubResource("AtlasTexture_yv6yh"), SubResource("AtlasTexture_bl8k3"), SubResource("AtlasTexture_hmr2o")])
+texture = Array[AtlasTexture]([SubResource("AtlasTexture_8eqnc"), SubResource("AtlasTexture_a3p4e"), SubResource("AtlasTexture_op7kq"), SubResource("AtlasTexture_yv6yh"), SubResource("AtlasTexture_bl8k3")])
 color_lit_prim = Array[Color]([Color(0, 0.635294, 0, 1), Color(0, 0.635294, 0, 1), Color(0, 0.635294, 0, 1), Color(0, 0.635294, 0, 1), Color(0, 0.635294, 0, 1)])
 color_dark_prim = Array[Color]([Color(0.619608, 0, 0.505882, 1), Color(0.619608, 0, 0.505882, 1), Color(0.619608, 0, 0.505882, 1), Color(0.619608, 0, 0.505882, 1), Color(0.619608, 0, 0.505882, 1)])
 color_lit_sec = Array[Color]([Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 1)])

@@ -57,11 +57,12 @@ func get_tile(grid_position: Vector2i) -> Tile:
 func get_blocking_entity_at_location(grid_position: Vector2i) -> Entity:
 	var tile_index: int = grid_to_index(grid_position)
 	for entity in entities:
-		var entity_size:int = entity.texture_size.x/16
-		if entity_size>1:
-			entity_size-=1
-			if entity.distance(grid_position)<=entity_size:
-				return entity
+		if entity.entity_size>Vector2i(1,1):
+			var pos = entity.size_points
+			while !pos.is_empty():
+				var currentpos  = pos.pop_front()
+				if currentpos == grid_position:
+					return entity
 		if entity.is_blocking_movement() and entity.grid_position == grid_position:
 			return entity
 	return null
@@ -123,11 +124,13 @@ func get_items() -> Array[Entity]:
 
 func get_actor_at_location(location: Vector2i) -> Entity:
 	for actor in get_actors():
-		if !actor.size_points.is_empty():
-			var dup =actor.size_points
-			while !dup.is_empty():
-				var cure = dup.pop_front()
-				if cure == location:
+		
+		if actor.entity_size>Vector2i(1,1):
+			var pos = actor.size_points
+			while !pos.is_empty():
+				var currentpos  = pos.pop_front()
+				#print(currentpos,location)
+				if currentpos == location:
 					return actor
 		if actor.grid_position == location:
 			return actor

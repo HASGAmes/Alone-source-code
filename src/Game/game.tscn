@@ -144,7 +144,7 @@ reticle = NodePath("../../Map/Reticle")
 
 [node name="input_delay" type="Timer" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler/MainGameInputHandler"]
 process_callback = 0
-wait_time = 0.12
+wait_time = 0.246
 one_shot = true
 
 [node name="GameOverInputHandler" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/InputHandler"]
@@ -167,6 +167,10 @@ fov_radius = 8
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_15hgc")
+room_max_size = 15
+room_min_size = 15
+max_monsters_per_room = 4
+max_items_per_room = 0
 
 [node name="FieldOfView" type="Node" parent="VBoxContainer/gamebox/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("5_bvmgb")
@@ -465,11 +469,6 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.65
 
 [node name="Node" parent="." instance=ExtResource("30_i2lvc")]
-
-[node name="Control" parent="Node" index="0" node_paths=PackedStringArray("entites", "game", "map")]
-entites = NodePath("")
-game = NodePath("")
-map = NodePath("")
 
 [node name="CenterContainer" parent="Node/Control" index="0"]
 anchors_preset = -1

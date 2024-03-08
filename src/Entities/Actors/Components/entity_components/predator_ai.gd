@@ -100,7 +100,7 @@ func perform() -> void:
 		elif attacking_actor != null:
 			print("fsfdsf","is_invisible")
 			return MeleeAction.new(entity,random_dir().x,random_dir().y)
-		walk_rando()
+		
 	elif attacking_actor != null:
 		print("fsfdsf","is weirdcolor")
 		return MeleeAction.new(entity,random_dir().x,random_dir().y)
